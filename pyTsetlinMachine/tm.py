@@ -26,7 +26,7 @@ import ctypes as C
 import os
 
 this_dir, this_filename = os.path.split(__file__)
-_lib = np.ctypeslib.load_library('libTM.so', os.path.join(this_dir, ".."))    
+_lib = np.ctypeslib.load_library('libTM', os.path.join(this_dir, ".."))    
 
 class CMultiClassConvolutionalTsetlinMachine(C.Structure):
 	None
