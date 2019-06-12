@@ -92,8 +92,8 @@ class MultiClassConvolutionalTsetlinMachine():
 
 		self.encoded_X = np.empty(int(number_of_examples * self.number_of_patches * self.number_of_ta_chunks), dtype=np.uint32)
 
-		Xm = np.ascontiguousarray(X.flatten())
-		Ym = np.ascontiguousarray(Y)
+		Xm = np.ascontiguousarray(X.flatten()).astype(np.uint32)
+		Ym = np.ascontiguousarray(Y).astype(np.uint32)
 
 		_lib.tm_encode(Xm, self.encoded_X, number_of_examples, self.dim_x, self.dim_y, self.dim_z, self.patch_dim[0], self.patch_dim[1])
 		
@@ -108,7 +108,7 @@ class MultiClassConvolutionalTsetlinMachine():
 
 	def predict(self, X):
 		self.encoded_X = np.empty(int(self.number_of_patches * self.number_of_ta_chunks), dtype=np.uint32)
-		Xm = np.ascontiguousarray(X.flatten())
+		Xm = np.ascontiguousarray(X.flatten()).astype(np.uint32)
 
 		_lib.tm_encode(Xm, self.encoded_X, 1, self.dim_x, self.dim_y, self.dim_z, self.patch_dim[0], self.patch_dim[1])
 	
@@ -119,8 +119,8 @@ class MultiClassConvolutionalTsetlinMachine():
 		
 		self.encoded_X = np.empty(int(number_of_examples * self.number_of_patches * self.number_of_ta_chunks), dtype=np.uint32)
 
-		Xm = np.ascontiguousarray(X.flatten())
-		Ym = np.ascontiguousarray(Y)
+		Xm = np.ascontiguousarray(X.flatten()).astype(np.uint32)
+		Ym = np.ascontiguousarray(Y).astype(np.uint32)
 
 		_lib.tm_encode(Xm, self.encoded_X, number_of_examples, self.dim_x, self.dim_y, self.dim_z, self.patch_dim[0], self.patch_dim[1])
 	
@@ -150,8 +150,8 @@ class MultiClassTsetlinMachine():
 
 		self.encoded_X = np.empty(int(number_of_examples * self.number_of_ta_chunks), dtype=np.uint32)
 
-		Xm = np.ascontiguousarray(X.flatten())
-		Ym = np.ascontiguousarray(Y)
+		Xm = np.ascontiguousarray(X.flatten()).astype(np.uint32)
+		Ym = np.ascontiguousarray(Y).astype(np.uint32)
 
 		_lib.tm_encode(Xm, self.encoded_X, number_of_examples, self.number_of_features, 1, 1, self.number_of_features, 1)
 		
@@ -166,7 +166,7 @@ class MultiClassTsetlinMachine():
 
 	def predict(self, X):
 		self.encoded_X = np.empty(int(self.number_of_patches * self.number_of_ta_chunks), dtype=np.uint32)
-		Xm = np.ascontiguousarray(X.flatten())
+		Xm = np.ascontiguousarray(X.flatten()).astype(np.uint32)
 
 		_lib.tm_encode(Xm, self.encoded_X, 1, self.number_of_features, 1, 1, self.number_of_features, 1)
 	
@@ -177,8 +177,8 @@ class MultiClassTsetlinMachine():
 		
 		self.encoded_X = np.empty(int(number_of_examples * self.number_of_patches * self.number_of_ta_chunks), dtype=np.uint32)
 
-		Xm = np.ascontiguousarray(X.flatten())
-		Ym = np.ascontiguousarray(Y)
+		Xm = np.ascontiguousarray(X.flatten()).astype(np.uint32)
+		Ym = np.ascontiguousarray(Y).astype(np.uint32)
 
 		_lib.tm_encode(Xm, self.encoded_X, number_of_examples, self.number_of_features, 1, 1, self.number_of_features, 1)
 	
