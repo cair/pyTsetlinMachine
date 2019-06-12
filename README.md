@@ -15,8 +15,7 @@
 @article{granmo2018tsetlin,
   author = {{Granmo}, Ole-Christoffer},
   title = "{The Tsetlin Machine - A Game Theoretic Bandit Driven Approach to Optimal Pattern Recognition with Propositional Logic}",
-  journal={arXiv preprint arXiv:1804.01508},
-  year={2018}
+  journal={arXiv preprint arXiv:1804.01508}, year={2018}
 }
 ```
 
