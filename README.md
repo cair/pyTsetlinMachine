@@ -8,7 +8,8 @@ pip install pyTsetlinMachine
 
 ## Requirements
 
-- Python 3.7.x: https://www.python.org/downloads/
+- Python 3.7.x, https://www.python.org/downloads/
+- Numpy, http://www.numpy.org/
 
 ## Citation
 
