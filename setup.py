@@ -1,7 +1,8 @@
 from setuptools import *
 
 libTM = Extension('libTM',
-  ['pyTsetlinMachine/ConvolutionalTsetlinMachine.c', 'pyTsetlinMachine/MultiClassConvolutionalTsetlinMachine.c', 'pyTsetlinMachine/Tools.c'])
+                  sources = ['pyTsetlinMachine/ConvolutionalTsetlinMachine.c', 'pyTsetlinMachine/MultiClassConvolutionalTsetlinMachine.c', 'pyTsetlinMachine/Tools.c'],
+                  depends = ['pyTsetlinMachine/ConvolutionalTsetlinMachine.h', 'pyTsetlinMachine/MultiClassConvolutionalTsetlinMachine.h', 'pyTsetlinMachine/Tools.h', 'fast_rand.h'])
 
 setup(
    name='pyTsetlinMachine',
