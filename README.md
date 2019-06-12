@@ -6,6 +6,40 @@
 pip install pyTsetlinMachine
 ```
 
+## Example
+
+```bash
+#!/usr/local/bin/python3
+
+from pyTsetlinMachine.tm import MultiClassTsetlinMachine
+import numpy as np 
+from time import time
+
+train_data = np.loadtxt("NoisyXORTrainingData.txt").astype(np.uint32)
+X_train = train_data[:,0:-1]
+Y_train = train_data[:,-1]
+
+test_data = np.loadtxt("NoisyXORTestData.txt").astype(np.uint32)
+X_test = test_data[:,0:-1]
+Y_test = test_data[:,-1]
+
+tm = MultiClassTsetlinMachine(10, 15, 3.9)
+
+results = np.zeros(0)
+for i in range(10):
+	start = time()
+	tm.fit(X_train, Y_train, epochs=200)
+	stop = time()
+
+	results = np.append(results, 100.0*tm.evaluate(X_test, Y_test))
+	print("#%d Mean Accuracy (%%): %.2f; Std.dev.: %.2f; Training Time: %.1f ms/epoch" % (i+1, np.mean(results), np.std(results), 5.0 * (stop-start)))
+
+print("Prediction: x1 = 1, x2 = 0, ... -> y = %d" % (tm.predict(np.array([1,0,1,0,1,0,1,1,1,1,0,0], dtype=np.uint32))))
+print("Prediction: x1 = 0, x2 = 1, ... -> y = %d" % (tm.predict(np.array([0,1,1,0,1,0,1,1,1,1,0,0], dtype=np.uint32))))
+print("Prediction: x1 = 0, x2 = 0, ... -> y = %d" % (tm.predict(np.array([0,0,1,0,1,0,1,1,1,1,0,0], dtype=np.uint32))))
+print("Prediction: x1 = 1, x2 = 1, ... -> y = %d" % (tm.predict(np.array([1,1,1,0,1,0,1,1,1,1,0,0], dtype=np.uint32))))
+```
+
 ## Requirements
 
 - Python 3.7.x, https://www.python.org/downloads/
