@@ -9,8 +9,6 @@ pip install pyTsetlinMachine
 ## Example
 
 ```bash
-#!/usr/local/bin/python3
-
 from pyTsetlinMachine.tm import MultiClassTsetlinMachine
 import numpy as np 
 
