@@ -22,7 +22,7 @@ pip install pyTsetlinMachine
 ```
 
 ```bash
-@article{abeyrathna2019regression,
+@article{abeyrathna2019regressiontsetlin,
   author = {{Abeyrathna}, Darshana and {Granmo}, Ole-Christoffer and {Jiao}, Lei and {Goodwin}, Morten},
   title = "{The Regression Tsetlin Machine: A Tsetlin Machine for Continuous Output Problems}",
   journal={arXiv preprint arXiv:1905.04206}, year={2019}
