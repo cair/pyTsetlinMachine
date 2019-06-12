@@ -9,9 +9,8 @@ setup(
    author='Ole-Christoffer Granmo',
    author_email='ole.granmo@uia.no',
    url='http://pypi.python.org/pypi/pyTsetlinMachine/',
-   license='LICENSE.txt',
+   license='MIT',
    description='Implements the Tsetlin Machine, Convolutional Tsetlin Machine, and Regression Tsetlin Machine',
-   long_description=open('README.txt').read(),
    ext_modules = [libTM],
    packages=['pyTsetlinMachine'],
 )
