@@ -1,5 +1,18 @@
 # pyTsetlinMachine
 
+## Installation
+
+```bash
+pip install pyTsetlinMachine
+```
+
+## Requirements
+
+- Python 3.7.x https://www.python.org/downloads/
+
+## Citation
+
+```bash
 
 ## Citation
 
