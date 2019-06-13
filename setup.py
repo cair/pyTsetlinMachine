@@ -14,6 +14,6 @@ setup(
    description='Implements the Tsetlin Machine, Convolutional Tsetlin Machine and Regression Tsetlin Machine',
    long_description='Implements the Tsetlin Machine, Convolutional Tsetlin Machine and Regression Tsetlin Machine',
    ext_modules = [libTM],
-   keywords = "pattern-recognition machine-learning interpretable rule-based propositional-logic tsetlin-machine regression convolution",
-   packages=['pyTsetlinMachine'],
+   keywords ='pattern-recognition machine-learning interpretable rule-based propositional-logic tsetlin-machine regression convolution',
+   packages=['pyTsetlinMachine']
 )
