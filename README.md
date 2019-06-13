@@ -64,6 +64,11 @@ Coming soon.
 
 * Convolutional Tsetlin Machine tutorial, https://github.com/cair/convolutional-tsetlin-machine
 
+## Further Work
+
+* Multi-layer Tsetlin Machine
+* Recurrent Tsetlin Machine
+
 ## Requirements
 
 - Python 3.7.x, https://www.python.org/downloads/
