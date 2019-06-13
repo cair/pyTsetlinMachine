@@ -1,3 +1,4 @@
 include pyTsetlinMachine/Tools.h
 include pyTsetlinMachine/ConvolutionalTsetlinMachine.h
 include pyTsetlinMachine/MultiClassConvolutionalTsetlinMachine.h
+include pyTsetlinMachine/fast_rand.h
