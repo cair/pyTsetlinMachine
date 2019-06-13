@@ -8,7 +8,7 @@ pip install pyTsetlinMachine
 
 ## Examples
 
-### Noisy XOR
+### Noisy XOR Demo
 
 #### Code: NoisyXORDemo.py
 
@@ -48,7 +48,7 @@ Prediction: x1 = 0, x2 = 0, ... -> y = 0
 Prediction: x1 = 1, x2 = 1, ... -> y = 0
 ```
 
-### 2D Noisy XOR
+### 2D Noisy XOR Demo
 
 Coming soon.
 
