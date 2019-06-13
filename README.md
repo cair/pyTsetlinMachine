@@ -56,6 +56,10 @@ Coming soon.
 
 Coming soon.
 
+## Tutorials
+
+* Convolutional Tsetlin Machine Tutorial, https://github.com/cair/convolutional-tsetlin-machine
+
 ## Requirements
 
 - Python 3.7.x, https://www.python.org/downloads/
