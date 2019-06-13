@@ -52,7 +52,11 @@ Prediction: x1 = 1, x2 = 1, ... -> y = 0
 
 Coming soon.
 
-### MNIST
+### MNIST Demo
+
+Coming soon.
+
+### Regression Demo
 
 Coming soon.
 
