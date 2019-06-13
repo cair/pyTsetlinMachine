@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3
 
-from pyTsetlinMachine.tm import MultiClassConvolutionalTsetlinMachine
+from pyTsetlinMachine.tm import MultiClassConvolutionalTsetlinMachine2D
 import numpy as np 
 from time import time
 
@@ -12,7 +12,7 @@ test_data = np.loadtxt("2DNoisyXORTestData.txt")
 X_test = test_data[:,0:-1].reshape(test_data.shape[0], 4, 4)
 Y_test = test_data[:,-1]
 
-ctm = MultiClassConvolutionalTsetlinMachine(40, 60, 3.9, patch_dim=(2, 2))
+ctm = MultiClassConvolutionalTsetlinMachine2D(40, 60, 3.9, (2, 2))
 
 results = np.zeros(0)
 for i in range(100):
