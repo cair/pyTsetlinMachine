@@ -12,7 +12,7 @@ test_data = np.loadtxt("2DNoisyXORTestData.txt")
 X_test = test_data[:,0:-1].reshape(test_data.shape[0], 4, 4)
 Y_test = test_data[:,-1]
 
-ctm = MultiClassConvolutionalTsetlinMachine2D(40, 60, 3.9, (2, 2))
+ctm = MultiClassConvolutionalTsetlinMachine2D(40, 60, 3.9, (2, 2), boost_true_positive_feedback=0)
 
 results = np.zeros(0)
 for i in range(100):
