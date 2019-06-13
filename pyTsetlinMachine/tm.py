@@ -59,8 +59,8 @@ _lib.CreateMultiClassTsetlinMachine.argtypes = [C.c_int, C.c_int, C.c_int, C.c_i
 _lib.tm_encode.restype = None                      
 _lib.tm_encode.argtypes = [array_1d_uint, array_1d_uint, C.c_int, C.c_int, C.c_int, C.c_int, C.c_int] 
 
-class MultiClassConvolutionalTsetlinMachine():
-	def __init__(self, number_of_clauses, T, s, boost_true_positive_feedback=0, number_of_state_bits=8, patch_dim=(10, 10)):
+class MultiClassConvolutionalTsetlinMachine2D():
+	def __init__(self, number_of_clauses, T, s, patch_dim, boost_true_positive_feedback=1, number_of_state_bits=8):
 		self.number_of_clauses = number_of_clauses
 		self.number_of_clause_chunks = (number_of_clauses-1)/32 + 1
 		self.number_of_state_bits = number_of_state_bits
