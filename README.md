@@ -58,7 +58,7 @@ Coming soon.
 
 ## Tutorials
 
-* Convolutional Tsetlin Machine Tutorial, https://github.com/cair/convolutional-tsetlin-machine
+* Convolutional Tsetlin Machine tutorial, https://github.com/cair/convolutional-tsetlin-machine
 
 ## Requirements
 
