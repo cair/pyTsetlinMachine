@@ -6,7 +6,11 @@
 pip install pyTsetlinMachine
 ```
 
-## Example
+## Examples
+
+### Noisy XOR
+
+#### Code: NoisyXORDemo.py
 
 ```bash
 from pyTsetlinMachine.tm import MultiClassTsetlinMachine
@@ -30,6 +34,27 @@ print("Prediction: x1 = 0, x2 = 1, ... -> y = %d" % (tm.predict(np.array([0,1,1,
 print("Prediction: x1 = 0, x2 = 0, ... -> y = %d" % (tm.predict(np.array([0,0,1,0,1,0,1,1,1,1,0,0]))))
 print("Prediction: x1 = 1, x2 = 1, ... -> y = %d" % (tm.predict(np.array([1,1,1,0,1,0,1,1,1,1,0,0]))))
 ```
+
+
+#### Output
+
+```bash
+./NoisyXORDemo.py 
+
+Accuracy: 100.00%
+Prediction: x1 = 1, x2 = 0, ... -> y = 1
+Prediction: x1 = 0, x2 = 1, ... -> y = 1
+Prediction: x1 = 0, x2 = 0, ... -> y = 0
+Prediction: x1 = 1, x2 = 1, ... -> y = 0
+```
+
+### 2D Noisy XOR
+
+Coming soon.
+
+### MNIST
+
+Coming soon.
 
 ## Requirements
 
