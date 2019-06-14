@@ -1,5 +1,14 @@
 from setuptools import *
 
+#Windows throws 'LINK : error LNK2001: unresolved external symbol PyInit_libTM' error
+def get_export_symbols(self, ext):
+    parts = ext.name.split(".")
+    print('parts', parts)
+    if parts[-1] == "__init__":
+        initfunc_name = "PyInit_" + parts[-2]
+    else:
+        initfunc_name = "PyInit_" + parts[-1]
+
 libTM = Extension('libTM',
                   sources = ['pyTsetlinMachine/ConvolutionalTsetlinMachine.c', 'pyTsetlinMachine/MultiClassConvolutionalTsetlinMachine.c', 'pyTsetlinMachine/Tools.c'],
                   include_dirs=['pyTsetlinMachine'])
