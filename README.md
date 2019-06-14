@@ -93,6 +93,14 @@ Coming soon.
 ```
 
 ```bash
+@article{abeyrathna2019continuousinput,
+  author = {{Abeyrathna}, Darshana and {Granmo}, Ole-Christoffer and {Zhang}, Xuan and {Goodwin}, Morten},
+  title = "{A Scheme for Continuous Input to the Tsetlin Machine with Applications to Forecasting Disease Outbreaks}",
+  journal={arXiv preprint arXiv:1905.04199}, year={2019}
+}
+```
+
+```bash
 @article{granmo2018tsetlin,
   author = {{Granmo}, Ole-Christoffer},
   title = "{The Tsetlin Machine - A Game Theoretic Bandit Driven Approach to Optimal Pattern Recognition with Propositional Logic}",
