@@ -70,7 +70,7 @@ ctm.fit(X_train, Y_train, epochs=5000)
 
 print("Accuracy: %.2f%%" % (100.0*ctm.evaluate(X_test, Y_test)))
 
-Xi = np.array([[0,1,1,0],
+Xi = np.array([ [0,1,1,0],
 		[1,1,0,1],
 		[1,0,1,1],
 		[0,0,0,1]])
