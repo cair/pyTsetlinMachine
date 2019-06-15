@@ -11,8 +11,8 @@ setup(
    author_email='ole.granmo@uia.no',
    url='https://github.com/cair/pyTsetlinMachine/',
    license='MIT',
-   description='Implements the Tsetlin Machine, Convolutional Tsetlin Machine and Regression Tsetlin Machine',
-   long_description='Implements the Tsetlin Machine, Convolutional Tsetlin Machine and Regression Tsetlin Machine',
+   description='Implements the Tsetlin Machine, Convolutional Tsetlin Machine and Regression Tsetlin Machine, , with support for continuous features.',
+   long_description='Implements the Tsetlin Machine, Convolutional Tsetlin Machine and Regression Tsetlin Machine, with support for continuous features.',
    ext_modules = [libTM],
    keywords ='pattern-recognition machine-learning interpretable rule-based propositional-logic tsetlin-machine regression convolution',
    packages=['pyTsetlinMachine']
