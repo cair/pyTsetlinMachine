@@ -8,7 +8,7 @@ pip install pyTsetlinMachine
 
 ## Examples
 
-### Noisy XOR Demo
+### Multiclass Demo
 
 #### Code: NoisyXORDemo.py
 
@@ -36,7 +36,6 @@ print("Prediction: x1 = 0, x2 = 0, ... -> y = %d" % (tm.predict(np.array([[0,0,1
 print("Prediction: x1 = 1, x2 = 1, ... -> y = %d" % (tm.predict(np.array([[1,1,1,0,1,0,1,1,1,1,0,0]]))))
 ```
 
-
 #### Output
 
 ```bash
@@ -50,7 +49,7 @@ Prediction: x1 = 0, x2 = 0, ... -> y = 0
 Prediction: x1 = 1, x2 = 1, ... -> y = 0
 ```
 
-### 2D Noisy XOR Demo
+### 2D Convolution Demo
 
 #### Code: 2DNoisyXORDemo.py
 
@@ -98,6 +97,52 @@ Input Image:
 
 Prediction: 1
 ```
+
+### Continuous Input Demo
+
+#### Code: BreastCancerDemo.py
+
+```bash
+from pyTsetlinMachine.tm import MultiClassTsetlinMachine
+from pyTsetlinMachine.tools import Binarizer
+import numpy as np
+
+from sklearn import datasets
+from sklearn.model_selection import train_test_split
+
+breast_cancer = datasets.load_breast_cancer()
+X = breast_cancer.data
+Y = breast_cancer.target
+
+b = Binarizer(max_bits_per_feature = 10)
+b.fit(X)
+X_transformed = b.transform(X)
+
+tm = MultiClassTsetlinMachine(800, 40, 5.0)
+
+print("\nMean accuracy over 100 runs:\n")
+tm_results = np.empty(0)
+for i in range(100):
+	X_train, X_test, Y_train, Y_test = train_test_split(X_transformed, Y, test_size=0.2)
+
+	tm.fit(X_train, Y_train, epochs=25)
+	tm_results = np.append(tm_results, np.array(100*(tm.predict(X_test) == Y_test).mean()))
+	print("#%d Average Accuracy: %.2f%% +/- %.2f" % (i+1, tm_results.mean(), 1.96*tm_results.std()/np.sqrt(i+1)))
+```
+#### Output
+
+```bash
+./BreastCancerDemo.py 
+
+Mean accuracy over 100 runs:
+
+#1 Average Accuracy: 97.37% +/- 0.00
+#2 Average Accuracy: 97.81% +/- 0.61
+...
+#99 Average Accuracy: 97.31% +/- 0.25
+#100 Average Accuracy: 97.27% +/- 0.26
+```
+
 ### MNIST Demo
 
 Coming soon.
