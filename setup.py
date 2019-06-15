@@ -6,7 +6,7 @@ libTM = Extension('libTM',
 
 setup(
    name='pyTsetlinMachine',
-   version='0.2.3',
+   version='0.2.4',
    author='Ole-Christoffer Granmo',
    author_email='ole.granmo@uia.no',
    url='https://github.com/cair/pyTsetlinMachine/',
