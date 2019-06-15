@@ -157,7 +157,6 @@ Coming soon.
 
 ## Further Work
 
-* Binarization of continuous features using thresholding, https://arxiv.org/abs/1905.04199
 * Multi-layer Tsetlin Machine
 * Recurrent Tsetlin Machine
 
