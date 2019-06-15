@@ -15,4 +15,4 @@ ctm = MultiClassConvolutionalTsetlinMachine2D(40, 60, 3.9, (2, 2), boost_true_po
 
 ctm.fit(X_train, Y_train, epochs=5000)
 
-print("Accuracy: %.2f%%" % (100.0*ctm.evaluate(X_test, Y_test))
+print("Accuracy: %.2f%%" % (100.0*ctm.evaluate(X_test, Y_test)))
