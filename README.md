@@ -1,5 +1,7 @@
 # pyTsetlinMachine
 
+Implementation of the Tsetlin Machine (https://arxiv.org/abs/1804.01508), Convolutional Tsetlin Machine (https://arxiv.org/abs/1905.09688) and Regression Tsetlin Machine (https://arxiv.org/abs/1905.04206), with support for continuous features (https://arxiv.org/abs/1905.04199).
+
 ## Installation
 
 ```bash
