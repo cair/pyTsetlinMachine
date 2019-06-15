@@ -66,7 +66,7 @@ Coming soon.
 
 ## Further Work
 
-* Threshold based binarization, https://arxiv.org/abs/1905.04199
+* Binarization of continuous features using thresholding, https://arxiv.org/abs/1905.04199
 * Multi-layer Tsetlin Machine
 * Recurrent Tsetlin Machine
 
