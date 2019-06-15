@@ -15,7 +15,7 @@ class Binarizer:
 
 				step_size = 1.0*uv.size/self.max_bits_per_feature
 				pos = 0.0
-				while int(pos) < uv.size and int(pos) < self.max_bits_per_feature:
+				while int(pos) < uv.size and unique_values.size < self.max_bits_per_feature:
 					unique_values = np.append(unique_values, np.array(uv[int(pos)]))
 					pos += step_size
 			else:
