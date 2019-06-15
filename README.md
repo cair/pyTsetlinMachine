@@ -69,6 +69,15 @@ ctm = MultiClassConvolutionalTsetlinMachine2D(40, 60, 3.9, (2, 2), boost_true_po
 ctm.fit(X_train, Y_train, epochs=5000)
 
 print("Accuracy: %.2f%%" % (100.0*ctm.evaluate(X_test, Y_test)))
+
+Xi = np.array([[0,1,1,0],
+		[1,1,0,1],
+		[1,0,1,1],
+		[0,0,0,1]])
+
+print("\nInput Image:\n")
+print(Xi)
+print("\nPrediction: %d" % (ctm.predict(Xi)))
 ```
 
 #### Output
@@ -77,6 +86,15 @@ print("Accuracy: %.2f%%" % (100.0*ctm.evaluate(X_test, Y_test)))
 ./2DNoisyXORDemo.py 
 
 Accuracy: 99.97%
+
+Input Image:
+
+[[0 1 1 0]
+ [1 1 0 1]
+ [1 0 1 1]
+ [0 0 0 1]]
+
+Prediction: 1
 ```
 ### MNIST Demo
 
