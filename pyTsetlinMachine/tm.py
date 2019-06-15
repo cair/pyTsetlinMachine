@@ -47,11 +47,8 @@ _lib.mc_tm_fit.argtypes = [mc_ctm_pointer, array_1d_uint, array_1d_uint, C.c_int
 _lib.mc_tm_initialize.restype = None                      
 _lib.mc_tm_initialize.argtypes = [mc_ctm_pointer] 
 
-_lib.mc_tm_evaluate.restype = C.c_float                      
-_lib.mc_tm_evaluate.argtypes = [mc_ctm_pointer, array_1d_uint, array_1d_uint, C.c_int] 
-
-_lib.mc_tm_predict.restype = C.c_int                      
-_lib.mc_tm_predict.argtypes = [mc_ctm_pointer, array_1d_uint] 
+_lib.mc_tm_predict.restype = None                    
+_lib.mc_tm_predict.argtypes = [mc_ctm_pointer, array_1d_uint, array_1d_uint, C.c_int] 
 
 _lib.CreateMultiClassTsetlinMachine.restype = mc_ctm_pointer                    
 _lib.CreateMultiClassTsetlinMachine.argtypes = [C.c_int, C.c_int, C.c_int, C.c_int, C.c_int, C.c_int, C.c_int, C.c_double, C.c_int] 
@@ -107,24 +104,19 @@ class MultiClassConvolutionalTsetlinMachine2D():
 		return
 
 	def predict(self, X):
-		self.encoded_X = np.empty(int(self.number_of_patches * self.number_of_ta_chunks), dtype=np.uint32)
-		Xm = np.ascontiguousarray(X.flatten()).astype(np.uint32)
-
-		_lib.tm_encode(Xm, self.encoded_X, 1, self.dim_x, self.dim_y, self.dim_z, self.patch_dim[0], self.patch_dim[1])
-	
-		return _lib.mc_tm_predict(self.mc_ctm, self.encoded_X);
-
-	def evaluate(self, X, Y):
 		number_of_examples = X.shape[0]
 		
 		self.encoded_X = np.empty(int(number_of_examples * self.number_of_patches * self.number_of_ta_chunks), dtype=np.uint32)
 
 		Xm = np.ascontiguousarray(X.flatten()).astype(np.uint32)
-		Ym = np.ascontiguousarray(Y).astype(np.uint32)
 
 		_lib.tm_encode(Xm, self.encoded_X, number_of_examples, self.dim_x, self.dim_y, self.dim_z, self.patch_dim[0], self.patch_dim[1])
 	
-		return _lib.mc_tm_evaluate(self.mc_ctm, self.encoded_X, Ym, number_of_examples)
+		Y = np.zeros(number_of_examples, dtype=np.uint32)
+
+		_lib.mc_tm_predict(self.mc_ctm, self.encoded_X, Y, number_of_examples)
+
+		return Y
 
 class MultiClassTsetlinMachine():
 	def __init__(self, number_of_clauses, T, s, boost_true_positive_feedback=1, number_of_state_bits=8):
@@ -165,22 +157,15 @@ class MultiClassTsetlinMachine():
 		return
 
 	def predict(self, X):
-		self.encoded_X = np.empty(int(self.number_of_patches * self.number_of_ta_chunks), dtype=np.uint32)
-		Xm = np.ascontiguousarray(X.flatten()).astype(np.uint32)
-
-		_lib.tm_encode(Xm, self.encoded_X, 1, self.number_of_features, 1, 1, self.number_of_features, 1)
-	
-		return _lib.mc_tm_predict(self.mc_ctm, self.encoded_X);
-
-	def evaluate(self, X, Y):
 		number_of_examples = X.shape[0]
 		
 		self.encoded_X = np.empty(int(number_of_examples * self.number_of_patches * self.number_of_ta_chunks), dtype=np.uint32)
 
 		Xm = np.ascontiguousarray(X.flatten()).astype(np.uint32)
-		Ym = np.ascontiguousarray(Y).astype(np.uint32)
-
 		_lib.tm_encode(Xm, self.encoded_X, number_of_examples, self.number_of_features, 1, 1, self.number_of_features, 1)
 	
-		return _lib.mc_tm_evaluate(self.mc_ctm, self.encoded_X, Ym, number_of_examples)
+		Y = np.zeros(number_of_examples, dtype=np.uint32)
 
+		_lib.mc_tm_predict(self.mc_ctm, self.encoded_X, Y, number_of_examples)
+
+		return Y
