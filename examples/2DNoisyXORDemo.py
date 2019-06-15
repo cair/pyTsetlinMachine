@@ -22,6 +22,6 @@ Xi = np.array([[0,1,1,0],
 		[1,0,1,1],
 		[0,0,0,1]])
 
-print("Input Image:")
+print("\nInput Image:\n")
 print(Xi)
-print("Prediction: %d" % (ctm.predict(Xi)))
+print("\nPrediction: %d" % (ctm.predict(Xi)))
