@@ -14,7 +14,7 @@ pip install pyTsetlinMachine
 
 #### Code: NoisyXORDemo.py
 
-```bash
+```python
 from pyTsetlinMachine.tm import MultiClassTsetlinMachine
 import numpy as np 
 
@@ -55,7 +55,7 @@ Prediction: x1 = 1, x2 = 1, ... -> y = 0
 
 #### Code: 2DNoisyXORDemo.py
 
-```bash
+```python
 from pyTsetlinMachine.tm import MultiClassConvolutionalTsetlinMachine2D
 import numpy as np 
 
@@ -104,7 +104,7 @@ Prediction: 1
 
 #### Code: BreastCancerDemo.py
 
-```bash
+```python
 from pyTsetlinMachine.tm import MultiClassTsetlinMachine
 from pyTsetlinMachine.tools import Binarizer
 import numpy as np
