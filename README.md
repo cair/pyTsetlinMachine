@@ -203,6 +203,7 @@ Coming soon.
 * Multilayer Tsetlin Machine
 * Recurrent Tsetlin Machine
 * GPU support
+* Optimize convolution code
 
 ## Requirements
 
