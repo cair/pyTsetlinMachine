@@ -173,6 +173,10 @@ for i in range(100):
 	print("#%d Accuracy: %.2f%% (%.2fs)" % (i+1, tm_results.mean(), stop-start))
 ```
 
+### MNIST 2D Convolution Demo
+
+Coming soon.
+
 ### Regression Demo
 
 Coming soon.
