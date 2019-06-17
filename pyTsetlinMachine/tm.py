@@ -71,7 +71,7 @@ class MultiClassConvolutionalTsetlinMachine2D():
 		if self.mc_ctm != None:
 			_lib.mc_tm_destroy(self.mc_ctm)
 
-	def fit(self, X, Y, epochs=5000):
+	def fit(self, X, Y, epochs=100, incremental=False):
 		self.number_of_classes = np.unique(Y).size
 
 		number_of_examples = X.shape[0]
@@ -94,10 +94,11 @@ class MultiClassConvolutionalTsetlinMachine2D():
 
 		_lib.tm_encode(Xm, self.encoded_X, number_of_examples, self.dim_x, self.dim_y, self.dim_z, self.patch_dim[0], self.patch_dim[1])
 		
-		if self.mc_ctm != None:
+		if self.mc_ctm == None:
+			self.mc_ctm = _lib.CreateMultiClassTsetlinMachine(self.number_of_classes, self.number_of_clauses, self.number_of_features, self.number_of_patches, self.number_of_ta_chunks, self.number_of_state_bits, self.T, self.s, self.boost_true_positive_feedback)
+		elif incremental == False:
 			_lib.mc_tm_destroy(self.mc_ctm)
-
-		self.mc_ctm = _lib.CreateMultiClassTsetlinMachine(self.number_of_classes, self.number_of_clauses, self.number_of_features, self.number_of_patches, self.number_of_ta_chunks, self.number_of_state_bits, self.T, self.s, self.boost_true_positive_feedback)
+			self.mc_ctm = _lib.CreateMultiClassTsetlinMachine(self.number_of_classes, self.number_of_clauses, self.number_of_features, self.number_of_patches, self.number_of_ta_chunks, self.number_of_state_bits, self.T, self.s, self.boost_true_positive_feedback)
 
 		_lib.mc_tm_fit(self.mc_ctm, self.encoded_X, Ym, number_of_examples, epochs)
 
@@ -132,7 +133,7 @@ class MultiClassTsetlinMachine():
 		if self.mc_ctm != None:
 			_lib.mc_tm_destroy(self.mc_ctm)
 
-	def fit(self, X, Y, epochs=5000):
+	def fit(self, X, Y, epochs=100, incremental=False):
 		self.number_of_classes = np.unique(Y).size
 
 		number_of_examples = X.shape[0]
@@ -147,10 +148,11 @@ class MultiClassTsetlinMachine():
 
 		_lib.tm_encode(Xm, self.encoded_X, number_of_examples, self.number_of_features, 1, 1, self.number_of_features, 1)
 		
-		if self.mc_ctm != None:
+		if self.mc_ctm == None:
+			self.mc_ctm = _lib.CreateMultiClassTsetlinMachine(self.number_of_classes, self.number_of_clauses, self.number_of_features, 1, self.number_of_ta_chunks, self.number_of_state_bits, self.T, self.s, self.boost_true_positive_feedback)
+		elif incremental == False:
 			_lib.mc_tm_destroy(self.mc_ctm)
-
-		self.mc_ctm = _lib.CreateMultiClassTsetlinMachine(self.number_of_classes, self.number_of_clauses, self.number_of_features, 1, self.number_of_ta_chunks, self.number_of_state_bits, self.T, self.s, self.boost_true_positive_feedback)
+			self.mc_ctm = _lib.CreateMultiClassTsetlinMachine(self.number_of_classes, self.number_of_clauses, self.number_of_features, 1, self.number_of_ta_chunks, self.number_of_state_bits, self.T, self.s, self.boost_true_positive_feedback)
 
 		_lib.mc_tm_fit(self.mc_ctm, self.encoded_X, Ym, number_of_examples, epochs)
 
