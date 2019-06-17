@@ -41,7 +41,7 @@ print("Prediction: x1 = 1, x2 = 1, ... -> y = %d" % (tm.predict(np.array([[1,1,1
 #### Output
 
 ```bash
-./NoisyXORDemo.py 
+python3 ./NoisyXORDemo.py 
 
 Accuracy: 100.00%
 
@@ -86,7 +86,7 @@ print("\nPrediction: %d" % (ctm.predict(Xi)))
 #### Output
 
 ```bash
-./2DNoisyXORDemo.py 
+python3 ./2DNoisyXORDemo.py 
 
 Accuracy: 99.97%
 
@@ -134,7 +134,7 @@ for i in range(100):
 #### Output
 
 ```bash
-./BreastCancerDemo.py 
+python3 ./BreastCancerDemo.py 
 
 Mean accuracy over 100 runs:
 
@@ -171,6 +171,19 @@ for i in range(100):
 	stop = time()
 	tm_results = np.append(tm_results, np.array(100*(tm.predict(X_test) == Y_test).mean()))
 	print("#%d Accuracy: %.2f%% (%.2fs)" % (i+1, tm_results.mean(), stop-start))
+```
+
+#### Output
+
+```bash
+python3 ./MNISTDemo.py 
+
+Accuracy over 100 epochs:
+
+#1 Accuracy: 94.27% (60.43s)
+#2 Accuracy: 94.90% (42.71s)
+#3 Accuracy: 95.26% (38.00s)
+#4 Accuracy: 95.58% (36.07s)
 ```
 
 ### MNIST 2D Convolution Demo
