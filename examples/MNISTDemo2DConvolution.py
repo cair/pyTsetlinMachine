@@ -12,10 +12,9 @@ X_test = np.where(X_test > 75, 1, 0)
 tm = MultiClassConvolutionalTsetlinMachine2D(2000, 50, 10.0, (10, 10))
 
 print("\nAccuracy over 10 epochs:\n")
-tm_results = np.empty(0)
 for i in range(10):
 	tm.fit(X_train, Y_train, epochs=1, incremental=True)
 	start = time()
-	tm_results = np.append(tm_results, np.array(100*(tm.predict(X_test) == Y_test).mean()))
+	tm_results 100*(tm.predict(X_test) == Y_test).mean()
 	stop = time()
-	print("#%d Accuracy: %.2f%% (%.2fs)" % (i+1, tm_results.mean(), stop-start))
+	print("#%d Accuracy: %.2f%% (%.2fs)" % (i+1, tm_results, stop-start))
