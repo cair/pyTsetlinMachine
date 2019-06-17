@@ -18,4 +18,4 @@ for i in range(400):
 	tm.fit(X_train, Y_train, epochs=1, incremental=True)
 	stop = time()
 	tm_results = np.append(tm_results, np.array(100*(tm.predict(X_test) == Y_test).mean()))
-	print("#%d Accuracy: %.2f%% (%.2fs)" % (i+1, tm_results.mean(), stop-start))
+	print("#%d Accuracy: %.2f%% (%.2fs)" % (i+1, tm_results[-1], stop-start))
