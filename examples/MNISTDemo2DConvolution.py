@@ -15,6 +15,6 @@ print("\nAccuracy over 10 epochs:\n")
 for i in range(10):
 	tm.fit(X_train, Y_train, epochs=1, incremental=True)
 	start = time()
-	tm_results 100*(tm.predict(X_test) == Y_test).mean()
+	tm_results = 100*(tm.predict(X_test) == Y_test).mean()
 	stop = time()
 	print("#%d Accuracy: %.2f%% (%.2fs)" % (i+1, tm_results, stop-start))
