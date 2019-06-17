@@ -200,7 +200,7 @@ Coming soon.
 
 ## Further Work
 
-* Multi-layer Tsetlin Machine
+* Multilayer Tsetlin Machine
 * Recurrent Tsetlin Machine
 * GPU support
 
