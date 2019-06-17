@@ -11,8 +11,8 @@ X_test = np.where(X_test.reshape((X_test.shape[0], 28*28)) > 75, 1, 0)
 
 tm = MultiClassTsetlinMachine(2000, 50, 10.0)
 
-print("\nAccuracy over 400 epochs:\n")
-for i in range(400):
+print("\nAccuracy over 200 epochs:\n")
+for i in range(200):
 	start = time()
 	tm.fit(X_train, Y_train, epochs=1, incremental=True)
 	stop = time()
