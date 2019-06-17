@@ -183,6 +183,7 @@ Accuracy over 400 epochs:
 #2 Accuracy: 95.92% (46.97s)
 #3 Accuracy: 96.28% (39.74s)
 #4 Accuracy: 96.29% (38.89s)
+#5 Accuracy: 96.78% (42.17s)
 ```
 
 ### MNIST 2D Convolution Demo
