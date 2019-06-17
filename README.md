@@ -177,12 +177,12 @@ for i in range(400):
 ```bash
 python3 ./MNISTDemo.py 
 
-Accuracy over 100 epochs:
+Accuracy over 400 epochs:
 
-#1 Accuracy: 94.27% (60.43s)
-#2 Accuracy: 94.90% (42.71s)
-#3 Accuracy: 95.26% (38.00s)
-#4 Accuracy: 95.58% (36.07s)
+#1 Accuracy: 94.57% (57.02s)
+#2 Accuracy: 95.92% (46.97s)
+#3 Accuracy: 96.28% (39.74s)
+#4 Accuracy: 96.29% (38.89s)
 ```
 
 ### MNIST 2D Convolution Demo
