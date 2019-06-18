@@ -8,6 +8,10 @@ Implementation of the Tsetlin Machine (https://arxiv.org/abs/1804.01508), Convol
 pip install pyTsetlinMachine
 ```
 
+## Tutorials
+
+* Convolutional Tsetlin Machine tutorial, https://github.com/cair/convolutional-tsetlin-machine
+
 ## Examples
 
 ### Multiclass Demo
@@ -196,10 +200,6 @@ Coming soon.
 ### Regression Demo
 
 Coming soon.
-
-## Tutorials
-
-* Convolutional Tsetlin Machine tutorial, https://github.com/cair/convolutional-tsetlin-machine
 
 ## Further Work
 
