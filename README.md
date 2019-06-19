@@ -234,9 +234,9 @@ Accuracy over 30 epochs:
 #3 Accuracy: 98.52% (1387.48s)
 ...
 
-#27 Accuracy: 99.11% (1382.54s)
 #28 Accuracy: 99.05% (1377.72s)
 #29 Accuracy: 99.17% (1377.60s)
+#30 Accuracy: 99.00% (1389.86s)
 ```
 
 ### Regression Demo
