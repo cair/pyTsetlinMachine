@@ -198,7 +198,7 @@ Accuracy over 200 epochs:
 #### Output
 
 ```bash
-python3 ./MNISTDemo.py 
+python3 ./MNISTDemo2DConvolution.py 
 
 Accuracy over 25 epochs:
 
