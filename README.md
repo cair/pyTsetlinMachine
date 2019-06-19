@@ -195,7 +195,22 @@ Accuracy over 200 epochs:
 
 ### MNIST 2D Convolution Demo
 
-Coming soon.
+#### Output
+
+```bash
+python3 ./MNISTDemo.py 
+
+Accuracy over 25 epochs:
+
+#1 Accuracy: 97.81% (1383.61s)
+#2 Accuracy: 98.42% (1383.16s)
+#3 Accuracy: 98.52% (1387.48s)
+...
+
+#23 Accuracy: 98.98% (1396.01s)
+#24 Accuracy: 99.06% (1380.03s)
+#25 Accuracy: 99.09% (1379.41s)
+```
 
 ### Regression Demo
 
