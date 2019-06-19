@@ -241,6 +241,8 @@ Accuracy over 40 epochs:
 
 ### Regression Demo
 
+#### Code: RegressionDemo.py
+
 ```python
 from pyTsetlinMachine.tm import RegressionTsetlinMachine
 from pyTsetlinMachine.tools import Binarizer
@@ -276,16 +278,12 @@ for i in range(100):
 ```bash
 python3 ./RegressionDemo.py 
 
-Accuracy over 40 epochs:
+RMSD over 100 runs:
 
-#1 Accuracy: 97.81% (1383.61s)
-#2 Accuracy: 98.42% (1383.16s)
-#3 Accuracy: 98.52% (1387.48s)
+#1 RMSD: 0.62 +/- 0.00 (56.62s)
+#2 RMSD: 0.60 +/- 0.02 (58.57s)
 ...
 
-#38 Accuracy: 99.11% (1381.82s)
-#39 Accuracy: 99.07% (1225.61s)
-#40 Accuracy: 99.13% (1379.31s)
 ```
 
 ## Further Work
