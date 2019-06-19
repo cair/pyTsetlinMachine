@@ -227,16 +227,16 @@ for i in range(25):
 ```bash
 python3 ./MNISTDemo2DConvolution.py 
 
-Accuracy over 30 epochs:
+Accuracy over 40 epochs:
 
 #1 Accuracy: 97.81% (1383.61s)
 #2 Accuracy: 98.42% (1383.16s)
 #3 Accuracy: 98.52% (1387.48s)
 ...
 
-#28 Accuracy: 99.05% (1377.72s)
-#29 Accuracy: 99.17% (1377.60s)
-#30 Accuracy: 99.00% (1389.86s)
+#38 Accuracy: 99.11% (1381.82s)
+#39 Accuracy: 99.07% (1225.61s)
+#40 Accuracy: 99.13% (1379.31s)
 ```
 
 ### Regression Demo
