@@ -275,6 +275,8 @@ for i in range(100):
 	print("#%d RMSD: %.2f +/- %.2f (%.2fs)" % (i+1, tm_results.mean(), 1.96*tm_results.std()/np.sqrt(i+1), stop-start))
 ```
 
+#### Output
+
 ```bash
 python3 ./RegressionDemo.py 
 
