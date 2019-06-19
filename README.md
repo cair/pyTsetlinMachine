@@ -183,9 +183,9 @@ python3 ./MNISTDemo.py
 
 Accuracy over 200 epochs:
 
-#1 Accuracy: 94.57% (57.02s)
-#2 Accuracy: 95.92% (46.97s)
-#3 Accuracy: 96.28% (39.74s)
+#1 Accuracy: 92.57% (43.45s)
+#2 Accuracy: 94.92% (33.89s)
+#3 Accuracy: 95.42% (37.77s)
 ...
 
 #198 Accuracy: 98.17% (29.46s)
@@ -241,7 +241,52 @@ Accuracy over 40 epochs:
 
 ### Regression Demo
 
-Coming soon.
+```python
+from pyTsetlinMachine.tm import RegressionTsetlinMachine
+from pyTsetlinMachine.tools import Binarizer
+import numpy as np
+from time import time
+
+from sklearn import datasets
+from sklearn.model_selection import train_test_split
+
+california_housing = datasets.fetch_california_housing()
+X = california_housing.data
+Y = california_housing.target
+
+b = Binarizer(max_bits_per_feature = 10)
+b.fit(X)
+X_transformed = b.transform(X)
+
+tm = RegressionTsetlinMachine(4000, 2000, 2.75)
+
+print("\nRMSD over 100 runs:\n")
+tm_results = np.empty(0)
+for i in range(100):
+	X_train, X_test, Y_train, Y_test = train_test_split(X_transformed, Y)
+
+	start = time()
+	tm.fit(X_train, Y_train, epochs=30)
+	stop = time()
+	tm_results = np.append(tm_results, np.sqrt(((tm.predict(X_test) - Y_test)**2).mean()))
+
+	print("#%d RMSD: %.2f +/- %.2f (%.2fs)" % (i+1, tm_results.mean(), 1.96*tm_results.std()/np.sqrt(i+1), stop-start))
+```
+
+```bash
+python3 ./RegressionDemo.py 
+
+Accuracy over 40 epochs:
+
+#1 Accuracy: 97.81% (1383.61s)
+#2 Accuracy: 98.42% (1383.16s)
+#3 Accuracy: 98.52% (1387.48s)
+...
+
+#38 Accuracy: 99.11% (1381.82s)
+#39 Accuracy: 99.07% (1225.61s)
+#40 Accuracy: 99.13% (1379.31s)
+```
 
 ## Further Work
 
