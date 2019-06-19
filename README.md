@@ -195,7 +195,7 @@ Accuracy over 200 epochs:
 
 ### MNIST 2D Convolution Demo
 
-#### Code: MNIST2DConvolutionDemo.py
+#### Code: MNISTDemo2DConvolution.py
 
 ```python
 from pyTsetlinMachine.tm import MultiClassConvolutionalTsetlinMachine2D
@@ -225,7 +225,7 @@ for i in range(25):
 #### Output
 
 ```bash
-python3 ./MNIST2DConvolutionDemo.py 
+python3 ./MNISTDemo2DConvolution.py 
 
 Accuracy over 25 epochs:
 
