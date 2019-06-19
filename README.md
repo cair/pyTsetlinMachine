@@ -220,6 +220,7 @@ for i in range(25):
 	result = 100*(tm.predict(X_test) == Y_test).mean()
 	
 	print("#%d Accuracy: %.2f%% (%.2fs)" % (i+1, result, stop-start))
+```
 
 #### Output
 
