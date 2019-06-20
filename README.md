@@ -142,8 +142,8 @@ python3 ./BreastCancerDemo.py
 
 Mean accuracy over 100 runs:
 
-#1 Average Accuracy: 98.25% +/- 0.00
-#2 Average Accuracy: 98.25% +/- 0.00
+#1 Average Accuracy: 97.37% +/- 0.00
+#2 Average Accuracy: 97.37% +/- 0.00
 ...
 #99 Average Accuracy: 97.51% +/- 0.28
 #100 Average Accuracy: 97.53% +/- 0.27
