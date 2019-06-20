@@ -145,8 +145,8 @@ Mean accuracy over 100 runs:
 #1 Average Accuracy: 97.37% +/- 0.00
 #2 Average Accuracy: 97.37% +/- 0.00
 ...
-#99 Average Accuracy: 97.51% +/- 0.28
-#100 Average Accuracy: 97.53% +/- 0.27
+#99 Average Accuracy: 97.52% +/- 0.29
+#100 Average Accuracy: 97.54% +/- 0.29
 ```
 
 ### MNIST Demo
