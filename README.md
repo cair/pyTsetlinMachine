@@ -295,6 +295,7 @@ RMSD over 25 runs:
 * Multilayer Tsetlin Machine
 * Recurrent Tsetlin Machine
 * GPU support
+* Multi-threading
 * Optimize convolution code
 
 ## Requirements
