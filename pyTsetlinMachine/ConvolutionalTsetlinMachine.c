@@ -281,8 +281,8 @@ void tm_update(struct TsetlinMachine *tm, unsigned int *Xi, int target)
 		unsigned int clause_chunk = j / 32;
 		unsigned int clause_chunk_pos = j % 32;
 
-	 	tm->feedback_to_clauses[clause_chunk] |= (((float)fast_rand())/((float)FAST_RAND_MAX) <= pow((1.0/(tm->T*2))*(tm->T + (1 - 2*target)*class_sum),2)) << clause_chunk_pos;
-	 	//tm->feedback_to_clauses[clause_chunk] |= (((float)fast_rand())/((float)FAST_RAND_MAX) <= (1.0/(tm->T*2))*(tm->T + (1 - 2*target)*class_sum)) << clause_chunk_pos;
+	 	//tm->feedback_to_clauses[clause_chunk] |= (((float)fast_rand())/((float)FAST_RAND_MAX) <= pow((1.0/(tm->T*2))*(tm->T + (1 - 2*target)*class_sum),2)) << clause_chunk_pos;
+	 	tm->feedback_to_clauses[clause_chunk] |= (((float)fast_rand())/((float)FAST_RAND_MAX) <= (1.0/(tm->T*2))*(tm->T + (1 - 2*target)*class_sum)) << clause_chunk_pos;
 	}
 
 	for (int j = 0; j < tm->number_of_clauses; j++) {
