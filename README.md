@@ -262,9 +262,9 @@ X_transformed = b.transform(X)
 
 tm = RegressionTsetlinMachine(4000, 2000, 2.75)
 
-print("\nRMSD over 100 runs:\n")
+print("\nRMSD over 25 runs:\n")
 tm_results = np.empty(0)
-for i in range(100):
+for i in range(25):
 	X_train, X_test, Y_train, Y_test = train_test_split(X_transformed, Y)
 
 	start = time()
@@ -280,12 +280,14 @@ for i in range(100):
 ```bash
 python3 ./RegressionDemo.py 
 
-RMSD over 100 runs:
+RMSD over 25 runs:
 
 #1 RMSD: 0.62 +/- 0.00 (56.62s)
 #2 RMSD: 0.60 +/- 0.02 (58.57s)
 ...
 
+#24 RMSD: 0.61 +/- 0.00 (60.20s)
+#25 RMSD: 0.61 +/- 0.00 (59.68s)
 ```
 
 ## Further Work
