@@ -297,6 +297,7 @@ RMSD over 25 runs:
 * GPU support
 * Multi-threading
 * Optimize convolution code
+* More extensive hyper-parameter search for the demos
 
 ## Requirements
 
