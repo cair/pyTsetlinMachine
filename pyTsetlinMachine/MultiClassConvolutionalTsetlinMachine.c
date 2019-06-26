@@ -74,13 +74,12 @@ void mc_tm_destroy(struct MultiClassTsetlinMachine *mc_tm)
 	free(mc_tm->tsetlin_machines);
 }
 
-/********************************************/
-/*** Evaluate the Trained Tsetlin Machine ***/
-/********************************************/
+/***********************************/
+/*** Predict classes of inputs X ***/
+/***********************************/
 
-float mc_tm_evaluate(struct MultiClassTsetlinMachine *mc_tm, unsigned int *X, int *y, int number_of_examples)
+void mc_tm_predict(struct MultiClassTsetlinMachine *mc_tm, unsigned int *X, int *y, int number_of_examples)
 {
-	int errors;
 	int max_class;
 	int max_class_sum;
 
@@ -88,12 +87,8 @@ float mc_tm_evaluate(struct MultiClassTsetlinMachine *mc_tm, unsigned int *X, in
 
 	unsigned int pos = 0;
 
-	errors = 0;
 	for (int l = 0; l < number_of_examples; l++) {
-		/******************************************/
-		/*** Identify Class with Largest Output ***/
-		/******************************************/
-
+		// Identify class with largest output
 		max_class_sum = tm_score(mc_tm->tsetlin_machines[0], &X[pos]);
 		max_class = 0;
 		for (int i = 1; i < mc_tm->number_of_classes; i++) {	
@@ -104,41 +99,13 @@ float mc_tm_evaluate(struct MultiClassTsetlinMachine *mc_tm, unsigned int *X, in
 			}
 		}
 
-		if (max_class != y[l]) {
-			errors += 1;
-		}
+		y[l] = max_class;
+
 		pos += step_size;
 	}
 	
-	return 1.0 - 1.0 * errors / number_of_examples;
+	return;
 }
-
-/*********************************/
-/*** Predict class of input Xi ***/
-/*********************************/
-
-int mc_tm_predict(struct MultiClassTsetlinMachine *mc_tm, unsigned int *Xi)
-{
-	int max_class;
-	int max_class_sum;
-	
-	/******************************************/
-	/*** Identify Class with Largest Output ***/
-	/******************************************/
-
-	max_class_sum = tm_score(mc_tm->tsetlin_machines[0], Xi);
-	max_class = 0;
-	for (int i = 1; i < mc_tm->number_of_classes; i++) {	
-		int class_sum = tm_score(mc_tm->tsetlin_machines[i], Xi);
-		if (max_class_sum < class_sum) {
-			max_class_sum = class_sum;
-			max_class = i;
-		}
-	}	
-	
-	return max_class;
-}
-
 
 /******************************************/
 /*** Online Training of Tsetlin Machine ***/

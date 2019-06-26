@@ -369,4 +369,150 @@ int tm_action(struct TsetlinMachine *tm, int clause, int la)
 	return (tm->ta_state[pos] & (1 << chunk_pos)) > 0;
 }
 
+/**************************************/
+/*** The Regression Tsetlin Machine ***/
+/**************************************/
+
+/* Sum up the votes for each class */
+static inline int sum_up_class_votes_regression(struct TsetlinMachine *tm)
+{
+	int class_sum = 0;
+
+	for (int j = 0; j < tm->number_of_clause_chunks; j++) {
+		class_sum += __builtin_popcount(tm->clause_output[j]);
+	}
+
+	class_sum = (class_sum > (tm->T)) ? (tm->T) : class_sum;
+
+	return class_sum;
+}
+
+// The Tsetlin Machine can be trained incrementally, one training example at a time.
+// Use this method directly for online and incremental training.
+
+void tm_update_regression(struct TsetlinMachine *tm, unsigned int *Xi, int target)
+{
+	unsigned int *ta_state = tm->ta_state;
+
+	/*******************************/
+	/*** Calculate Clause Output ***/
+	/*******************************/
+
+	tm_calculate_clause_output(tm, Xi, UPDATE);
+
+	/***************************/
+	/*** Sum up Clause Votes ***/
+	/***************************/
+
+	int class_sum = sum_up_class_votes_regression(tm);
+
+	/*********************************/
+	/*** Train Individual Automata ***/
+	/*********************************/
+	
+	// Calculate feedback to clauses
+
+	int prediction_error = class_sum - target; 
+
+	for (int j = 0; j < tm->number_of_clause_chunks; j++) {
+	 	tm->feedback_to_clauses[j] = 0;
+	}
+
+	for (int j = 0; j < tm->number_of_clauses; j++) {
+		unsigned int clause_chunk = j / 32;
+		unsigned int clause_chunk_pos = j % 32;
+
+	 	tm->feedback_to_clauses[clause_chunk] |= (((float)fast_rand())/((float)FAST_RAND_MAX) <= pow(1.0*prediction_error/tm->T, 2)) << clause_chunk_pos;
+	}
+
+	for (int j = 0; j < tm->number_of_clauses; j++) {
+		unsigned int clause_chunk = j / 32;
+		unsigned int clause_chunk_pos = j % 32;
+
+		if (!(tm->feedback_to_clauses[clause_chunk] & (1 << clause_chunk_pos))) {
+			continue;
+		}
+		
+		if (prediction_error > 0) {
+			if ((tm->clause_output[clause_chunk] & (1 << clause_chunk_pos)) > 0) {
+				// Type II Feedback
+
+				for (int k = 0; k < tm->number_of_ta_chunks; ++k) {
+					int patch = tm->clause_patch[j];
+					unsigned int pos = j*tm->number_of_ta_chunks*tm->number_of_state_bits + k*tm->number_of_state_bits + tm->number_of_state_bits-1;
+
+					tm_inc(tm, j, k, (~Xi[patch*tm->number_of_ta_chunks + k]) & (~ta_state[pos]));
+				}
+			}
+		} else if (prediction_error < 0) {
+			// Type I Feedback
+
+			tm_initialize_random_streams(tm);
+
+			if ((tm->clause_output[clause_chunk] & (1 << clause_chunk_pos)) > 0) {
+				for (int k = 0; k < tm->number_of_ta_chunks; ++k) {
+					int patch = tm->clause_patch[j];
+					if (tm->boost_true_positive_feedback == 1) {
+		 				tm_inc(tm, j, k, Xi[patch*tm->number_of_ta_chunks + k]);
+					} else {
+						tm_inc(tm, j, k, Xi[patch*tm->number_of_ta_chunks + k] & (~tm->feedback_to_la[k]));
+					}
+		 			
+		 			tm_dec(tm, j, k, (~Xi[patch*tm->number_of_ta_chunks + k]) & tm->feedback_to_la[k]);
+				}
+			} else {
+				for (int k = 0; k < tm->number_of_ta_chunks; ++k) {
+					tm_dec(tm, j, k, tm->feedback_to_la[k]);
+				}
+			}
+		}
+	}
+}
+
+void tm_fit_regression(struct TsetlinMachine *tm, unsigned int *X, int *y, int number_of_examples, int epochs)
+{
+	unsigned int step_size = tm->number_of_patches * tm->number_of_ta_chunks;
+
+	for (int epoch = 0; epoch < epochs; epoch++) {
+		// Add shuffling here...
+		unsigned int pos = 0;
+		for (int i = 0; i < number_of_examples; i++) {
+			tm_update_regression(tm, &X[pos], y[i]);
+			pos += step_size;
+		}
+	}
+}
+
+int tm_score_regression(struct TsetlinMachine *tm, unsigned int *Xi) {
+	/*******************************/
+	/*** Calculate Clause Output ***/
+	/*******************************/
+
+	tm_calculate_clause_output(tm, Xi, PREDICT);
+
+	/***************************/
+	/*** Sum up Clause Votes ***/
+	/***************************/
+
+	return sum_up_class_votes_regression(tm);
+}
+
+/******************************/
+/*** Predict y for inputs X ***/
+/******************************/
+
+void tm_predict_regression(struct TsetlinMachine *tm, unsigned int *X, int *y, int number_of_examples)
+{
+	unsigned int step_size = tm->number_of_patches * tm->number_of_ta_chunks;
+
+	unsigned int pos = 0;
+	for (int l = 0; l < number_of_examples; l++) {
+		// Identify class with largest output
+		y[l] = tm_score_regression(tm, &X[pos]);
+		
+		pos += step_size;
+	}
+	
+	return;
+}
 

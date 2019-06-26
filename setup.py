@@ -6,14 +6,14 @@ libTM = Extension('libTM',
 
 setup(
    name='pyTsetlinMachine',
-   version='0.2.0',
+   version='0.2.8',
    author='Ole-Christoffer Granmo',
    author_email='ole.granmo@uia.no',
    url='https://github.com/cair/pyTsetlinMachine/',
    license='MIT',
-   description='Implements the Tsetlin Machine, Convolutional Tsetlin Machine and Regression Tsetlin Machine',
-   long_description='Implements the Tsetlin Machine, Convolutional Tsetlin Machine and Regression Tsetlin Machine',
+   description='Implements the Tsetlin Machine, Convolutional Tsetlin Machine and Regression Tsetlin Machine, with support for continuous features.',
+   long_description='Implements the Tsetlin Machine, Convolutional Tsetlin Machine and Regression Tsetlin Machine, with support for continuous features.',
    ext_modules = [libTM],
-   keywords ='pattern-recognition machine-learning interpretable rule-based propositional-logic tsetlin-machine regression convolution',
+   keywords ='pattern-recognition machine-learning interpretable-machine-learning rule-based-machine-learning propositional-logic tsetlin-machine regression convolution',
    packages=['pyTsetlinMachine']
 )
