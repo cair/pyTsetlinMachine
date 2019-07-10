@@ -311,26 +311,26 @@ RMSD over 25 runs:
 @article{granmo2019convtsetlin,
   author = {{Granmo}, Ole-Christoffer and {Glimsdal}, Sondre and {Jiao}, Lei and {Goodwin}, Morten and {Omlin}, Christian W. and {Berge}, Geir Thore},
   title = "{The Convolutional Tsetlin Machine}",
-  journal={arXiv preprint arXiv:1905.09688}, year={2019}
+  journal = {arXiv preprint arXiv:1905.09688}, year = {2019}
 }
 ```
 
 ```bash
 @article{abeyrathna2019regressiontsetlin,
-  author = {{Abeyrathna}, Darshana and {Granmo}, Ole-Christoffer and {Jiao}, Lei and {Goodwin}, Morten},
+  author = {{Abeyrathna}, Kuruge Darshana and {Granmo}, Ole-Christoffer and {Jiao}, Lei and {Goodwin}, Morten},
   title = "{The Regression Tsetlin Machine: A Tsetlin Machine for Continuous Output Problems}",
-  journal={arXiv preprint arXiv:1905.04206}, year={2019}
+  journal = {arXiv preprint arXiv:1905.04206}, year = {2019}
 }
 ```
 
 ```bash
 @InProceedings{abeyrathna2019continuousinput,
-  author="Abeyrathna, Kuruge Darshana and Granmo, Ole-Christoffer and Zhang, Xuan and Goodwin, Morten",
-  title="A Scheme for Continuous Input to the Tsetlin Machine with Applications to Forecasting Disease Outbreaks",
-  booktitle="Advances and Trends in Artificial Intelligence. From Theory to Practice", year="2019",
-  editor="Wotawa, Franz and Friedrich, Gerhard and Pill, Ingo and Koitz-Hristov, Roxane and Ali, Moonis",
-  publisher="Springer International Publishing",
-  pages="564--578"
+  author = {{Abeyrathna}, Kuruge Darshana and {Granmo}, Ole-Christoffer and {Zhang}, Xuan and {Goodwin}, Morten},
+  title = "{A Scheme for Continuous Input to the Tsetlin Machine with Applications to Forecasting Disease Outbreaks}",
+  booktitle = "{Advances and Trends in Artificial Intelligence. From Theory to Practice}", year = "2019",
+  editor = "Wotawa, Franz and Friedrich, Gerhard and Pill, Ingo and Koitz-Hristov, Roxane and Ali, Moonis",
+  publisher = "Springer International Publishing",
+  pages = "564--578"
 }
 ```
 
@@ -338,7 +338,7 @@ RMSD over 25 runs:
 @article{granmo2018tsetlin,
   author = {{Granmo}, Ole-Christoffer},
   title = "{The Tsetlin Machine - A Game Theoretic Bandit Driven Approach to Optimal Pattern Recognition with Propositional Logic}",
-  journal={arXiv preprint arXiv:1804.01508}, year={2018}
+  journal = {arXiv preprint arXiv:1804.01508}, year = {2018}
 }
 ```
 
