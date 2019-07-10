@@ -324,10 +324,13 @@ RMSD over 25 runs:
 ```
 
 ```bash
-@article{abeyrathna2019continuousinput,
-  author = {{Abeyrathna}, Darshana and {Granmo}, Ole-Christoffer and {Zhang}, Xuan and {Goodwin}, Morten},
-  title = "{A Scheme for Continuous Input to the Tsetlin Machine with Applications to Forecasting Disease Outbreaks}",
-  journal={arXiv preprint arXiv:1905.04199}, year={2019}
+@InProceedings{abeyrathna2019continuousinput,
+  author="Abeyrathna, Kuruge Darshana and Granmo, Ole-Christoffer and Zhang, Xuan and Goodwin, Morten",
+  title="A Scheme for Continuous Input to the Tsetlin Machine with Applications to Forecasting Disease Outbreaks",
+  booktitle="Advances and Trends in Artificial Intelligence. From Theory to Practice", year="2019",
+  editor="Wotawa, Franz and Friedrich, Gerhard and Pill, Ingo and Koitz-Hristov, Roxane and Ali, Moonis",
+  publisher="Springer International Publishing",
+  pages="564--578"
 }
 ```
 
