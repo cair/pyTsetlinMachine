@@ -222,7 +222,7 @@ static inline void tm_calculate_clause_output(struct TsetlinMachine *tm, unsigne
 				(ta_state[pos] & Xi[patch*tm->number_of_ta_chunks + tm->number_of_ta_chunks - 1] & tm->filter) ==
 				(ta_state[pos] & tm->filter);
 
-			all_exclude = all_exclude && (ta_state[pos] == 0);
+			all_exclude = all_exclude && ((ta_state[pos] & tm->filter) == 0);
 
 			output = output && !(predict == PREDICT && all_exclude == 1);
 
