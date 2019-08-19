@@ -239,7 +239,7 @@ Accuracy over 40 epochs:
 #40 Accuracy: 99.13% (1379.31s)
 ```
 
-### Text Categorization Demo
+### IMDb Text Categorization Demo
 
 #### Code:
 
