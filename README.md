@@ -239,6 +239,30 @@ Accuracy over 40 epochs:
 #40 Accuracy: 99.13% (1379.31s)
 ```
 
+### Text Categorization Demo
+
+#### Code: 
+
+#### Output:
+
+```bash
+python ./IMDbTextCategorizationDemo.py 
+Downloading dataset...
+Producing bit representation...
+Selecting features...
+
+Accuracy over 25 epochs:
+
+#1 Accuracy: 87.10% (1129.02s)
+#2 Accuracy: 87.72% (1136.42s)
+#3 Accuracy: 88.08% (1076.66s)
+...
+
+#23 Accuracy: 89.36% (733.84s)
+#24 Accuracy: 89.34% (736.17s)
+#25 Accuracy: 89.36% (826.29s)
+```
+
 ### Regression Demo
 
 #### Code: RegressionDemo.py
