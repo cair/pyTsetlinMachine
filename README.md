@@ -495,6 +495,17 @@ RMSD over 25 runs:
 }
 ```
 
+```bash
+@article{berge2019, 
+  author={G. T. {Berge} and O. {Granmo} and T. O. {Tveit} and M. {Goodwin} and L. {Jiao} and B. V. {Matheussen}}, 
+  journal={IEEE Access}, 
+  title={Using the Tsetlin Machine to Learn Human-Interpretable Rules for High-Accuracy Text Categorization with Medical    Applications}, 
+  year={2019}, 
+  doi={10.1109/ACCESS.2019.2935416}, 
+  ISSN={2169-3536}
+}
+```
+
 ## Licence
 
 Copyright (c) 2019 Ole-Christoffer Granmo
