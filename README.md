@@ -461,6 +461,17 @@ RMSD over 25 runs:
 ## Citation
 
 ```bash
+@article{berge2019, 
+  author={Geir Thore {Berge} and Ole-Christoffer {Granmo} and Tor Oddbjørn {Tveit} and Morten {Goodwin} and Lei {Jiao} and Bernt Viggo {Matheussen}}, 
+  journal={IEEE Access}, 
+  title={Using the Tsetlin Machine to Learn Human-Interpretable Rules for High-Accuracy Text Categorization with Medical    Applications}, 
+  year={2019}, 
+  doi={10.1109/ACCESS.2019.2935416}, 
+  ISSN={2169-3536}
+}
+```
+
+```bash
 @article{granmo2019convtsetlin,
   author = {{Granmo}, Ole-Christoffer and {Glimsdal}, Sondre and {Jiao}, Lei and {Goodwin}, Morten and {Omlin}, Christian W. and {Berge}, Geir Thore},
   title = "{The Convolutional Tsetlin Machine}",
@@ -492,17 +503,6 @@ RMSD over 25 runs:
   author = {{Granmo}, Ole-Christoffer},
   title = "{The Tsetlin Machine - A Game Theoretic Bandit Driven Approach to Optimal Pattern Recognition with Propositional Logic}",
   journal = {arXiv preprint arXiv:1804.01508}, year = {2018}
-}
-```
-
-```bash
-@article{berge2019, 
-  author={Geir Thore {Berge} and Ole-Christoffer {Granmo} and Tor Oddbjørn {Tveit} and Morten {Goodwin} and Lei {Jiao} and Bernt Viggo {Matheussen}}, 
-  journal={IEEE Access}, 
-  title={Using the Tsetlin Machine to Learn Human-Interpretable Rules for High-Accuracy Text Categorization with Medical    Applications}, 
-  year={2019}, 
-  doi={10.1109/ACCESS.2019.2935416}, 
-  ISSN={2169-3536}
 }
 ```
 
