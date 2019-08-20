@@ -369,6 +369,10 @@ int tm_ta_action(struct TsetlinMachine *tm, int clause, int ta)
 	return (tm->ta_state[pos] & (1 << chunk_pos)) > 0;
 }
 
+/*****************************************************/
+/*** Storing and Loading of Tsetlin Machine State ****/
+/*****************************************************/
+
 void tm_get_state(struct TsetlinMachine *tm, unsigned int *ta_state)
 {
 	int pos = 0;
