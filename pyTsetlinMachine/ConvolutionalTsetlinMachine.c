@@ -342,7 +342,7 @@ int tm_score(struct TsetlinMachine *tm, unsigned int *Xi) {
 	return sum_up_class_votes(tm);
 }
 
-int tm_get_state(struct TsetlinMachine *tm, int clause, int la)
+int tm_ta_state(struct TsetlinMachine *tm, int clause, int la)
 {
 	int la_chunk = la / 32;
 	int chunk_pos = la % 32;
@@ -359,7 +359,7 @@ int tm_get_state(struct TsetlinMachine *tm, int clause, int la)
 	return state;
 }
 
-int tm_action(struct TsetlinMachine *tm, int clause, int la)
+int tm_ta_action(struct TsetlinMachine *tm, int clause, int la)
 {
 	int la_chunk = la / 32;
 	int chunk_pos = la % 32;
@@ -516,3 +516,28 @@ void tm_predict_regression(struct TsetlinMachine *tm, unsigned int *X, int *y, i
 	return;
 }
 
+void tm_get_state(struct TsetlinMachine *tm, unsigned int *ta_state)
+{
+	int pos = 0;
+	for (int j = 0; j < tm->number_of_clauses; ++j) {
+		for (int k = 0; k < tm->number_of_ta_chunks; ++k) {
+			for (int b = 0; b < tm->number_of_state_bits; ++b) {
+				ta_state[pos] = tm->ta_state[pos];
+				pos++;
+			}
+		}
+	}
+}
+
+void tm_set_state(struct TsetlinMachine *tm, unsigned int *ta_state)
+{
+	int pos = 0;
+	for (int j = 0; j < tm->number_of_clauses; ++j) {
+		for (int k = 0; k < tm->number_of_ta_chunks; ++k) {
+			for (int b = 0; b < tm->number_of_state_bits; ++b) {
+				tm->ta_state[pos] = ta_state[pos];
+				pos++;
+			}
+		}
+	}
+}
