@@ -144,3 +144,19 @@ void mc_tm_fit(struct MultiClassTsetlinMachine *mc_tm, unsigned int *X, int *y, 
 	}
 }
 
+void mc_tm_get_state(struct MultiClassTsetlinMachine *mc_tm, int class, unsigned int *ta_state)
+{
+	tm_get_state(mc_tm->tsetlin_machines[class], ta_state);
+	
+	return;
+}
+
+void mc_tm_set_state(struct MultiClassTsetlinMachine *mc_tm, int class, unsigned int *ta_state)
+{
+	tm_set_state(mc_tm->tsetlin_machines[class], ta_state);
+	
+	return;
+}
+
+
+
