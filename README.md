@@ -497,7 +497,7 @@ RMSD over 25 runs:
 
 ```bash
 @article{berge2019, 
-  author={G. T. {Berge} and O. {Granmo} and T. O. {Tveit} and M. {Goodwin} and L. {Jiao} and B. V. {Matheussen}}, 
+  author={Geir Thore {Berge} and Ole-Christoffer {Granmo} and Tor Oddbjørn {Tveit} and Morten {Goodwin} and Lei {Jiao} and Bernt Viggo {Matheussen}}, 
   journal={IEEE Access}, 
   title={Using the Tsetlin Machine to Learn Human-Interpretable Rules for High-Accuracy Text Categorization with Medical    Applications}, 
   year={2019}, 
