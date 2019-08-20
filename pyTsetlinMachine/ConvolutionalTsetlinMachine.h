@@ -66,9 +66,9 @@ void tm_update(struct TsetlinMachine *tm, unsigned int *Xi, int target);
 
 int tm_score(struct TsetlinMachine *tm, unsigned int *Xi);
 
-int tm_get_state(struct TsetlinMachine *tm, int clause, int la);
+int tm_ta_state(struct TsetlinMachine *tm, int clause, int la);
 
-int tm_action(struct TsetlinMachine *tm, int clause, int la);
+int tm_ta_action(struct TsetlinMachine *tm, int clause, int la);
 
 void tm_update_regression(struct TsetlinMachine *tm, unsigned int *Xi, int target);
 
@@ -77,3 +77,7 @@ void tm_fit_regression(struct TsetlinMachine *tm, unsigned int *X, int *y, int n
 int tm_score_regression(struct TsetlinMachine *tm, unsigned int *Xi);
 
 void tm_predict_regression(struct TsetlinMachine *tm, unsigned int *X, int *y, int number_of_examples);
+
+void tm_get_state(struct TsetlinMachine *tm, unsigned int *ta_state);
+
+void tm_set_state(struct TsetlinMachine *tm, unsigned int *ta_state);
