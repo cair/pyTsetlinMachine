@@ -241,7 +241,7 @@ Accuracy over 40 epochs:
 
 ### IMDb Text Categorization Demo
 
-#### Code:
+#### Code: IMDbTextCategorizationDemo.py
 
 ```python
 import numpy as np
