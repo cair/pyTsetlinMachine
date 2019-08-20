@@ -63,6 +63,12 @@ _lib.mc_tm_initialize.argtypes = [mc_ctm_pointer]
 _lib.mc_tm_predict.restype = None                    
 _lib.mc_tm_predict.argtypes = [mc_ctm_pointer, array_1d_uint, array_1d_uint, C.c_int] 
 
+_lib.mc_tm_set_state.restype = None
+_lib.mc_tm_set_state.argtypes = [mc_ctm_pointer, C.c_int, array_1d_uint]
+
+_lib.mc_tm_get_state.restype = None
+_lib.mc_tm_get_state.argtypes = [mc_ctm_pointer, C.c_int, array_1d_uint]
+
 _lib.tm_predict_regression.restype = None                    
 _lib.tm_predict_regression.argtypes = [ctm_pointer, array_1d_uint, array_1d_int, C.c_int] 
 
