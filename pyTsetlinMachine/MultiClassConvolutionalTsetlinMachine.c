@@ -144,6 +144,16 @@ void mc_tm_fit(struct MultiClassTsetlinMachine *mc_tm, unsigned int *X, int *y, 
 	}
 }
 
+int mc_tm_ta_state(struct MultiClassTsetlinMachine *mc_tm, int class, int clause, int ta)
+{
+	return tm_ta_state(mc_tm->tsetlin_machines[class], clause, ta);
+}
+
+int mc_tm_ta_action(struct MultiClassTsetlinMachine *mc_tm, int class, int clause, int ta)
+{
+	return tm_ta_action(mc_tm->tsetlin_machines[class], clause, ta);
+}
+
 /*****************************************************/
 /*** Storing and Loading of Tsetlin Machine State ****/
 /*****************************************************/
