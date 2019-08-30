@@ -52,3 +52,6 @@ void mc_tm_get_state(struct MultiClassTsetlinMachine *mc_tm, int class, unsigned
 
 void mc_tm_set_state(struct MultiClassTsetlinMachine *mc_tm, int class, unsigned int *ta_state);
 
+int mc_tm_ta_state(struct MultiClassTsetlinMachine *mc_tm, int class, int clause, int ta);
+
+int mc_tm_ta_action(struct MultiClassTsetlinMachine *mc_tm, int class, int clause, int ta);
