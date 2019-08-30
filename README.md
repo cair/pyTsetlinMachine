@@ -464,7 +464,9 @@ RMSD over 25 runs:
 @article{berge2019, 
   author={Geir Thore {Berge} and Ole-Christoffer {Granmo} and Tor Oddbjørn {Tveit} and Morten {Goodwin} and Lei {Jiao} and Bernt Viggo {Matheussen}}, 
   journal={IEEE Access}, 
-  title={Using the Tsetlin Machine to Learn Human-Interpretable Rules for High-Accuracy Text Categorization with Medical Applications}, 
+  title={Using the Tsetlin Machine to Learn Human-Interpretable Rules for High-Accuracy Text Categorization with Medical Applications},
+  volume={7},
+  pages={115134-115146}, 
   year={2019}, 
   doi={10.1109/ACCESS.2019.2935416}, 
   ISSN={2169-3536}
