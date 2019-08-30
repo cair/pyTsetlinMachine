@@ -63,6 +63,12 @@ _lib.mc_tm_initialize.argtypes = [mc_ctm_pointer]
 _lib.mc_tm_predict.restype = None                    
 _lib.mc_tm_predict.argtypes = [mc_ctm_pointer, array_1d_uint, array_1d_uint, C.c_int] 
 
+_lib.mc_tm_ta_state.restype = C.c_int                    
+_lib.mc_tm_ta_state.argtypes = [mc_ctm_pointer, C.c_int, C.c_int, C.c_int]
+
+_lib.mc_tm_ta_action.restype = C.c_int                    
+_lib.mc_tm_ta_action.argtypes = [mc_ctm_pointer, C.c_int, C.c_int, C.c_int] 
+
 _lib.mc_tm_set_state.restype = None
 _lib.mc_tm_set_state.argtypes = [mc_ctm_pointer, C.c_int, array_1d_uint]
 
@@ -143,6 +149,27 @@ class MultiClassConvolutionalTsetlinMachine2D():
 
 		return Y
 
+	def ta_state(self, mc_tm_class, clause, ta):
+		_lib.mc_tm_ta_state(self.mc_tm, mc_tm_class, clause, ta)
+
+	def ta_action(self, mc_tm_class, clause, ta):
+		_lib.mc_tm_ta_action(self.mc_tm, mc_tm_class, clause, ta)
+
+	def get_state(self):
+		state_list = []
+		for i in range(self.number_of_classes):
+			ta_states = np.ascontiguousarray(np.empty(self.number_of_clauses * self.number_of_ta_chunks * self.number_of_state_bits, dtype=np.uint32))
+			_lib.mc_tm_get_state(self.mc_tm, i, ta_states)
+			state_list.append(ta_states)
+
+		return state_list
+
+	def set_state(self, ta_states):
+		for i in range(self.number_of_classes):
+			_lib.mc_tm_set_state(self.mc_tm, i, ta_states[i])
+
+		return
+
 class MultiClassTsetlinMachine():
 	def __init__(self, number_of_clauses, T, s, boost_true_positive_feedback=1, number_of_state_bits=8):
 		self.number_of_clauses = number_of_clauses
@@ -197,7 +224,12 @@ class MultiClassTsetlinMachine():
 
 		return Y
 	
-	
+	def ta_state(self, mc_tm_class, clause, ta):
+		_lib.mc_tm_ta_state(self.mc_tm, mc_tm_class, clause, ta)
+
+	def ta_action(self, mc_tm_class, clause, ta):
+		_lib.mc_tm_ta_action(self.mc_tm, mc_tm_class, clause, ta)
+
 	def get_state(self):
 		state_list = []
 		for i in range(self.number_of_classes):
