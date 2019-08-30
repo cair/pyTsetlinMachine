@@ -150,10 +150,10 @@ class MultiClassConvolutionalTsetlinMachine2D():
 		return Y
 
 	def ta_state(self, mc_tm_class, clause, ta):
-		_lib.mc_tm_ta_state(self.mc_tm, mc_tm_class, clause, ta)
+		return _lib.mc_tm_ta_state(self.mc_tm, mc_tm_class, clause, ta)
 
 	def ta_action(self, mc_tm_class, clause, ta):
-		_lib.mc_tm_ta_action(self.mc_tm, mc_tm_class, clause, ta)
+		return _lib.mc_tm_ta_action(self.mc_tm, mc_tm_class, clause, ta)
 
 	def get_state(self):
 		state_list = []
@@ -225,10 +225,10 @@ class MultiClassTsetlinMachine():
 		return Y
 	
 	def ta_state(self, mc_tm_class, clause, ta):
-		_lib.mc_tm_ta_state(self.mc_tm, mc_tm_class, clause, ta)
+		return _lib.mc_tm_ta_state(self.mc_tm, mc_tm_class, clause, ta)
 
 	def ta_action(self, mc_tm_class, clause, ta):
-		_lib.mc_tm_ta_action(self.mc_tm, mc_tm_class, clause, ta)
+		return _lib.mc_tm_ta_action(self.mc_tm, mc_tm_class, clause, ta)
 
 	def get_state(self):
 		state_list = []
