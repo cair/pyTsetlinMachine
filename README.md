@@ -482,10 +482,13 @@ RMSD over 25 runs:
 ```
 
 ```bash
-@article{abeyrathna2019regressiontsetlin,
+@InProceedings{abeyrathna2019regressiontsetlin,
   author = {{Abeyrathna}, Kuruge Darshana and {Granmo}, Ole-Christoffer and {Jiao}, Lei and {Goodwin}, Morten},
   title = "{The Regression Tsetlin Machine: A Tsetlin Machine for Continuous Output Problems}",
-  journal = {arXiv preprint arXiv:1905.04206}, year = {2019}
+  editor="Moura Oliveira, Paulo and Novais, Paulo and Reis, Lu{\'i}s Paulo ",
+  booktitle="Progress in Artificial Intelligence", year="2019",
+  publisher="Springer International Publishing",
+  pages="268--280"
 }
 ```
 
