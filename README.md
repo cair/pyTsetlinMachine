@@ -1,6 +1,6 @@
 # pyTsetlinMachine
 
-Implementation of the Tsetlin Machine (https://arxiv.org/abs/1804.01508), Convolutional Tsetlin Machine (https://arxiv.org/abs/1905.09688) and Regression Tsetlin Machine (https://arxiv.org/abs/1905.04206), with support for continuous features (https://arxiv.org/abs/1905.04199, https://link.springer.com/chapter/10.1007%2F978-3-030-22999-3_49).
+Implementation of the Tsetlin Machine (https://arxiv.org/abs/1804.01508), Convolutional Tsetlin Machine (https://arxiv.org/abs/1905.09688) and Regression Tsetlin Machine (https://arxiv.org/abs/1905.04206, https://link.springer.com/chapter/10.1007/978-3-030-30244-3_23), with support for continuous features (https://arxiv.org/abs/1905.04199, https://link.springer.com/chapter/10.1007%2F978-3-030-22999-3_49).
 
 ## Installation
 
