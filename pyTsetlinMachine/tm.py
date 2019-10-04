@@ -230,6 +230,25 @@ class MultiClassTsetlinMachine():
 	def ta_action(self, mc_tm_class, clause, ta):
 		return _lib.mc_tm_ta_action(self.mc_tm, mc_tm_class, clause, ta)
 
+
+	#return list of all clauses
+	def get_all_clauses(self,list_of_classes,num_of_clauses, num_of_features):
+		all_clauses=[[] for i in range (num_of_clauses)]
+		for cur_clause in range(num_of_clauses):
+			for cur_cls in list_of_classes:
+				this_clause=''
+				for f in range(num_of_features*2):
+					action = self.ta_action(int(cur_cls), cur_clause, f)
+					if action==1:
+						if this_clause!='':
+							this_clause+='AND '
+						if f<num_of_features:
+							this_clause+='F'+str(f)+' '
+						else:
+							this_clause+='-|F'+str(f-num_of_features)+' '
+				all_clauses[cur_clause].append(this_clause) #all_clauses[cur_clause][cur_cls] = this_clause
+		return all_clauses
+	
 	def get_state(self):
 		state_list = []
 		for i in range(self.number_of_classes):
