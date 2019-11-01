@@ -395,6 +395,9 @@ Accuracy over 25 epochs:
 #3 Accuracy: 88.05% Training: 631.41s Testing: 13.11s
 ...
 
+#23 Accuracy: 89.14% Training: 426.28s Testing: 9.67s
+#24 Accuracy: 89.13% Training: 397.58s Testing: 9.57s
+#25 Accuracy: 89.14% Training: 391.74s Testing: 9.83s
 ```
 
 ### Regression Demo
