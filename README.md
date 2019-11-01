@@ -185,7 +185,7 @@ for i in range(250):
 ```bash
 python3 ./MNISTDemo.py 
 
-Accuracy over 150 epochs:
+Accuracy over 250 epochs:
 
 #1 Accuracy: 94.63% Training: 42.75s Testing: 3.06s
 #2 Accuracy: 95.52% Training: 23.05s Testing: 3.12s
