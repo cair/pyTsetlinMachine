@@ -167,8 +167,8 @@ X_test = np.where(X_test.reshape((X_test.shape[0], 28*28)) > 75, 1, 0)
 
 tm = MultiClassTsetlinMachine(2000, 50, 10.0)
 
-print("\nAccuracy over 400 epochs:\n")
-for i in range(400):
+print("\nAccuracy over 150 epochs:\n")
+for i in range(150):
 	start = time()
 	tm.fit(X_train, Y_train, epochs=1, incremental=True)
 	stop = time()
@@ -181,13 +181,15 @@ for i in range(400):
 ```bash
 python3 ./MNISTDemo.py 
 
-Accuracy over 250 epochs:
+Accuracy over 150 epochs:
 
 #1 Accuracy: 94.63% Training: 42.75s Testing: 3.06s
 #2 Accuracy: 95.52% Training: 23.05s Testing: 3.12s
 #3 Accuracy: 95.97% Training: 20.13s Testing: 3.07s
 ...
-
+#148 Accuracy: 98.04% Training: 8.58s Testing: 3.11s
+#149 Accuracy: 98.10% Training: 8.62s Testing: 3.14s
+#150 Accuracy: 98.03% Training: 8.53s Testing: 3.13s
 ```
 
 ### MNIST 2D Convolution Demo
