@@ -368,11 +368,15 @@ tm = MultiClassTsetlinMachine(10000, 80, 27.0)
 
 print("\nAccuracy over 25 epochs:\n")
 for i in range(25):
-	start = time()
+	start_training = time()
 	tm.fit(X_train, Y_train, epochs=1, incremental=True)
-	stop = time()
+	stop_training = time()
+
+	start_testing = time()
 	result = 100*(tm.predict(X_test) == Y_test).mean()
-	print("#%d Accuracy: %.2f%% (%.2fs)" % (i+1, result, stop-start))
+	stop_testing = time()
+
+	print("#%d Accuracy: %.2f%% Training: %.2fs Testing: %.2fs" % (i+1, result, stop_training-start_training, stop_testing-start_testing))
 ```
 
 #### Output:
@@ -386,14 +390,11 @@ Selecting features...
 
 Accuracy over 25 epochs:
 
-#1 Accuracy: 87.10% (1129.02s)
-#2 Accuracy: 87.72% (1136.42s)
-#3 Accuracy: 88.08% (1076.66s)
+#1 Accuracy: 87.10% Training: 1385.43s Testing: 15.49s
+#2 Accuracy: 87.70% Training: 1082.47s Testing: 15.27s
+#3 Accuracy: 88.19% Training: 965.59s Testing: 15.14s
 ...
 
-#23 Accuracy: 89.36% (733.84s)
-#24 Accuracy: 89.34% (736.17s)
-#25 Accuracy: 89.36% (826.29s)
 ```
 
 ### Regression Demo
