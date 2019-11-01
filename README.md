@@ -390,9 +390,9 @@ Selecting features...
 
 Accuracy over 25 epochs:
 
-#1 Accuracy: 87.10% Training: 1385.43s Testing: 15.49s
-#2 Accuracy: 87.70% Training: 1082.47s Testing: 15.27s
-#3 Accuracy: 88.19% Training:  965.59s Testing: 15.14s
+#1 Accuracy: 86.84% Training: 947.15s Testing: 12.39s
+#2 Accuracy: 87.62% Training: 709.67s Testing: 11.34s
+#3 Accuracy: 88.05% Training: 631.41s Testing: 13.11s
 ...
 
 ```
