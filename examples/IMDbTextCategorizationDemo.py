@@ -119,8 +119,8 @@ X_test = SKB.transform(X_test)
 
 tm = MultiClassTsetlinMachine(10000, 80, 27.0)
 
-print("\nAccuracy over 25 epochs:\n")
-for i in range(25):
+print("\nAccuracy over 50 epochs:\n")
+for i in range(50):
 	start_training = time()
 	tm.fit(X_train, Y_train, epochs=1, incremental=True)
 	stop_training = time()
