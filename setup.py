@@ -1,12 +1,12 @@
 from setuptools import *
 
 libTM = Extension('libTM',
-                  sources = ['pyTsetlinMachine/ConvolutionalTsetlinMachine.c', 'pyTsetlinMachine/MultiClassConvolutionalTsetlinMachine.c', 'pyTsetlinMachine/Tools.c'],
+                  sources = ['pyTsetlinMachine/ConvolutionalTsetlinMachine.c', 'pyTsetlinMachine/MultiClassConvolutionalTsetlinMachine.c', 'pyTsetlinMachine/Tools.c', 'pyTsetlinMachine/IndexedTsetlinMachine.c'],
                   include_dirs=['pyTsetlinMachine'])
 
 setup(
    name='pyTsetlinMachine',
-   version='0.3.1',
+   version='0.4.0',
    author='Ole-Christoffer Granmo',
    author_email='ole.granmo@uia.no',
    url='https://github.com/cair/pyTsetlinMachine/',

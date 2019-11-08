@@ -62,6 +62,8 @@ void tm_initialize(struct TsetlinMachine *tm);
 
 void tm_destroy(struct TsetlinMachine *tm);
 
+void tm_update_clauses(struct TsetlinMachine *tm, unsigned int *Xi, int class_sum, int target);
+
 void tm_update(struct TsetlinMachine *tm, unsigned int *Xi, int target);
 
 int tm_score(struct TsetlinMachine *tm, unsigned int *Xi);

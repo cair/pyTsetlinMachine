@@ -34,9 +34,14 @@ class CMultiClassConvolutionalTsetlinMachine(C.Structure):
 class CConvolutionalTsetlinMachine(C.Structure):
 	None
 
+class CIndexedTsetlinMachine(C.Structure):
+	None
+
 mc_ctm_pointer = C.POINTER(CMultiClassConvolutionalTsetlinMachine)
 
 ctm_pointer = C.POINTER(CConvolutionalTsetlinMachine)
+
+itm_pointer = C.POINTER(CIndexedTsetlinMachine)
 
 array_1d_uint = np.ctypeslib.ndpointer(
 	dtype=np.uint32,
@@ -86,6 +91,23 @@ _lib.CreateTsetlinMachine.argtypes = [C.c_int, C.c_int, C.c_int, C.c_int, C.c_in
 
 _lib.tm_encode.restype = None                      
 _lib.tm_encode.argtypes = [array_1d_uint, array_1d_uint, C.c_int, C.c_int, C.c_int, C.c_int, C.c_int] 
+
+# Indexed Tsetlin Machine
+
+_lib.CreateIndexedTsetlinMachine.restype = itm_pointer
+_lib.CreateIndexedTsetlinMachine.argtypes = [mc_ctm_pointer]
+
+_lib.itm_destroy.restype = None                      
+_lib.itm_destroy.argtypes = [itm_pointer] 
+
+_lib.itm_initialize.restype = None
+_lib.itm_initialize.argtypes = [itm_pointer]
+
+_lib.itm_predict.restype = None                    
+_lib.itm_predict.argtypes = [itm_pointer, array_1d_uint, array_1d_uint, C.c_int]
+
+_lib.itm_fit.restype = None                      
+_lib.itm_fit.argtypes = [itm_pointer, array_1d_uint, array_1d_uint, C.c_int, C.c_int] 
 
 class MultiClassConvolutionalTsetlinMachine2D():
 	def __init__(self, number_of_clauses, T, s, patch_dim, boost_true_positive_feedback=1, number_of_state_bits=8):
@@ -171,7 +193,7 @@ class MultiClassConvolutionalTsetlinMachine2D():
 		return
 
 class MultiClassTsetlinMachine():
-	def __init__(self, number_of_clauses, T, s, boost_true_positive_feedback=1, number_of_state_bits=8):
+	def __init__(self, number_of_clauses, T, s, boost_true_positive_feedback=1, number_of_state_bits=8, indexed=True):
 		self.number_of_clauses = number_of_clauses
 		self.number_of_clause_chunks = (number_of_clauses-1)/32 + 1
 		self.number_of_state_bits = number_of_state_bits
@@ -179,10 +201,15 @@ class MultiClassTsetlinMachine():
 		self.s = s
 		self.boost_true_positive_feedback = boost_true_positive_feedback
 		self.mc_tm = None
+		self.itm = None
+		self.indexed = indexed
 
 	def __del__(self):
 		if self.mc_tm != None:
 			_lib.mc_tm_destroy(self.mc_tm)
+
+		if self.itm != None:
+			_lib.itm_destroy(self.itm)
 
 	def fit(self, X, Y, epochs=100, incremental=False):
 		number_of_examples = X.shape[0]
@@ -199,6 +226,11 @@ class MultiClassTsetlinMachine():
 			_lib.mc_tm_destroy(self.mc_tm)
 			self.mc_tm = _lib.CreateMultiClassTsetlinMachine(self.number_of_classes, self.number_of_clauses, self.number_of_features, 1, self.number_of_ta_chunks, self.number_of_state_bits, self.T, self.s, self.boost_true_positive_feedback)
 
+		if self.indexed:
+			if self.itm != None:
+				_lib.itm_destroy(self.itm)
+			self.itm = _lib.CreateIndexedTsetlinMachine(self.mc_tm)
+
 		self.encoded_X = np.empty(int(number_of_examples * self.number_of_ta_chunks), dtype=np.uint32)
 
 		Xm = np.ascontiguousarray(X.flatten()).astype(np.uint32)
@@ -206,7 +238,10 @@ class MultiClassTsetlinMachine():
 
 		_lib.tm_encode(Xm, self.encoded_X, number_of_examples, self.number_of_features, 1, 1, self.number_of_features, 1)
 		
-		_lib.mc_tm_fit(self.mc_tm, self.encoded_X, Ym, number_of_examples, epochs)
+		if self.indexed:
+			_lib.itm_fit(self.itm, self.encoded_X, Ym, number_of_examples, epochs)
+		else:
+			_lib.mc_tm_fit(self.mc_tm, self.encoded_X, Ym, number_of_examples, epochs)
 
 		return
 
@@ -220,7 +255,10 @@ class MultiClassTsetlinMachine():
 	
 		Y = np.zeros(number_of_examples, dtype=np.uint32)
 
-		_lib.mc_tm_predict(self.mc_tm, self.encoded_X, Y, number_of_examples)
+		if self.indexed:
+			_lib.itm_predict(self.itm, self.encoded_X, Y, number_of_examples)
+		else:
+			_lib.mc_tm_predict(self.mc_tm, self.encoded_X, Y, number_of_examples)
 
 		return Y
 	

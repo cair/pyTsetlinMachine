@@ -167,13 +167,17 @@ X_test = np.where(X_test.reshape((X_test.shape[0], 28*28)) > 75, 1, 0)
 
 tm = MultiClassTsetlinMachine(2000, 50, 10.0)
 
-print("\nAccuracy over 400 epochs:\n")
-for i in range(400):
-	start = time()
+print("\nAccuracy over 250 epochs:\n")
+for i in range(250):
+	start_training = time()
 	tm.fit(X_train, Y_train, epochs=1, incremental=True)
-	stop = time()
+	stop_training = time()
+
+	start_testing = time()
 	result = 100*(tm.predict(X_test) == Y_test).mean()
-	print("#%d Accuracy: %.2f%% (%.2fs)" % (i+1, result, stop-start))
+	stop_testing = time()
+
+	print("#%d Accuracy: %.2f%% Training: %.2fs Testing: %.2fs" % (i+1, result, stop_training-start_training, stop_testing-start_testing))
 ```
 
 #### Output
@@ -181,16 +185,16 @@ for i in range(400):
 ```bash
 python3 ./MNISTDemo.py 
 
-Accuracy over 200 epochs:
+Accuracy over 250 epochs:
 
-#1 Accuracy: 94.57% (54.51s)
-#2 Accuracy: 95.92% (44.28s)
-#3 Accuracy: 96.28% (39.69s)
+#1 Accuracy: 94.63% Training: 42.75s Testing: 3.06s
+#2 Accuracy: 95.52% Training: 23.05s Testing: 3.12s
+#3 Accuracy: 95.97% Training: 20.13s Testing: 3.07s
 ...
 
-#198 Accuracy: 98.17% (29.46s)
-#199 Accuracy: 98.19% (29.49s)
-#200 Accuracy: 98.14% (29.49s)
+#248 Accuracy: 98.06% Training: 7.77s Testing: 3.09s
+#249 Accuracy: 97.98% Training: 7.74s Testing: 3.10s
+#250 Accuracy: 98.07% Training: 7.92s Testing: 3.12s
 ```
 
 ### MNIST 2D Convolution Demo
@@ -362,13 +366,17 @@ X_test = SKB.transform(X_test)
 
 tm = MultiClassTsetlinMachine(10000, 80, 27.0)
 
-print("\nAccuracy over 25 epochs:\n")
-for i in range(25):
-	start = time()
+print("\nAccuracy over 50 epochs:\n")
+for i in range(50):
+	start_training = time()
 	tm.fit(X_train, Y_train, epochs=1, incremental=True)
-	stop = time()
+	stop_training = time()
+
+	start_testing = time()
 	result = 100*(tm.predict(X_test) == Y_test).mean()
-	print("#%d Accuracy: %.2f%% (%.2fs)" % (i+1, result, stop-start))
+	stop_testing = time()
+
+	print("#%d Accuracy: %.2f%% Training: %.2fs Testing: %.2fs" % (i+1, result, stop_training-start_training, stop_testing-start_testing))
 ```
 
 #### Output:
@@ -380,16 +388,16 @@ Downloading dataset...
 Producing bit representation...
 Selecting features...
 
-Accuracy over 25 epochs:
+Accuracy over 50 epochs:
 
-#1 Accuracy: 87.10% (1129.02s)
-#2 Accuracy: 87.72% (1136.42s)
-#3 Accuracy: 88.08% (1076.66s)
+#1 Accuracy: 86.84% Training: 947.15s Testing: 12.39s
+#2 Accuracy: 87.62% Training: 709.67s Testing: 11.34s
+#3 Accuracy: 88.05% Training: 631.41s Testing: 13.11s
 ...
 
-#23 Accuracy: 89.36% (733.84s)
-#24 Accuracy: 89.34% (736.17s)
-#25 Accuracy: 89.36% (826.29s)
+#48 Accuracy: 89.56% Training: 357.80s Testing: 9.59s
+#49 Accuracy: 89.50% Training: 354.74s Testing: 9.58s
+#50 Accuracy: 89.45% Training: 371.62s Testing: 9.67s
 ```
 
 ### Regression Demo

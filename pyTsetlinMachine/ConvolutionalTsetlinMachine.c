@@ -251,27 +251,9 @@ static inline void tm_calculate_clause_output(struct TsetlinMachine *tm, unsigne
 // The Tsetlin Machine can be trained incrementally, one training example at a time.
 // Use this method directly for online and incremental training.
 
-void tm_update(struct TsetlinMachine *tm, unsigned int *Xi, int target)
+void tm_update_clauses(struct TsetlinMachine *tm, unsigned int *Xi, int class_sum, int target)
 {
 	unsigned int *ta_state = tm->ta_state;
-
-	/*******************************/
-	/*** Calculate Clause Output ***/
-	/*******************************/
-
-	tm_calculate_clause_output(tm, Xi, UPDATE);
-
-	/***************************/
-	/*** Sum up Clause Votes ***/
-	/***************************/
-
-	int class_sum = sum_up_class_votes(tm);
-
-	/*********************************/
-	/*** Train Individual Automata ***/
-	/*********************************/
-	
-	// Calculate feedback to clauses
 
 	for (int j = 0; j < tm->number_of_clause_chunks; j++) {
 	 	tm->feedback_to_clauses[j] = 0;
@@ -326,6 +308,27 @@ void tm_update(struct TsetlinMachine *tm, unsigned int *Xi, int target)
 			}
 		}
 	}
+}
+
+void tm_update(struct TsetlinMachine *tm, unsigned int *Xi, int target)
+{
+	/*******************************/
+	/*** Calculate Clause Output ***/
+	/*******************************/
+
+	tm_calculate_clause_output(tm, Xi, UPDATE);
+
+	/***************************/
+	/*** Sum up Clause Votes ***/
+	/***************************/
+
+	int class_sum = sum_up_class_votes(tm);
+
+	/*********************************/
+	/*** Train Individual Automata ***/
+	/*********************************/
+	
+	tm_update_clauses(tm, Xi, class_sum, target);
 }
 
 int tm_score(struct TsetlinMachine *tm, unsigned int *Xi) {

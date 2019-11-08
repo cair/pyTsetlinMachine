@@ -1,3 +1,4 @@
+include pyTsetlinMachine/IndexedTsetlinMachine.h
 include pyTsetlinMachine/Tools.h
 include pyTsetlinMachine/ConvolutionalTsetlinMachine.h
 include pyTsetlinMachine/MultiClassConvolutionalTsetlinMachine.h
