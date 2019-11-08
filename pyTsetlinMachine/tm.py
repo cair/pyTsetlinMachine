@@ -191,6 +191,26 @@ class MultiClassConvolutionalTsetlinMachine2D():
 			_lib.mc_tm_set_state(self.mc_ctm, i, ta_states[i])
 
 		return
+	
+	#save trained model and hyperparams [if indexed is added, self.indexed has to be saved in hyperparams]
+	def save_model(self, savefile):
+		save_ta_state = self.get_state()
+		#0:self.number_of_clauses, 1:self.T, 2:self.s, 3:self.patch_dim[0], 4:self.patch_dim[1],  5:self.boost_true_positive_feedback, 6:self.number_of_state_bits, 7:self.dim_x, 8:self.dim_y, 9:self.dim_z, 10:self.number_of_classes
+		hp=np.array([self.number_of_clauses, self.T, self.s, self.patch_dim[0], self.patch_dim[1], self.boost_true_positive_feedback, self.number_of_state_bits,self.dim_x,self.dim_y,self.dim_z,self.number_of_classes])
+		np.savez_compressed(savefile, states=save_ta_state, hyperparams=hp)
+		
+	#load trained model and hyperparams  [if indexed is added, bool(int(self.indexed)) as to be passed to __init__]
+	def load_model(load_filename):
+		ld=np.load(load_filename)
+		hp=ld['hyperparams']
+		tm2 = MultiClassConvolutionalTsetlinMachine2D(int(hp[0]), int(hp[1]), int(hp[2]), (int(hp[3]),int(hp[4])), boost_true_positive_feedback=int(hp[5]), number_of_state_bits=int(hp[6]))
+		newX=np.ones((1,int(hp[7]),int(hp[8]),int(hp[9])))
+		newY=np.random.randint(int(hp[10]), size=(int(hp[10])*int(hp[0]),)) 
+		tm2.fit(newX, newY, epochs=0)
+		ta_state_loaded = ld['states']
+		tm2.set_state(ta_state_loaded)
+		
+		return tm2
 
 class MultiClassTsetlinMachine():
 	def __init__(self, number_of_clauses, T, s, boost_true_positive_feedback=1, number_of_state_bits=8, indexed=True):
@@ -268,25 +288,6 @@ class MultiClassTsetlinMachine():
 	def ta_action(self, mc_tm_class, clause, ta):
 		return _lib.mc_tm_ta_action(self.mc_tm, mc_tm_class, clause, ta)
 
-
-	#return list of all clauses
-	def get_all_clauses(self,list_of_classes,num_of_clauses, num_of_features):
-		all_clauses=[[] for i in range (num_of_clauses)]
-		for cur_clause in range(num_of_clauses):
-			for cur_cls in list_of_classes:
-				this_clause=''
-				for f in range(num_of_features*2):
-					action = self.ta_action(int(cur_cls), cur_clause, f)
-					if action==1:
-						if this_clause!='':
-							this_clause+='AND '
-						if f<num_of_features:
-							this_clause+='F'+str(f)+' '
-						else:
-							this_clause+='-|F'+str(f-num_of_features)+' '
-				all_clauses[cur_clause].append(this_clause) #all_clauses[cur_clause][cur_cls] = this_clause
-		return all_clauses
-	
 	def get_state(self):
 		state_list = []
 		for i in range(self.number_of_classes):
@@ -301,6 +302,25 @@ class MultiClassTsetlinMachine():
 			_lib.mc_tm_set_state(self.mc_tm, i, ta_states[i])
 
 		return
+	
+	#save trained model and hyperparams
+	def save_model(self, savefile):
+		save_ta_state = self.get_state()
+		hp=np.array([self.number_of_clauses, self.T, self.s, self.boost_true_positive_feedback, self.number_of_state_bits, int(self.indexed), self.number_of_features,self.number_of_classes])
+		np.savez_compressed(savefile, states=save_ta_state, hyperparams=hp)
+		
+	#load trained model and hyperparams
+	def load_model(load_filename):
+		ld=np.load(load_filename)
+		hp=ld['hyperparams']
+		tm2 = MultiClassTsetlinMachine(int(hp[0]), int(hp[1]), int(hp[2]), boost_true_positive_feedback=int(hp[3]), number_of_state_bits=int(hp[4]), indexed=bool(int(hp[5])))
+		newX=np.ones((1,int(hp[5])))
+		newY=np.random.randint(int(hp[6]), size=(int(hp[6])*int(hp[0]),))
+		tm2.fit(newX, newY, epochs=0)
+		ta_state_loaded = ld['states']
+		tm2.set_state(ta_state_loaded)
+		
+		return tm2
 
 class RegressionTsetlinMachine():
 	def __init__(self, number_of_clauses, T, s, boost_true_positive_feedback=1, number_of_state_bits=8):
