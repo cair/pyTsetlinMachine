@@ -152,8 +152,10 @@ int itm_sum_up_clause_votes(struct IndexedTsetlinMachine *itm, int class, unsign
 
 void itm_predict(struct IndexedTsetlinMachine *itm, unsigned int *X, int *y, int number_of_examples)
 {
-	unsigned int step_size = itm->mc_tm->number_of_patches * itm->mc_tm->number_of_ta_chunks;
-
+	// Initializes feature-clause map
+	itm_initialize(itm);
+	
+	unsigned int step_size = itm->mc_tm->number_of_patches * itm->mc_tm->number_of_ta_chunks;	
 	for (int i = 0; i < itm->mc_tm->number_of_classes; ++i) {
 		itm->baseline_class_sum[i] = 0;
 
