@@ -53,14 +53,16 @@ array_1d_int = np.ctypeslib.ndpointer(
 	ndim=1,
 	flags='CONTIGUOUS')
 
+# Multiclass Tsetlin Machine
+
+_lib.CreateMultiClassTsetlinMachine.restype = mc_ctm_pointer                    
+_lib.CreateMultiClassTsetlinMachine.argtypes = [C.c_int, C.c_int, C.c_int, C.c_int, C.c_int, C.c_int, C.c_int, C.c_double, C.c_int] 
+
 _lib.mc_tm_destroy.restype = None                      
 _lib.mc_tm_destroy.argtypes = [mc_ctm_pointer] 
 
 _lib.mc_tm_fit.restype = None                      
 _lib.mc_tm_fit.argtypes = [mc_ctm_pointer, array_1d_uint, array_1d_uint, C.c_int, C.c_int] 
-
-_lib.tm_fit_regression.restype = None                      
-_lib.tm_fit_regression.argtypes = [ctm_pointer, array_1d_uint, array_1d_int, C.c_int, C.c_int] 
 
 _lib.mc_tm_initialize.restype = None                      
 _lib.mc_tm_initialize.argtypes = [mc_ctm_pointer] 
@@ -80,17 +82,24 @@ _lib.mc_tm_set_state.argtypes = [mc_ctm_pointer, C.c_int, array_1d_uint]
 _lib.mc_tm_get_state.restype = None
 _lib.mc_tm_get_state.argtypes = [mc_ctm_pointer, C.c_int, array_1d_uint]
 
-_lib.tm_predict_regression.restype = None                    
-_lib.tm_predict_regression.argtypes = [ctm_pointer, array_1d_uint, array_1d_int, C.c_int] 
+_lib.mc_tm_transform.restype = None                    
+_lib.mc_tm_transform.argtypes = [mc_ctm_pointer, array_1d_uint, array_1d_uint, C.c_int, C.c_int] 
 
-_lib.CreateMultiClassTsetlinMachine.restype = mc_ctm_pointer                    
-_lib.CreateMultiClassTsetlinMachine.argtypes = [C.c_int, C.c_int, C.c_int, C.c_int, C.c_int, C.c_int, C.c_int, C.c_double, C.c_int] 
+# Tsetlin Machine
 
 _lib.CreateTsetlinMachine.restype = ctm_pointer                    
 _lib.CreateTsetlinMachine.argtypes = [C.c_int, C.c_int, C.c_int, C.c_int, C.c_int, C.c_int, C.c_double, C.c_int] 
 
+_lib.tm_fit_regression.restype = None                      
+_lib.tm_fit_regression.argtypes = [ctm_pointer, array_1d_uint, array_1d_int, C.c_int, C.c_int] 
+
+_lib.tm_predict_regression.restype = None                    
+_lib.tm_predict_regression.argtypes = [ctm_pointer, array_1d_uint, array_1d_int, C.c_int] 
+
+# Tools
+
 _lib.tm_encode.restype = None                      
-_lib.tm_encode.argtypes = [array_1d_uint, array_1d_uint, C.c_int, C.c_int, C.c_int, C.c_int, C.c_int] 
+_lib.tm_encode.argtypes = [array_1d_uint, array_1d_uint, C.c_int, C.c_int, C.c_int, C.c_int, C.c_int, C.c_int] 
 
 # Indexed Tsetlin Machine
 
@@ -107,7 +116,7 @@ _lib.itm_predict.restype = None
 _lib.itm_predict.argtypes = [itm_pointer, array_1d_uint, array_1d_uint, C.c_int]
 
 _lib.itm_fit.restype = None                      
-_lib.itm_fit.argtypes = [itm_pointer, array_1d_uint, array_1d_uint, C.c_int, C.c_int] 
+_lib.itm_fit.argtypes = [itm_pointer, array_1d_uint, array_1d_uint, C.c_int, C.c_int]
 
 class MultiClassConvolutionalTsetlinMachine2D():
 	def __init__(self, number_of_clauses, T, s, patch_dim, boost_true_positive_feedback=1, number_of_state_bits=8):
