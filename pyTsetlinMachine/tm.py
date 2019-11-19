@@ -395,7 +395,7 @@ class RegressionTsetlinMachine():
 		Xm = np.ascontiguousarray(X.flatten()).astype(np.uint32)
 		Ym = np.ascontiguousarray((Y - self.min_y)/(self.max_y - self.min_y)*self.T).astype(np.int32)
 
-		_lib.tm_encode(Xm, self.encoded_X, number_of_examples, self.number_of_features, 1, 1, self.number_of_features, 1)
+		_lib.tm_encode(Xm, self.encoded_X, number_of_examples, self.number_of_features, 1, 1, self.number_of_features, 1, 1)
 		
 		_lib.tm_fit_regression(self.rtm, self.encoded_X, Ym, number_of_examples, epochs)
 
@@ -407,7 +407,7 @@ class RegressionTsetlinMachine():
 		self.encoded_X = np.empty(int(number_of_examples * self.number_of_patches * self.number_of_ta_chunks), dtype=np.uint32)
 
 		Xm = np.ascontiguousarray(X.flatten()).astype(np.uint32)
-		_lib.tm_encode(Xm, self.encoded_X, number_of_examples, self.number_of_features, 1, 1, self.number_of_features, 1)
+		_lib.tm_encode(Xm, self.encoded_X, number_of_examples, self.number_of_features, 1, 1, self.number_of_features, 1, 1)
 	
 		Y = np.zeros(number_of_examples, dtype=np.int32)
 
