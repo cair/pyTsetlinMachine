@@ -382,9 +382,9 @@ class RegressionTsetlinMachine():
 
 		if self.rtm == None:
 			self.number_of_classes = np.unique(Y).size
-			self.number_of_features = X.shape[1]
+			self.number_of_features = X.shape[1]*2
 			self.number_of_patches = 1
-			self.number_of_ta_chunks = int((2*self.number_of_features-1)/32 + 1)
+			self.number_of_ta_chunks = int((self.number_of_features-1)/32 + 1)
 			self.rtm = _lib.CreateTsetlinMachine(self.number_of_clauses, self.number_of_features, 1, self.number_of_ta_chunks, self.number_of_state_bits, self.T, self.s, self.boost_true_positive_feedback)
 		elif incremental == False:
 			_lib.tm_destroy(self.rtm)
