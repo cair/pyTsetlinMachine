@@ -68,8 +68,8 @@ struct TsetlinMachine *CreateTsetlinMachine(int number_of_clauses, int number_of
 
 	tm->feedback_to_clauses = (int *)malloc(sizeof(int) * tm->number_of_clause_chunks);
 
-	if (((number_of_features*2) % 32) != 0) {
-		tm->filter  = (~(0xffffffff << ((number_of_features*2) % 32)));
+	if (((number_of_features) % 32) != 0) {
+		tm->filter  = (~(0xffffffff << ((number_of_features) % 32)));
 	} else {
 		tm->filter = 0xffffffff;
 	}
@@ -112,15 +112,15 @@ static inline void tm_initialize_random_streams(struct TsetlinMachine *tm)
 	// Initialize all bits to zero	
 	memset(tm->feedback_to_la, 0, tm->number_of_ta_chunks*sizeof(unsigned int));
 
-	int n = 2 * tm->number_of_features;
+	int n = tm->number_of_features;
 	double p = 1.0 / tm->s;
 	int active = normal(n * p, n * p * (1 - p));
 	active = active >= n ? n : active;
 	active = active < 0 ? 0 : active;
 	while (active--) {
-		int f = fast_rand() % (2 * tm->number_of_features);
+		int f = fast_rand() % (tm->number_of_features);
 		while (tm->feedback_to_la[f / 32] & (1 << (f % 32))) {
-			f = fast_rand() % (2 * tm->number_of_features);
+			f = fast_rand() % (tm->number_of_features);
 	    }
 		tm->feedback_to_la[f / 32] |= 1 << (f % 32);
 	}
