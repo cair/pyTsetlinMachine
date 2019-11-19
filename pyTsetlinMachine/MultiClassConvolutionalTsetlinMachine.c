@@ -154,6 +154,15 @@ int mc_tm_ta_action(struct MultiClassTsetlinMachine *mc_tm, int class, int claus
 	return tm_ta_action(mc_tm->tsetlin_machines[class], clause, ta);
 }
 
+void mc_tm_clause_configuration(struct MultiClassTsetlinMachine *mc_tm, int class, int clause, unsigned int *clause_configuration)
+{
+	for (int k = 0; k < mc_tm->tsetlin_machines[class]->number_of_features; ++k) {
+		clause_configuration[k] = tm_ta_action(mc_tm->tsetlin_machines[class], clause, k);
+	}
+
+	return;
+}
+
 /*****************************************************/
 /*** Storing and Loading of Tsetlin Machine State ****/
 /*****************************************************/
@@ -171,6 +180,44 @@ void mc_tm_set_state(struct MultiClassTsetlinMachine *mc_tm, int class, unsigned
 	
 	return;
 }
+
+/******************************************************************************/
+/*** Clause Based Transformation of Input Examples for Multi-layer Learning ***/
+/******************************************************************************/
+
+void mc_tm_transform(struct MultiClassTsetlinMachine *mc_tm, unsigned int *X,  unsigned int *X_transformed, int invert, int number_of_examples)
+{
+	unsigned int step_size = mc_tm->number_of_patches * mc_tm->number_of_ta_chunks;
+
+	unsigned int pos = 0;
+	int transformed_feature = 0;
+	for (int l = 0; l < number_of_examples; l++) {
+		for (int i = 0; i < mc_tm->number_of_classes; i++) {	
+			tm_score(mc_tm->tsetlin_machines[i], &X[pos]);
+
+			for (int j = 0; j < mc_tm->tsetlin_machines[i]->number_of_clauses; ++j) {
+				int clause_chunk = j / 32;
+				int clause_pos = j % 32;
+
+				int clause_output = (mc_tm->tsetlin_machines[i]->clause_output[clause_chunk] & (1 << clause_pos)) > 0;
+	
+				if (clause_output && !invert) {
+					X_transformed[transformed_feature] = 1;
+				} else if (!clause_output && invert) {
+					X_transformed[transformed_feature] = 1;
+				} else {
+					X_transformed[transformed_feature] = 0;
+				}
+
+				transformed_feature++;
+			} 
+		}
+		pos += step_size;
+	}
+	
+	return;
+}
+
 
 
 
