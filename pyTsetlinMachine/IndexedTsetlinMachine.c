@@ -37,12 +37,12 @@ struct IndexedTsetlinMachine *CreateIndexedTsetlinMachine(struct MultiClassTsetl
 	struct IndexedTsetlinMachine *itm = (void *)malloc(sizeof(struct IndexedTsetlinMachine));
 	itm->mc_tm = mc_tm;
 
-	itm->clause_state = (void *)malloc(sizeof(unsigned int) * itm->mc_tm->number_of_classes * itm->mc_tm->tsetlin_machines[0]->number_of_clauses * itm->mc_tm->tsetlin_machines[0]->number_of_features*2);
+	itm->clause_state = (void *)malloc(sizeof(unsigned int) * itm->mc_tm->number_of_classes * itm->mc_tm->tsetlin_machines[0]->number_of_clauses * itm->mc_tm->tsetlin_machines[0]->number_of_features);
 
 	itm->baseline_class_sum = (void *)malloc(sizeof(int) * itm->mc_tm->number_of_classes);
 
 	itm->class_feature_list = (void *)malloc(sizeof(int) * itm->mc_tm->number_of_classes * (itm->mc_tm->tsetlin_machines[0]->number_of_clauses + 1) * itm->mc_tm->tsetlin_machines[0]->number_of_features * 2);
-	itm->class_feature_pos = (void *)malloc(sizeof(int) * itm->mc_tm->number_of_classes * itm->mc_tm->tsetlin_machines[0]->number_of_clauses * itm->mc_tm->tsetlin_machines[0]->number_of_features * 2);
+	itm->class_feature_pos = (void *)malloc(sizeof(int) * itm->mc_tm->number_of_classes * itm->mc_tm->tsetlin_machines[0]->number_of_clauses * itm->mc_tm->tsetlin_machines[0]->number_of_features);
 
 	return itm;
 }
@@ -58,10 +58,10 @@ void itm_destroy(struct IndexedTsetlinMachine *itm)
 
 void itm_add_clause(struct IndexedTsetlinMachine *itm, int class, int clause, int feature)
 {	
-	int list_start = class*itm->mc_tm->tsetlin_machines[0]->number_of_features*2*(itm->mc_tm->tsetlin_machines[0]->number_of_clauses+1) + feature*(itm->mc_tm->tsetlin_machines[0]->number_of_clauses+1);
+	int list_start = class*itm->mc_tm->tsetlin_machines[0]->number_of_features*(itm->mc_tm->tsetlin_machines[0]->number_of_clauses+1) + feature*(itm->mc_tm->tsetlin_machines[0]->number_of_clauses+1);
 	int list_size = itm->class_feature_list[list_start];
 
-	int list_pos = class*itm->mc_tm->tsetlin_machines[0]->number_of_clauses*itm->mc_tm->tsetlin_machines[0]->number_of_features*2 + clause*itm->mc_tm->tsetlin_machines[0]->number_of_features*2 + feature;
+	int list_pos = class*itm->mc_tm->tsetlin_machines[0]->number_of_clauses*itm->mc_tm->tsetlin_machines[0]->number_of_features + clause*itm->mc_tm->tsetlin_machines[0]->number_of_features + feature;
 	itm->class_feature_list[list_start + list_size] = clause;
 	itm->class_feature_pos[list_pos] = list_size;
 	itm->class_feature_list[list_start]++;
@@ -69,14 +69,14 @@ void itm_add_clause(struct IndexedTsetlinMachine *itm, int class, int clause, in
 
 void itm_delete_clause(struct IndexedTsetlinMachine *itm, int class, int clause, int feature)
 {
-	int list_pos = class*itm->mc_tm->tsetlin_machines[0]->number_of_clauses*itm->mc_tm->tsetlin_machines[0]->number_of_features*2 + clause*itm->mc_tm->tsetlin_machines[0]->number_of_features*2 + feature;
+	int list_pos = class*itm->mc_tm->tsetlin_machines[0]->number_of_clauses*itm->mc_tm->tsetlin_machines[0]->number_of_features + clause*itm->mc_tm->tsetlin_machines[0]->number_of_features + feature;
 
-	int list_start = class*itm->mc_tm->tsetlin_machines[0]->number_of_features*2*(itm->mc_tm->tsetlin_machines[0]->number_of_clauses+1) + feature*(itm->mc_tm->tsetlin_machines[0]->number_of_clauses+1);
+	int list_start = class*itm->mc_tm->tsetlin_machines[0]->number_of_features*(itm->mc_tm->tsetlin_machines[0]->number_of_clauses+1) + feature*(itm->mc_tm->tsetlin_machines[0]->number_of_clauses+1);
 	int list_size = itm->class_feature_list[list_start];
 
 	if (list_start + itm->class_feature_pos[list_pos] != list_start + list_size - 1) {
 		itm->class_feature_list[list_start + itm->class_feature_pos[list_pos]] = itm->class_feature_list[list_start + list_size - 1];
-		int list_pos_last = class*itm->mc_tm->tsetlin_machines[0]->number_of_clauses*itm->mc_tm->tsetlin_machines[0]->number_of_features*2 + itm->class_feature_list[list_start + list_size - 1]*itm->mc_tm->tsetlin_machines[0]->number_of_features*2 + feature;
+		int list_pos_last = class*itm->mc_tm->tsetlin_machines[0]->number_of_clauses*itm->mc_tm->tsetlin_machines[0]->number_of_features + itm->class_feature_list[list_start + list_size - 1]*itm->mc_tm->tsetlin_machines[0]->number_of_features + feature;
 		itm->class_feature_pos[list_pos_last] = itm->class_feature_pos[list_pos];
 	}
 
@@ -88,7 +88,7 @@ void itm_initialize(struct IndexedTsetlinMachine *itm)
 {
 	int pos = 0;
 	for (int i = 0; i < itm->mc_tm->number_of_classes; ++i) {
-		for (int k = 0; k < itm->mc_tm->tsetlin_machines[0]->number_of_features*2; ++k) {
+		for (int k = 0; k < itm->mc_tm->tsetlin_machines[0]->number_of_features; ++k) {
 			itm->class_feature_list[pos] = 1; // Number of elements in list + 1
 			pos += itm->mc_tm->tsetlin_machines[0]->number_of_clauses + 1;
 		}
@@ -96,7 +96,7 @@ void itm_initialize(struct IndexedTsetlinMachine *itm)
 
 	pos = 0;
 	for (int i = 0; i < itm->mc_tm->number_of_classes; ++i) {
-		for (int k = 0; k < itm->mc_tm->tsetlin_machines[0]->number_of_features*2; ++k) {
+		for (int k = 0; k < itm->mc_tm->tsetlin_machines[0]->number_of_features; ++k) {
 			for (int j = 0; j < itm->mc_tm->tsetlin_machines[0]->number_of_clauses; ++j) {
 				itm->class_feature_pos[pos] = -1;
 				pos++;
@@ -109,10 +109,6 @@ void itm_initialize(struct IndexedTsetlinMachine *itm)
 			for (int j = 0; j < itm->mc_tm->tsetlin_machines[i]->number_of_clauses; ++j) {
 				if (mc_tm_ta_action(itm->mc_tm, i, j, k) == 1) {
 					itm_add_clause(itm, i, j, k);
-				}
-
-				if (mc_tm_ta_action(itm->mc_tm, i, j, k + itm->mc_tm->tsetlin_machines[0]->number_of_features) == 1) {
-					itm_add_clause(itm, i, j, k + itm->mc_tm->tsetlin_machines[0]->number_of_features);
 				}
 			}
 		}
@@ -131,37 +127,37 @@ int itm_sum_up_clause_votes(struct IndexedTsetlinMachine *itm, int class, unsign
 		int k_chunk = k / 32;
 		int k_pos = k % 32;
 
-		int feature = k + ((Xi[k_chunk] & (1 << k_pos)) > 0)*itm->mc_tm->tsetlin_machines[0]->number_of_features;
+		if (!(Xi[k_chunk] & (1 << k_pos))) {
+			int list_start = class*itm->mc_tm->tsetlin_machines[0]->number_of_features*(itm->mc_tm->tsetlin_machines[0]->number_of_clauses+1) + k*(itm->mc_tm->tsetlin_machines[0]->number_of_clauses+1);
+			int list_size = itm->class_feature_list[list_start];
 
-		int list_start = class*itm->mc_tm->tsetlin_machines[0]->number_of_features*2*(itm->mc_tm->tsetlin_machines[0]->number_of_clauses+1) + feature*(itm->mc_tm->tsetlin_machines[0]->number_of_clauses+1);
-		int list_size = itm->class_feature_list[list_start];
+			for (int j = 1; j < list_size; j++) {
+				int clause = itm->class_feature_list[list_start + j];
+				int clause_chunk = clause / 32;
+				int clause_pos = clause % 32;
 
-		for (int j = 1; j < list_size; j++) {
-			int clause = itm->class_feature_list[list_start + j];
-			int clause_chunk = clause / 32;
-			int clause_pos = clause % 32;
-
-			class_sum -= (clause % 2 == 0)*((itm->mc_tm->tsetlin_machines[class]->clause_output[clause_chunk] & (1 << clause_pos)) > 0);	
-			class_sum += (clause % 2 != 0)*((itm->mc_tm->tsetlin_machines[class]->clause_output[clause_chunk] & (1 << clause_pos)) > 0);	
-			itm->mc_tm->tsetlin_machines[class]->clause_output[clause_chunk] &= ~(1 << clause_pos);
+				class_sum -= (clause % 2 == 0)*((itm->mc_tm->tsetlin_machines[class]->clause_output[clause_chunk] & (1 << clause_pos)) > 0);	
+				class_sum += (clause % 2 != 0)*((itm->mc_tm->tsetlin_machines[class]->clause_output[clause_chunk] & (1 << clause_pos)) > 0);	
+				itm->mc_tm->tsetlin_machines[class]->clause_output[clause_chunk] &= ~(1 << clause_pos);
+			}
 		}
 	}
-	
 	return class_sum;
 }
 
 void itm_predict(struct IndexedTsetlinMachine *itm, unsigned int *X, int *y, int number_of_examples)
 {
+	unsigned int step_size = itm->mc_tm->number_of_patches * itm->mc_tm->number_of_ta_chunks;
+
 	// Initializes feature-clause map
 	itm_initialize(itm);
-	
-	unsigned int step_size = itm->mc_tm->number_of_patches * itm->mc_tm->number_of_ta_chunks;	
+
 	for (int i = 0; i < itm->mc_tm->number_of_classes; ++i) {
 		itm->baseline_class_sum[i] = 0;
 
 		for (int j = 0; j < itm->mc_tm->tsetlin_machines[0]->number_of_clauses; ++j) {
 			int all_exclude = 1;
-			for (int k = 0; k < itm->mc_tm->tsetlin_machines[0]->number_of_features*2; ++k) {
+			for (int k = 0; k < itm->mc_tm->tsetlin_machines[0]->number_of_features; ++k) {
 				if (mc_tm_ta_action(itm->mc_tm, i, j, k) == 1) {
 					all_exclude = 0;
 					break;
@@ -277,14 +273,14 @@ void itm_update(struct IndexedTsetlinMachine *itm, unsigned int *Xi, int class, 
 					for (int b = 0; b < 32; ++b) {
 						if ((previous & (1 << b)) > 0 && (current & (1 << b)) == 0) {
 							int feature = k*32 + b;
-							if (feature < itm->mc_tm->tsetlin_machines[0]->number_of_features*2) {
+							if (feature < itm->mc_tm->tsetlin_machines[0]->number_of_features) {
 								itm_delete_clause(itm, class, j, feature);
 							}
 						}
 
 						if ((previous & (1 << b)) == 0 && (current & (1 << b)) > 0) {
 							int feature = k*32 + b;
-							if (feature < itm->mc_tm->tsetlin_machines[0]->number_of_features*2) {
+							if (feature < itm->mc_tm->tsetlin_machines[0]->number_of_features) {
 								itm_add_clause(itm, class, j, feature);
 							}
 						}
