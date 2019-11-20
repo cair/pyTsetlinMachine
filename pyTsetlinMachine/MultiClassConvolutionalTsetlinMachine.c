@@ -190,7 +190,7 @@ void mc_tm_transform(struct MultiClassTsetlinMachine *mc_tm, unsigned int *X,  u
 	unsigned int step_size = mc_tm->number_of_patches * mc_tm->number_of_ta_chunks;
 
 	unsigned int pos = 0;
-	int transformed_feature = 0;
+	unsigned long transformed_feature = 0;
 	for (int l = 0; l < number_of_examples; l++) {
 		for (int i = 0; i < mc_tm->number_of_classes; i++) {	
 			tm_score(mc_tm->tsetlin_machines[i], &X[pos]);
