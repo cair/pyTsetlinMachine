@@ -120,7 +120,10 @@ _lib.itm_predict.restype = None
 _lib.itm_predict.argtypes = [itm_pointer, array_1d_uint, array_1d_uint, C.c_int]
 
 _lib.itm_fit.restype = None                      
-_lib.itm_fit.argtypes = [itm_pointer, array_1d_uint, array_1d_uint, C.c_int, C.c_int] 
+_lib.itm_fit.argtypes = [itm_pointer, array_1d_uint, array_1d_uint, C.c_int, C.c_int]
+
+_lib.itm_transform.restype = None                    
+_lib.itm_transform.argtypes = [itm_pointer, array_1d_uint, array_1d_uint, C.c_int, C.c_int]
 
 class MultiClassConvolutionalTsetlinMachine2D():
 	def __init__(self, number_of_clauses, T, s, patch_dim, boost_true_positive_feedback=1, number_of_state_bits=8, append_negated=True, weighted_clauses=False):
@@ -354,11 +357,11 @@ class MultiClassTsetlinMachine():
 			_lib.tm_encode(Xm, self.encoded_X, number_of_examples, self.number_of_features, 1, 1, self.number_of_features, 1, 0)
 	
 		X_transformed = np.ascontiguousarray(np.empty(number_of_examples*self.number_of_classes*self.number_of_clauses, dtype=np.uint32))
-		
-		if (inverted):
-			_lib.mc_tm_transform(self.mc_tm, self.encoded_X, X_transformed, 1, number_of_examples)
+
+		if self.indexed:
+			_lib.itm_transform(self.itm, self.encoded_X, X_transformed, inverted, number_of_examples)
 		else:
-			_lib.mc_tm_transform(self.mc_tm, self.encoded_X, X_transformed, 0, number_of_examples)
+			_lib.mc_tm_transform(self.mc_tm, self.encoded_X, X_transformed, inverted, number_of_examples)
 
 		return X_transformed.reshape((number_of_examples, self.number_of_classes*self.number_of_clauses))
 
