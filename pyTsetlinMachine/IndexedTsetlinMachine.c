@@ -233,12 +233,15 @@ void itm_fit(struct IndexedTsetlinMachine *itm, unsigned int *X, int y[], int nu
 		for (int l = 0; l < number_of_examples; l++) {
 			itm_update(itm, &X[pos], y[l], 1);
 
-			// Randomly pick one of the other classes, for pairwise learning of class output 
-			unsigned int negative_target_class = (unsigned int)itm->mc_tm->number_of_classes * 1.0*rand()/((unsigned int)RAND_MAX + 1);
-			while (negative_target_class == y[l]) {
-				negative_target_class = (unsigned int)itm->mc_tm->number_of_classes * 1.0*rand()/((unsigned int)RAND_MAX + 1);
+			if (itm->mc_tm->number_of_classes > 1) {
+				// Randomly pick one of the other classes, for pairwise learning of class output 
+				unsigned int negative_target_class = (unsigned int)itm->mc_tm->number_of_classes * 1.0*rand()/((unsigned int)RAND_MAX + 1);
+				while (negative_target_class == y[l]) {
+					negative_target_class = (unsigned int)itm->mc_tm->number_of_classes * 1.0*rand()/((unsigned int)RAND_MAX + 1);
+				}
+				itm_update(itm, &X[pos], negative_target_class, 0);
 			}
-			itm_update(itm, &X[pos], negative_target_class, 0);
+			
 			pos += step_size;
 		}
 	}
