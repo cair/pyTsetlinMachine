@@ -258,7 +258,12 @@ void itm_update(struct IndexedTsetlinMachine *itm, unsigned int *Xi, int class, 
 {
 	struct TsetlinMachine *tm = itm->mc_tm->tsetlin_machines[class];
 
-	int class_sum = itm_sum_up_clause_votes(itm, class, Xi);
+	int class_sum = 0;
+	for (int j = 0; j < itm->mc_tm->tsetlin_machines[0]->number_of_clauses; ++j) {
+		class_sum += itm->mc_tm->tsetlin_machines[class]->clause_weights[j]*(1 - 2*(j % 2));
+	}
+	class_sum += itm_sum_up_clause_votes(itm, class, Xi);
+
 	class_sum = (class_sum > (itm->mc_tm->tsetlin_machines[0]->T)) ? (itm->mc_tm->tsetlin_machines[0]->T) : class_sum;
 	class_sum = (class_sum < -(itm->mc_tm->tsetlin_machines[0]->T)) ? -(itm->mc_tm->tsetlin_machines[0]->T) : class_sum;
 
