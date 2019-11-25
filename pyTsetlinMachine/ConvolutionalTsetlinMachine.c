@@ -67,6 +67,8 @@ struct TsetlinMachine *CreateTsetlinMachine(int number_of_clauses, int number_of
 	tm->clause_patch = (unsigned int *)malloc(sizeof(unsigned int) * number_of_clauses);
 
 	tm->feedback_to_clauses = (int *)malloc(sizeof(int) * tm->number_of_clause_chunks);
+	
+	tm->clause_weights = (unsigned int *)malloc(sizeof(unsigned int) * number_of_clauses);
 
 	if (((number_of_features) % 32) != 0) {
 		tm->filter  = (~(0xffffffff << ((number_of_features) % 32)));
@@ -107,6 +109,7 @@ void tm_destroy(struct TsetlinMachine *tm)
 	free(tm->feedback_to_la);
 	free(tm->ta_state);
 	free(tm->feedback_to_clauses);
+	free(tm->clause_weights);
 }
 
 static inline void tm_initialize_random_streams(struct TsetlinMachine *tm)
