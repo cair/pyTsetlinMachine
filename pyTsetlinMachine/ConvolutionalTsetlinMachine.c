@@ -99,6 +99,7 @@ void tm_initialize(struct TsetlinMachine *tm)
 			tm->ta_state[pos] = 0;
 			pos++;
 		}
+		tm->clause_weights[j] = 1;
 	}
 }
 
