@@ -289,6 +289,10 @@ void tm_update_clauses(struct TsetlinMachine *tm, unsigned int *Xi, int class_su
 		if ((2*target-1) * (1 - 2 * (j & 1)) == -1) {
 			if ((tm->clause_output[clause_chunk] & (1 << clause_chunk_pos)) > 0) {
 				// Type II Feedback
+				
+				if (tm->weighted_clauses && tm->clause_weights[j] > 1) {
+					tm->clause_weights[j]--;
+				}
 
 				for (int k = 0; k < tm->number_of_ta_chunks; ++k) {
 					int patch = tm->clause_patch[j];
@@ -303,6 +307,12 @@ void tm_update_clauses(struct TsetlinMachine *tm, unsigned int *Xi, int class_su
 			tm_initialize_random_streams(tm);
 
 			if ((tm->clause_output[clause_chunk] & (1 << clause_chunk_pos)) > 0) {
+				// Type Ia Feedback
+
+				if (tm->weighted_clauses) {
+					tm->clause_weights[j]++;
+				}
+				
 				for (int k = 0; k < tm->number_of_ta_chunks; ++k) {
 					int patch = tm->clause_patch[j];
 					if (tm->boost_true_positive_feedback == 1) {
@@ -314,6 +324,8 @@ void tm_update_clauses(struct TsetlinMachine *tm, unsigned int *Xi, int class_su
 		 			tm_dec(tm, j, k, (~Xi[patch*tm->number_of_ta_chunks + k]) & tm->feedback_to_la[k]);
 				}
 			} else {
+				// Type Ib Feedback
+				
 				for (int k = 0; k < tm->number_of_ta_chunks; ++k) {
 					tm_dec(tm, j, k, tm->feedback_to_la[k]);
 				}
