@@ -238,7 +238,7 @@ class MultiClassConvolutionalTsetlinMachine2D():
 		return X_transformed.reshape((number_of_examples, self.number_of_classes*self.number_of_clauses))
 
 class MultiClassTsetlinMachine():
-	def __init__(self, number_of_clauses, T, s, boost_true_positive_feedback=1, number_of_state_bits=8, indexed=True, append_negated=True):
+	def __init__(self, number_of_clauses, T, s, boost_true_positive_feedback=1, number_of_state_bits=8, indexed=True, append_negated=True, weighted_clauses=True):
 		self.number_of_clauses = number_of_clauses
 		self.number_of_clause_chunks = (number_of_clauses-1)/32 + 1
 		self.number_of_state_bits = number_of_state_bits
@@ -249,6 +249,7 @@ class MultiClassTsetlinMachine():
 		self.itm = None
 		self.indexed = indexed
 		self.append_negated = append_negated
+		self.weighted_clauses = weighted_clauses
 
 	def __del__(self):
 		if self.mc_tm != None:
