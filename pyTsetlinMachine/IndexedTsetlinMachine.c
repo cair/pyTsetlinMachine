@@ -291,3 +291,43 @@ void itm_update(struct IndexedTsetlinMachine *itm, unsigned int *Xi, int class, 
 		}
 	}
 }
+
+/******************************************************************************/
+/*** Clause Based Transformation of Input Examples for Multi-layer Learning ***/
+/******************************************************************************/
+
+void itm_transform(struct IndexedTsetlinMachine *itm, unsigned int *X,  unsigned int *X_transformed, int invert, int number_of_examples)
+{
+	// Initializes feature-clause map
+	itm_initialize(itm);
+
+	unsigned int step_size = itm->mc_tm->number_of_patches * itm->mc_tm->number_of_ta_chunks;
+
+	unsigned int pos = 0;
+	int transformed_feature = 0;
+	for (int l = 0; l < number_of_examples; l++) {
+		for (int i = 0; i < itm->mc_tm->number_of_classes; i++) {	
+			itm_sum_up_clause_votes(itm, i, &X[pos]);
+
+			for (int j = 0; j < itm->mc_tm->tsetlin_machines[i]->number_of_clauses; ++j) {
+				int clause_chunk = j / 32;
+				int clause_pos = j % 32;
+
+				int clause_output = (itm->mc_tm->tsetlin_machines[i]->clause_output[clause_chunk] & (1 << clause_pos)) > 0;
+	
+				if (clause_output && !invert) {
+					X_transformed[transformed_feature] = 1;
+				} else if (!clause_output && invert) {
+					X_transformed[transformed_feature] = 1;
+				} else {
+					X_transformed[transformed_feature] = 0;
+				}
+
+				transformed_feature++;
+			} 
+		}
+		pos += step_size;
+	}
+	
+	return;
+}
