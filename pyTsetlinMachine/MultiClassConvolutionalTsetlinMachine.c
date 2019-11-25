@@ -35,7 +35,7 @@ https://arxiv.org/abs/1905.09688
 /**************************************/
 
 /*** Initialize Tsetlin Machine ***/
-struct MultiClassTsetlinMachine *CreateMultiClassTsetlinMachine(int number_of_classes, int number_of_clauses, int number_of_features, int number_of_patches, int number_of_ta_chunks, int number_of_state_bits, int T, double s, int boost_true_positive_feedback)
+struct MultiClassTsetlinMachine *CreateMultiClassTsetlinMachine(int number_of_classes, int number_of_clauses, int number_of_features, int number_of_patches, int number_of_ta_chunks, int number_of_state_bits, int T, double s, int boost_true_positive_feedback, int weighted_clauses)
 {
 
 	struct MultiClassTsetlinMachine *mc_tm = NULL;
@@ -45,7 +45,7 @@ struct MultiClassTsetlinMachine *CreateMultiClassTsetlinMachine(int number_of_cl
 	mc_tm->number_of_classes = number_of_classes;
 	mc_tm->tsetlin_machines = (void *)malloc(sizeof(struct TsetlinMachine *)* number_of_classes);
 	for (int i = 0; i < number_of_classes; i++) {
-		mc_tm->tsetlin_machines[i] = CreateTsetlinMachine(number_of_clauses, number_of_features, number_of_patches, number_of_ta_chunks, number_of_state_bits, T, s, boost_true_positive_feedback);
+		mc_tm->tsetlin_machines[i] = CreateTsetlinMachine(number_of_clauses, number_of_features, number_of_patches, number_of_ta_chunks, number_of_state_bits, T, s, boost_true_positive_feedback, weighted_clauses);
 	}
 	
 	mc_tm->number_of_patches = number_of_patches;
