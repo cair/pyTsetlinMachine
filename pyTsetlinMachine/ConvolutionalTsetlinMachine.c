@@ -34,7 +34,7 @@ https://arxiv.org/abs/1905.09688
 
 #include "ConvolutionalTsetlinMachine.h"
 
-struct TsetlinMachine *CreateTsetlinMachine(int number_of_clauses, int number_of_features, int number_of_patches, int number_of_ta_chunks, int number_of_state_bits, int T, double s, int boost_true_positive_feedback)
+struct TsetlinMachine *CreateTsetlinMachine(int number_of_clauses, int number_of_features, int number_of_patches, int number_of_ta_chunks, int number_of_state_bits, int T, double s, int boost_true_positive_feedback, int weighted_clauses)
 {
 	/* Set up the Tsetlin Machine structure */
 
@@ -76,6 +76,8 @@ struct TsetlinMachine *CreateTsetlinMachine(int number_of_clauses, int number_of
 
 	tm->boost_true_positive_feedback = boost_true_positive_feedback;
 
+	tm->weighted_clauses = weighted_clauses;
+	
 	tm_initialize(tm);
 
 	return tm;
