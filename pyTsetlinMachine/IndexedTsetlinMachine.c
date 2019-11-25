@@ -137,11 +137,7 @@ int itm_sum_up_clause_votes(struct IndexedTsetlinMachine *itm, int class, unsign
 				int clause_pos = clause % 32;
 
 				class_sum -= itm->mc_tm->tsetlin_machines[class]->clause_weights[clause]*(clause % 2 == 0)*((itm->mc_tm->tsetlin_machines[class]->clause_output[clause_chunk] & (1 << clause_pos)) > 0);	
-				if (itm->mc_tm->tsetlin_machines[0]->negative_polarity) {
-					class_sum += itm->mc_tm->tsetlin_machines[class]->clause_weights[clause]*(clause % 2 != 0)*((itm->mc_tm->tsetlin_machines[class]->clause_output[clause_chunk] & (1 << clause_pos)) > 0);	
-				} else {
-					class_sum -= itm->mc_tm->tsetlin_machines[class]->clause_weights[clause]*(clause % 2 != 0)*((itm->mc_tm->tsetlin_machines[class]->clause_output[clause_chunk] & (1 << clause_pos)) > 0);	
-				}
+				class_sum += itm->mc_tm->tsetlin_machines[class]->clause_weights[clause]*(clause % 2 != 0)*((itm->mc_tm->tsetlin_machines[class]->clause_output[clause_chunk] & (1 << clause_pos)) > 0);
 				
 				itm->mc_tm->tsetlin_machines[class]->clause_output[clause_chunk] &= ~(1 << clause_pos);
 			}
