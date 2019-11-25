@@ -169,8 +169,8 @@ void itm_predict(struct IndexedTsetlinMachine *itm, unsigned int *X, int *y, int
 				}
 			}
 
-			if (all_exclude) {
-				itm->baseline_class_sum[i] -= 1 - 2*(j % 2);
+			if (!all_exclude) {
+				itm->baseline_class_sum[i] += itm->mc_tm->tsetlin_machines[i]->clause_weights[j]*(1 - 2*(j % 2));
 			}
 		}
 	}
