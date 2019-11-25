@@ -48,4 +48,4 @@ void itm_update(struct IndexedTsetlinMachine *itm, unsigned int *Xi, int class, 
 
 void itm_predict(struct IndexedTsetlinMachine *itm, unsigned int *X, int *y, int number_of_examples);
 
-
+void itm_transform(struct IndexedTsetlinMachine *itm, unsigned int *X,  unsigned int *X_transformed, int invert, int number_of_examples);
