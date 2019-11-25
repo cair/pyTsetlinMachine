@@ -43,6 +43,8 @@ struct TsetlinMachine {
 
 	int *output_one_patches;
 
+	unsigned int *clause_weights;
+
 	int number_of_patches;
 	int number_of_ta_chunks;
 	int number_of_state_bits;
