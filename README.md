@@ -1,6 +1,6 @@
 # pyTsetlinMachine
 
-Implementation of the Tsetlin Machine (https://arxiv.org/abs/1804.01508), Convolutional Tsetlin Machine (https://arxiv.org/abs/1905.09688), Regression Tsetlin Machine (https://arxiv.org/abs/1905.04206, https://link.springer.com/chapter/10.1007/978-3-030-30244-3_23), and Weighted Tsetlin Machine, with support for continuous features (https://arxiv.org/abs/1905.04199, https://link.springer.com/chapter/10.1007%2F978-3-030-22999-3_49).
+Implementation of the Tsetlin Machine (https://arxiv.org/abs/1804.01508), Convolutional Tsetlin Machine (https://arxiv.org/abs/1905.09688), Regression Tsetlin Machine (https://arxiv.org/abs/1905.04206, https://link.springer.com/chapter/10.1007/978-3-030-30244-3_23), and Weighted Tsetlin Machine, with support for continuous features (https://arxiv.org/abs/1905.04199, https://link.springer.com/chapter/10.1007%2F978-3-030-22999-3_49) and clause indexing.
 
 ## Installation
 
@@ -514,6 +514,15 @@ RMSD over 25 runs:
 - Ubuntu or macOS
 
 ## Citation
+
+```bash
+@article{phoulady2019, 
+  author={Adrian {Phoulady} and Ole-Christoffer {Granmo} and Saeed Rahimi {Gorji} and Hady Ahmady {Phoulady}}, 
+  journal={Submitted}, 
+  title="{The Weighted Tsetlin Machine: Compressed Representations with Clause Weighting}",
+  year={2019}
+}
+```
 
 ```bash
 @article{berge2019, 
