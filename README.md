@@ -230,7 +230,7 @@ for i in range(60):
 #### Output
 
 ```bash
-python3 ./MNISTDemo.py 
+python3 ./MNISTDemoWeightedClauses.py
 
 Accuracy over 60 epochs:
 
