@@ -196,6 +196,53 @@ Accuracy over 250 epochs:
 #249 Accuracy: 97.98% Training: 7.74s Testing: 3.10s
 #250 Accuracy: 98.07% Training: 7.92s Testing: 3.12s
 ```
+### MNIST Demo w/Weighted Clauses
+
+#### Code: MNISTDemoWeightedClauses.py
+
+```python
+from pyTsetlinMachine.tm import MultiClassTsetlinMachine
+import numpy as np
+from time import time
+
+from keras.datasets import mnist
+
+(X_train, Y_train), (X_test, Y_test) = mnist.load_data()
+
+X_train = np.where(X_train.reshape((X_train.shape[0], 28*28)) > 75, 1, 0) 
+X_test = np.where(X_test.reshape((X_test.shape[0], 28*28)) > 75, 1, 0) 
+
+tm = MultiClassTsetlinMachine(2000, 50*100, 10.0, weighted_clauses=True)
+
+print("\nAccuracy over 60 epochs:\n")
+for i in range(60):
+        start_training = time()
+        tm.fit(X_train, Y_train, epochs=1, incremental=True)
+        stop_training = time()
+
+        start_testing = time()
+        result = 100*(tm.predict(X_test) == Y_test).mean()
+        stop_testing = time()
+
+        print("#%d Accuracy: %.2f%% Training: %.2fs Testing: %.2fs" % (i+1, result, stop_training-start_training, stop_testing-start_testing))
+```
+
+#### Output
+
+```bash
+python3 ./MNISTDemo.py 
+
+Accuracy over 60 epochs:
+
+#1 Accuracy: 93.65% Training: 60.98s Testing: 3.98s
+#2 Accuracy: 95.33% Training: 26.84s Testing: 3.87s
+#3 Accuracy: 96.08% Training: 22.41s Testing: 3.95s
+...
+
+#58 Accuracy: 98.14% Training: 8.54s Testing: 4.17s
+#59 Accuracy: 98.08% Training: 8.49s Testing: 4.22s
+#60 Accuracy: 98.19% Training: 8.80s Testing: 4.15s
+```
 
 ### MNIST 2D Convolution Demo
 
