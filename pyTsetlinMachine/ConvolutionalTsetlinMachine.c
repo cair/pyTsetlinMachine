@@ -34,7 +34,7 @@ https://arxiv.org/abs/1905.09688
 
 #include "ConvolutionalTsetlinMachine.h"
 
-struct TsetlinMachine *CreateTsetlinMachine(int number_of_clauses, int number_of_features, int number_of_patches, int number_of_ta_chunks, int number_of_state_bits, int T, double s, int boost_true_positive_feedback, int weighted_clauses)
+struct TsetlinMachine *CreateTsetlinMachine(int number_of_clauses, int number_of_features, int number_of_patches, int number_of_ta_chunks, int number_of_state_bits, int T, double s, double s_range, int boost_true_positive_feedback, int weighted_clauses)
 {
 	/* Set up the Tsetlin Machine structure */
 
@@ -63,6 +63,8 @@ struct TsetlinMachine *CreateTsetlinMachine(int number_of_clauses, int number_of
 	tm->T = T;
 
 	tm->s = s;
+
+	tm->s_range = s_range;
 
 	tm->clause_patch = (unsigned int *)malloc(sizeof(unsigned int) * number_of_clauses);
 
@@ -113,13 +115,14 @@ void tm_destroy(struct TsetlinMachine *tm)
 	free(tm->clause_weights);
 }
 
-static inline void tm_initialize_random_streams(struct TsetlinMachine *tm)
+static inline void tm_initialize_random_streams(struct TsetlinMachine *tm, int clause)
 {
 	// Initialize all bits to zero	
 	memset(tm->feedback_to_la, 0, tm->number_of_ta_chunks*sizeof(unsigned int));
 
 	int n = tm->number_of_features;
-	double p = 1.0 / tm->s;
+	double p = 1.0 / (tm->s + 1.0 * clause * (tm->s_range - tm->s) / tm->number_of_clauses);
+
 	int active = normal(n * p, n * p * (1 - p));
 	active = active >= n ? n : active;
 	active = active < 0 ? 0 : active;
@@ -304,7 +307,7 @@ void tm_update_clauses(struct TsetlinMachine *tm, unsigned int *Xi, int class_su
 		} else if ((2*target-1) * (1 - 2 * (j & 1)) == 1) {
 			// Type I Feedback
 
-			tm_initialize_random_streams(tm);
+			tm_initialize_random_streams(tm, j);
 
 			if ((tm->clause_output[clause_chunk] & (1 << clause_chunk_pos)) > 0) {
 				// Type Ia Feedback
@@ -504,7 +507,7 @@ void tm_update_regression(struct TsetlinMachine *tm, unsigned int *Xi, int targe
 		} else if (prediction_error < 0) {
 			// Type I Feedback
 
-			tm_initialize_random_streams(tm);
+			tm_initialize_random_streams(tm, j);
 
 			if ((tm->clause_output[clause_chunk] & (1 << clause_chunk_pos)) > 0) {
 				for (int k = 0; k < tm->number_of_ta_chunks; ++k) {

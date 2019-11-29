@@ -36,7 +36,7 @@ struct MultiClassTsetlinMachine {
 	int number_of_state_bits;
 };
 
-struct MultiClassTsetlinMachine *CreateMultiClassTsetlinMachine(int number_of_classes, int number_of_clauses, int number_of_features, int number_of_patches, int number_of_ta_chunks, int number_of_state_bits, int T, double s, int boost_true_positive_feedback, int weighted_clauses);
+struct MultiClassTsetlinMachine *CreateMultiClassTsetlinMachine(int number_of_classes, int number_of_clauses, int number_of_features, int number_of_patches, int number_of_ta_chunks, int number_of_state_bits, int T, double s, double s_range, int boost_true_positive_feedback, int weighted_clauses);
 
 void mc_tm_initialize(struct MultiClassTsetlinMachine *mc_tm);
 
