@@ -246,7 +246,7 @@ Accuracy over 60 epochs:
 
 ### MNIST 2D Convolution Demo w/Weighted Clauses
 
-#### Code: MNISTDemo2DConvolutionWeighted.py
+#### Code: MNISTDemo2DConvolutionWeightedClauses.py
 
 ```python
 from pyTsetlinMachine.tm import MultiClassConvolutionalTsetlinMachine2D
@@ -276,7 +276,7 @@ for i in range(80):
 #### Output
 
 ```bash
-python3 ./MNISTDemo2DConvolutionWeighted.py 
+python3 ./MNISTDemo2DConvolutionWeightedClauses.py 
 
 Accuracy over 80 epochs:
 
