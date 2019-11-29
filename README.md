@@ -244,9 +244,9 @@ Accuracy over 60 epochs:
 #60 Accuracy: 98.19% Training: 8.80s Testing: 4.15s
 ```
 
-### MNIST 2D Convolution Demo
+### MNIST 2D Convolution Demo w/Weighted Clauses
 
-#### Code: MNISTDemo2DConvolution.py
+#### Code: MNISTDemo2DConvolutionWeighted.py
 
 ```python
 from pyTsetlinMachine.tm import MultiClassConvolutionalTsetlinMachine2D
@@ -260,10 +260,10 @@ from keras.datasets import mnist
 X_train = np.where(X_train >= 75, 1, 0) 
 X_test = np.where(X_test >= 75, 1, 0) 
 
-tm = MultiClassConvolutionalTsetlinMachine2D(8000, 200, 10.0, (10, 10))
+tm = MultiClassConvolutionalTsetlinMachine2D(2000, 50*100, 10.0, (10, 10), weighted_clauses=True)
 
-print("\nAccuracy over 25 epochs:\n")
-for i in range(25):
+print("\nAccuracy over 80 epochs:\n")
+for i in range(80):
 	start = time()
 	tm.fit(X_train, Y_train, epochs=1, incremental=True)
 	stop = time()
@@ -276,18 +276,18 @@ for i in range(25):
 #### Output
 
 ```bash
-python3 ./MNISTDemo2DConvolution.py 
+python3 ./MNISTDemo2DConvolutionWeighted.py 
 
-Accuracy over 40 epochs:
+Accuracy over 80 epochs:
 
-#1 Accuracy: 97.81% (1383.61s)
-#2 Accuracy: 98.42% (1383.16s)
-#3 Accuracy: 98.52% (1387.48s)
+#1 Accuracy: 96.78% (393.39s)                                                                                                 
+#2 Accuracy: 97.66% (390.08s)                                                                                                 
+#3 Accuracy: 97.94% (403.75s) 
 ...
 
-#38 Accuracy: 99.11% (1381.82s)
-#39 Accuracy: 99.07% (1225.61s)
-#40 Accuracy: 99.13% (1379.31s)
+#78 Accuracy: 99.15% (448.50s)
+#79 Accuracy: 99.13% (456.35s)
+#80 Accuracy: 99.13% (430.69s)
 ```
 
 ### IMDb Text Categorization Demo
