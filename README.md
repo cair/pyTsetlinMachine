@@ -525,6 +525,15 @@ RMSD over 25 runs:
 ```
 
 ```bash
+@article{abeyrathna2019nonlinear, 
+  author={K. Darshana {Abeyrathna} and Ole-Christoffer {Granmo} and Xuan {Zhang} and Lei {Jiao} and Morten {Goodwin}}, 
+  journal={To Appear in Philosophical Transactions of the Royal Society A},
+  title="{The Regression Tsetlin Machine - A Novel Approach to Interpretable Non-Linear Regression}",
+  year={2019}
+}
+```
+
+```bash
 @InProceedings{gorji2019multigranular,
   author = {Saeed Rahimi {Gorji} and Ole-Christoffer {Granmo} and Adrian {Phoulady} and Morten {Goodwin}},
   title = "{A Tsetlin Machine with Multigranular Clauses}",
