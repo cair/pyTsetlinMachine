@@ -260,10 +260,10 @@ from keras.datasets import mnist
 X_train = np.where(X_train >= 75, 1, 0) 
 X_test = np.where(X_test >= 75, 1, 0) 
 
-tm = MultiClassConvolutionalTsetlinMachine2D(2000, 50*100, 10.0, (10, 10), weighted_clauses=True)
+tm = MultiClassConvolutionalTsetlinMachine2D(2000, 50*100, 5.0, (10, 10), weighted_clauses=True)
 
-print("\nAccuracy over 80 epochs:\n")
-for i in range(80):
+print("\nAccuracy over 30 epochs:\n")
+for i in range(30):
 	start = time()
 	tm.fit(X_train, Y_train, epochs=1, incremental=True)
 	stop = time()
@@ -278,16 +278,16 @@ for i in range(80):
 ```bash
 python3 ./MNISTDemo2DConvolutionWeightedClauses.py 
 
-Accuracy over 80 epochs:
+Accuracy over 30 epochs:
 
-#1 Accuracy: 96.78% (393.39s)                                                                                                 
-#2 Accuracy: 97.66% (390.08s)                                                                                                 
-#3 Accuracy: 97.94% (403.75s) 
+#1 Accuracy: 97.53% (403.06s)
+#2 Accuracy: 98.07% (421.25s)
+#3 Accuracy: 98.36% (430.48s)
 ...
 
-#78 Accuracy: 99.15% (448.50s)
-#79 Accuracy: 99.13% (456.35s)
-#80 Accuracy: 99.13% (430.69s)
+#28 Accuracy: 99.14% (540.11s)
+#29 Accuracy: 99.21% (546.38s)
+#30 Accuracy: 99.16% (538.87s)
 ```
 
 ### IMDb Text Categorization Demo
