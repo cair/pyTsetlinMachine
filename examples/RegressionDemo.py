@@ -14,7 +14,7 @@ b = Binarizer(max_bits_per_feature = 10)
 b.fit(X)
 X_transformed = b.transform(X)
 
-tm = RegressionTsetlinMachine(4000, 2000*10, 2.75, weighted_clauses=True)
+tm = RegressionTsetlinMachine(1000, 500*10, 2.75, weighted_clauses=True)
 
 print("\nRMSD over 25 runs:\n")
 tm_results = np.empty(0)
