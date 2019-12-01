@@ -438,10 +438,13 @@ static inline int sum_up_class_votes_regression(struct TsetlinMachine *tm)
 {
 	int class_sum = 0;
 
-	for (int j = 0; j < tm->number_of_clause_chunks; j++) {
-		class_sum += __builtin_popcount(tm->clause_output[j]);
-	}
+	for (int j = 0; j < tm->number_of_clauses; j++) {
+		int clause_chunk = j / 32;
+		int clause_pos = j % 32;
 
+		class_sum += tm->clause_weights[j] * ((tm->clause_output[clause_chunk] & (1 << clause_pos)) > 0);
+		
+	}
 	class_sum = (class_sum > (tm->T)) ? (tm->T) : class_sum;
 
 	return class_sum;
