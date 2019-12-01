@@ -490,8 +490,8 @@ python3 ./RegressionDemo.py
 
 RMSD over 25 runs:
 
-#1 RMSD: 0.60 +/- 0.00 (13.51s)
-#2 RMSD: 0.60 +/- 0.00 (13.77s)
+#1 RMSD: 0.62 +/- 0.00 (13.17s)
+#2 RMSD: 0.61 +/- 0.01 (13.19s)
 ...
 
 #24 RMSD: 0.61 +/- 0.00 (13.65s)
