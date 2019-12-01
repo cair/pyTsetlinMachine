@@ -374,7 +374,7 @@ class MultiClassTsetlinMachine():
 		return X_transformed.reshape((number_of_examples, self.number_of_classes*self.number_of_clauses))
 
 class RegressionTsetlinMachine():
-	def __init__(self, number_of_clauses, T, s, boost_true_positive_feedback=1, number_of_state_bits=8):
+	def __init__(self, number_of_clauses, T, s, boost_true_positive_feedback=1, number_of_state_bits=8, weighted_clauses=False, s_range=False):
 		self.number_of_clauses = number_of_clauses
 		self.number_of_clause_chunks = (number_of_clauses-1)/32 + 1
 		self.number_of_state_bits = number_of_state_bits
@@ -382,6 +382,11 @@ class RegressionTsetlinMachine():
 		self.s = s
 		self.boost_true_positive_feedback = boost_true_positive_feedback
 		self.rtm = None
+		self.weighted_clauses = weighted_clauses
+		if s_range:
+			self.s_range = s_range
+		else:
+			self.s_range = s
 
 	def __del__(self):
 		if self.rtm != None:
