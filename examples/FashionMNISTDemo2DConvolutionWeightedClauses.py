@@ -2,15 +2,11 @@ from pyTsetlinMachine.tm import MultiClassConvolutionalTsetlinMachine2D
 import numpy as np
 from time import time
 import cv2
-
 from keras.datasets import *
-import sys
 
-clauses = int(sys.argv[1])
-s = float(sys.argv[2])
-T = int (sys.argv[3])
-
-print(clauses, s, T)
+clauses = 2000
+s = 5.0
+T = 50*100
 
 (X_train, Y_train), (X_test, Y_test) = fashion_mnist.load_data()
 X_train = np.copy(X_train)
@@ -24,10 +20,8 @@ for i in range(X_test.shape[0]):
 
 tm = MultiClassConvolutionalTsetlinMachine2D(clauses, T, s, (10, 10), weighted_clauses=True)
 
-f = open("stats_%d_%d_%.2f.txt" % (clauses, T, s), "w+")
-
-print("\nAccuracy over 150 epochs:\n")
-for i in range(150):
+print("\nAccuracy over 50 epochs:\n")
+for i in range(50):
 	start = time()
 	tm.fit(X_train, Y_train, epochs=1, incremental=True)
 	stop = time()
@@ -38,5 +32,3 @@ for i in range(150):
 	
 	f.write("%d %.2f\n" % (i, result))
 	f.flush()
-
-f.close()
