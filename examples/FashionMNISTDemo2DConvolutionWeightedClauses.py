@@ -14,7 +14,7 @@ for i in range(X_train.shape[0]):
 for i in range(X_test.shape[0]):
 	X_test[i,:] = cv2.adaptiveThreshold(X_test[i], 1, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
 
-tm = MultiClassConvolutionalTsetlinMachine2D(2000, 50*100, 10.0, (10, 10), weighted_clauses=True)
+tm = MultiClassConvolutionalTsetlinMachine2D(2000, 50*100, 5.0, (10, 10), weighted_clauses=True)
 
 print("\nAccuracy over 30 epochs:\n")
 for i in range(30):
