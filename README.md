@@ -316,8 +316,8 @@ for i in range(X_test.shape[0]):
 
 tm = MultiClassConvolutionalTsetlinMachine2D(2000, 50*100, 5.0, (10, 10), weighted_clauses=True)
 
-print("\nAccuracy over 50 epochs:\n")
-for i in range(50):
+print("\nAccuracy over 30 epochs:\n")
+for i in range(30):
 	start = time()
 	tm.fit(X_train, Y_train, epochs=1, incremental=True)
 	stop = time()
