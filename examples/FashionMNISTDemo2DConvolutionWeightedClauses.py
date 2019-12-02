@@ -29,6 +29,3 @@ for i in range(50):
 	result = 100*(tm.predict(X_test) == Y_test).mean()
 	
 	print("#%d Accuracy: %.2f%% (%.2fs)" % (i+1, result, stop-start))
-	
-	f.write("%d %.2f\n" % (i, result))
-	f.flush()
