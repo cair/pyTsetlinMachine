@@ -302,7 +302,7 @@ from pyTsetlinMachine.tm import MultiClassConvolutionalTsetlinMachine2D
 import numpy as np
 from time import time
 import cv2
-from keras.datasets import *
+from keras.datasets import fashion_mnist
 
 (X_train, Y_train), (X_test, Y_test) = fashion_mnist.load_data()
 X_train = np.copy(X_train)
