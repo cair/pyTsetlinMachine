@@ -370,16 +370,7 @@ FEATURES=5000
 
 print("Downloading dataset...")
 
-# Save np.load
-np_load_old = np.load
-
-# Modify the default parameters of np.load
-np.load = lambda *a,**k: np_load_old(*a, allow_pickle=True, **k)
-
 train,test = keras.datasets.imdb.load_data(num_words=NUM_WORDS, index_from=INDEX_FROM)
-
-# Restore np.load for future normal usage
-np.load = np_load_old
 
 train_x,train_y = train
 test_x,test_y = test
