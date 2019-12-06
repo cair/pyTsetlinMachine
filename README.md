@@ -14,7 +14,7 @@ pip install pyTsetlinMachine
 
 ## Multi-threading
 
-* Multi-threaded implementation, https://github.com/cair/pyTsetlinMachineMT
+* Multi-threaded implementation, https://github.com/cair/pyTsetlinMachineParallel
 
 ## Tutorials
 
