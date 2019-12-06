@@ -6,15 +6,15 @@ Implementation of the Tsetlin Machine (https://arxiv.org/abs/1804.01508), Convol
   <img width="75%" src="https://github.com/olegranmo/blob/blob/master/Weighted_Tsetlin_Machine_Example_Configuration_Full.png">
 </p>
 
-## Multi-threading
-
-* Multi-threaded implementation, https://github.com/cair/pyTsetlinMachineMT
-
 ## Installation
 
 ```bash
 pip install pyTsetlinMachine
 ```
+
+## Multi-threading
+
+* Multi-threaded implementation, https://github.com/cair/pyTsetlinMachineMT
 
 ## Tutorials
 
