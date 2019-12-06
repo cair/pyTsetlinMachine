@@ -570,6 +570,10 @@ RMSD over 25 runs:
 - Numpy, http://www.numpy.org/
 - Ubuntu or macOS
 
+## Acknowledgements
+
+I thank my colleagues from the Centre for Artificial Intelligence Research (CAIR), Lei Jiao, Xuan Zhang, Geir Thore Berge, Darshana Abeyrathna, Saeed Rahimi Gorji, Sondre Glimsdal, Rupsa Saha, Bimal Bhattarai, Rohan K. Yadev, Anders Refsdal Olsen, Bernt Viggo Matheussen, Morten Goodwin, Christian Omlin, Vladimir Zadorozhny (University of Pittsburgh), Jivitesh Sharma, and Ahmed Abouzeid, for their contributions to the development of the Tsetlin machine family of techniques. I would also like to thank our House of CAIR partners, Alex Yakovlev, Rishad Shafik, Adrian Wheeldon, Jie Lei, Tousif Rahman (Newcastle Universiy), Adrian Phoulady, and Marco Wiering (University of Groningen) for their invaluable contributions.
+
 ## Citation
 
 ```bash
