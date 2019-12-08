@@ -150,7 +150,7 @@ class MultiClassConvolutionalTsetlinMachine2D():
 		number_of_examples = X.shape[0]
 
 		if self.mc_ctm == None:
-			self.number_of_classes = np.max(Y) + 1
+			self.number_of_classes = int(np.max(Y) + 1)
 			self.dim_x = X.shape[1]
 			self.dim_y = X.shape[2]
 
@@ -273,7 +273,7 @@ class MultiClassTsetlinMachine():
 		number_of_examples = X.shape[0]
 
 		if self.mc_tm == None:
-			self.number_of_classes = np.max(Y) + 1
+			self.number_of_classes = int(np.max(Y) + 1)
 
 			if self.append_negated:
 				self.number_of_features = X.shape[1]*2
