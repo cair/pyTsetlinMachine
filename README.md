@@ -12,13 +12,17 @@ Implementation of the Tsetlin Machine (https://arxiv.org/abs/1804.01508), Convol
 pip install pyTsetlinMachine
 ```
 
+## Documentation
+
+Documentation coming soon at https://pytsetlinmachine.readthedocs.io/en/latest/
+
 ## Multi-threading
 
-* Multi-threaded implementation, https://github.com/cair/pyTsetlinMachineParallel
+Multi-threaded implementation, https://github.com/cair/pyTsetlinMachineParallel
 
 ## Tutorials
 
-* Convolutional Tsetlin Machine tutorial, https://github.com/cair/convolutional-tsetlin-machine
+Convolutional Tsetlin Machine tutorial, https://github.com/cair/convolutional-tsetlin-machine
 
 ## Examples
 
