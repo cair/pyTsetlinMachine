@@ -403,7 +403,7 @@ int tm_ta_action(struct TsetlinMachine *tm, int clause, int ta)
 /*** Storing and Loading of Tsetlin Machine State ****/
 /*****************************************************/
 
-void tm_get_state(struct TsetlinMachine *tm, unsigned int *ta_state)
+void tm_get_ta_state(struct TsetlinMachine *tm, unsigned int *ta_state)
 {
 	int pos = 0;
 	for (int j = 0; j < tm->number_of_clauses; ++j) {
@@ -416,7 +416,7 @@ void tm_get_state(struct TsetlinMachine *tm, unsigned int *ta_state)
 	}
 }
 
-void tm_set_state(struct TsetlinMachine *tm, unsigned int *ta_state)
+void tm_set_ta_state(struct TsetlinMachine *tm, unsigned int *ta_state)
 {
 	int pos = 0;
 	for (int j = 0; j < tm->number_of_clauses; ++j) {
@@ -426,6 +426,20 @@ void tm_set_state(struct TsetlinMachine *tm, unsigned int *ta_state)
 				pos++;
 			}
 		}
+	}
+}
+
+void tm_get_clause_weights(struct TsetlinMachine *tm, unsigned int *clause_weights)
+{
+	for (int j = 0; j < tm->number_of_clauses; ++j) {
+		clause_weights[j] = tm->clause_weights[j];
+	}
+}
+
+void tm_set_clause_weights(struct TsetlinMachine *tm, unsigned int *clause_weights)
+{
+	for (int j = 0; j < tm->number_of_clauses; ++j) {
+		tm->clause_weights[j] = clause_weights[j];
 	}
 }
 
