@@ -86,6 +86,10 @@ int tm_score_regression(struct TsetlinMachine *tm, unsigned int *Xi);
 
 void tm_predict_regression(struct TsetlinMachine *tm, unsigned int *X, int *y, int number_of_examples);
 
-void tm_get_state(struct TsetlinMachine *tm, unsigned int *ta_state);
+void tm_get_ta_state(struct TsetlinMachine *tm, unsigned int *ta_state);
 
-void tm_set_state(struct TsetlinMachine *tm, unsigned int *ta_state);
+void tm_set_ta_state(struct TsetlinMachine *tm, unsigned int *ta_state);
+
+void tm_get_clause_weights(struct TsetlinMachine *tm, unsigned int *clause_weights);
+
+void tm_set_clause_weights(struct TsetlinMachine *tm, unsigned int *clause_weights);
