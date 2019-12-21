@@ -22,7 +22,7 @@ Multi-threaded implementation, https://github.com/cair/pyTsetlinMachineParallel
 
 ## Tutorials
 
-Convolutional Tsetlin Machine tutorial, https://github.com/cair/convolutional-tsetlin-machine
+Convolutional Tsetlin Machine tutorial, https://github.com/cair/convolutional-tsetlin-machine-tutorial
 
 ## Examples
 
