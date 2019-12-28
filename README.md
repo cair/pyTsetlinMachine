@@ -682,13 +682,22 @@ RMSD over 25 runs:
 
 I thank my colleagues from the Centre for Artificial Intelligence Research (CAIR), Lei Jiao, Xuan Zhang, Geir Thore Berge, Darshana Abeyrathna, Saeed Rahimi Gorji, Sondre Glimsdal, Rupsa Saha, Bimal Bhattarai, Rohan K. Yadev, Bernt Viggo Matheussen, Morten Goodwin, Christian Omlin, Vladimir Zadorozhny (University of Pittsburgh), Jivitesh Sharma, and Ahmed Abouzeid, for their contributions to the development of the Tsetlin machine family of techniques. I would also like to thank our House of CAIR partners, Alex Yakovlev, Rishad Shafik, Adrian Wheeldon, Jie Lei, Tousif Rahman (Newcastle University), Jonny Edwards (Temporal Computing), Marco Wiering (University of Groningen), Adrian Phoulady, Anders Refsdal Olsen, Halvor Smørvik, and Erik Mathisen for their many contributions.
 
-## Citation
+## Tsetlin Machine Papers
 
 ```bash
 @InProceedings{phoulady2019weighted, 
   author={Adrian {Phoulady} and Ole-Christoffer {Granmo} and Saeed Rahimi {Gorji} and Hady Ahmady {Phoulady}}, 
   booktitle={To Appear in the Proceedings of the Ninth International Workshop on Statistical Relational AI (StarAI 2020)}, 
   title="{The Weighted Tsetlin Machine: Compressed Representations with Clause Weighting}",
+  year={2020}
+}
+```
+
+```bash
+@InProceedings{wheeldon2020pervasive, 
+  author={Adrian {Wheeldon} and Rishad {Shafik} and Alex {Yakovlev} and Jonathan {Edwards} and Ibrahim {Haddadi} and Ole-Christoffer {Granmo}}, 
+  booktitle={SCONA Workshop at Design, Automation and Test in Europe (DATE 2020)}, 
+  title="{Tsetlin Machine: A New Paradigm for Pervasive AI}",
   year={2020}
 }
 ```
