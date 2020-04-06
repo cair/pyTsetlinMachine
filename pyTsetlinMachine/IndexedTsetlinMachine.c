@@ -310,7 +310,7 @@ void itm_transform(struct IndexedTsetlinMachine *itm, unsigned int *X,  unsigned
 
 	unsigned int step_size = itm->mc_tm->number_of_patches * itm->mc_tm->number_of_ta_chunks;
 
-	unsigned int pos = 0;
+	unsigned long int pos = 0;
 	int transformed_feature = 0;
 	for (int l = 0; l < number_of_examples; l++) {
 		for (int i = 0; i < itm->mc_tm->number_of_classes; i++) {	
