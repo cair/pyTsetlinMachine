@@ -1,18 +1,18 @@
 from setuptools import *
 
 libTM = Extension('libTM',
-                  sources = ['pyTsetlinMachine/ConvolutionalTsetlinMachine.c', 'pyTsetlinMachine/MultiClassConvolutionalTsetlinMachine.c', 'pyTsetlinMachine/Tools.c', 'pyTsetlinMachine/IndexedTsetlinMachine.c'],
+                  sources = ['pyTsetlinMachine/ConvolutionalTsetlinMachine.c', 'pyTsetlinMachine/ClassInputConvolutionalTsetlinMachine.c', 'pyTsetlinMachine/MultiClassConvolutionalTsetlinMachine.c', 'pyTsetlinMachine/Tools.c', 'pyTsetlinMachine/IndexedTsetlinMachine.c'],
                   include_dirs=['pyTsetlinMachine'])
 
 setup(
    name='pyTsetlinMachine',
-   version='0.5.0',
+   version='0.5.1',
    author='Ole-Christoffer Granmo',
    author_email='ole.granmo@uia.no',
    url='https://github.com/cair/pyTsetlinMachine/',
    license='MIT',
-   description='Implements the Tsetlin Machine, Convolutional Tsetlin Machine, Regression Tsetlin Machine, and Weighted Tsetlin Machine, with support for continuous features, multigranularity, and clause indexing.',
-   long_description='Implements the Tsetlin Machine, Convolutional Tsetlin Machine, Regression Tsetlin Machine, and Weighted Tsetlin Machine, with support for continuous features, multigranularity, and clause indexing.',
+   description='Implements the Tsetlin Machine, Class Input Tsetlin Machine, Convolutional Tsetlin Machine, Regression Tsetlin Machine, and Weighted Tsetlin Machine, with support for continuous features, multigranularity, and clause indexing.',
+   long_description='Implements the Tsetlin Machine, Class Input Tsetlin Machine, Convolutional Tsetlin Machine, Regression Tsetlin Machine, and Weighted Tsetlin Machine, with support for continuous features, multigranularity, and clause indexing.',
    ext_modules = [libTM],
    keywords ='pattern-recognition machine-learning interpretable-machine-learning rule-based-machine-learning propositional-logic tsetlin-machine regression convolution',
    packages=['pyTsetlinMachine']
