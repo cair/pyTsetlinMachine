@@ -28,10 +28,10 @@ https://arxiv.org/abs/1905.09688
 #include <stdio.h>
 #include <string.h>
 
-void tm_encode(unsigned int *X, unsigned int *encoded_X, int number_of_examples, int dim_x, int dim_y, int dim_z, int patch_dim_x, int patch_dim_y, int append_negated)
+void tm_encode(unsigned int *X, unsigned int *encoded_X, int number_of_examples, int dim_x, int dim_y, int dim_z, int patch_dim_x, int patch_dim_y, int append_negated, int class_features)
 {
 	int global_number_of_features = dim_x * dim_y * dim_z;
-	int number_of_features = patch_dim_x * patch_dim_y * dim_z + (dim_x - patch_dim_x) + (dim_y - patch_dim_y);
+	int number_of_features = class_features + patch_dim_x * patch_dim_y * dim_z + (dim_x - patch_dim_x) + (dim_y - patch_dim_y);
 	int number_of_patches = (dim_x - patch_dim_x + 1) * (dim_y - patch_dim_y + 1);
 
 	int number_of_ta_chunks;
@@ -53,6 +53,8 @@ void tm_encode(unsigned int *X, unsigned int *encoded_X, int number_of_examples,
 
 	unsigned int encoded_pos = 0;
 	for (int i = 0; i < number_of_examples; ++i) {
+		//printf("%d\n", i);
+
 		int patch_nr = 0;
 		// Produce the patches of the current image
 		for (int y = 0; y < dim_y - patch_dim_y + 1; ++y) {
@@ -60,9 +62,17 @@ void tm_encode(unsigned int *X, unsigned int *encoded_X, int number_of_examples,
 				Xi = &X[input_pos];
 				encoded_Xi = &encoded_X[encoded_pos];
 
+				// Encode class into feature vector 
+				for (int class_feature = 0; class_feature < class_features; ++class_feature) {
+
+					int chunk_nr = (class_feature + number_of_features) / 32;
+					int chunk_pos = (class_feature + number_of_features) % 32;
+					encoded_Xi[chunk_nr] |= (1 << chunk_pos);
+				}
+
 				// Encode y coordinate of patch into feature vector 
 				for (int y_threshold = 0; y_threshold < dim_y - patch_dim_y; ++y_threshold) {
-					int patch_pos = y_threshold;
+					int patch_pos = class_features + y_threshold;
 
 					if (y > y_threshold) {
 						int chunk_nr = patch_pos / 32;
@@ -77,7 +87,7 @@ void tm_encode(unsigned int *X, unsigned int *encoded_X, int number_of_examples,
 
 				// Encode x coordinate of patch into feature vector
 				for (int x_threshold = 0; x_threshold < dim_x - patch_dim_x; ++x_threshold) {
-					int patch_pos = (dim_y - patch_dim_y) + x_threshold;
+					int patch_pos = class_features + (dim_y - patch_dim_y) + x_threshold;
 
 					if (x > x_threshold) {
 						int chunk_nr = patch_pos / 32;
@@ -96,7 +106,7 @@ void tm_encode(unsigned int *X, unsigned int *encoded_X, int number_of_examples,
 					for (int p_x = 0; p_x < patch_dim_x; ++p_x) {
 						for (int z = 0; z < dim_z; ++z) {
 							int image_pos = (y + p_y)*dim_x*dim_z + (x + p_x)*dim_z + z;
-							int patch_pos = (dim_y - patch_dim_y) + (dim_x - patch_dim_x) + p_y * patch_dim_x * dim_z + p_x * dim_z + z;
+							int patch_pos = class_features + (dim_y - patch_dim_y) + (dim_x - patch_dim_x) + p_y * patch_dim_x * dim_z + p_x * dim_z + z;
 
 							if (Xi[image_pos] == 1) {
 								int chunk_nr = patch_pos / 32;
