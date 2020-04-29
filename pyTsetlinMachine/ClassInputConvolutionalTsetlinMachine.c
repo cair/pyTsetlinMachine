@@ -123,34 +123,6 @@ void ci_tm_predict(struct ClassInputTsetlinMachine *ci_tm, unsigned int *X, int 
 // The Tsetlin Machine can be trained incrementally, one training example at a time.
 // Use this method directly for online and incremental training.
 
-void ci_tm_update_alt(struct ClassInputTsetlinMachine *ci_tm, unsigned int *Xi, int target_class)
-{
-
-	unsigned int training_class = (unsigned int)ci_tm->number_of_classes * 1.0*rand()/((unsigned int)RAND_MAX + 1);
-	
-	unsigned int feature_chunk = training_class / 32;
-	unsigned int feature_chunk_pos = training_class % 32;
-
-	unsigned int inverted_feature_chunk = (training_class + ci_tm->tsetlin_machine->number_of_features/2) / 32;
-	unsigned int inverted_feature_chunk_pos = (training_class + ci_tm->tsetlin_machine->number_of_features/2) % 32;
-
-	for (int patch = 0; patch < ci_tm->number_of_patches; ++patch) {
-		Xi[patch*ci_tm->number_of_ta_chunks + feature_chunk] |= (1 << feature_chunk_pos);
-		Xi[patch*ci_tm->number_of_ta_chunks + inverted_feature_chunk] &= ~(1 << inverted_feature_chunk_pos);
-	}
-
-	if (training_class == target_class) {
-		tm_update(ci_tm->tsetlin_machine, Xi, 1);
-	} else {
-		tm_update(ci_tm->tsetlin_machine, Xi, 0);
-	}
-
-	for (int patch = 0; patch < ci_tm->number_of_patches; ++patch) {
-		Xi[patch*ci_tm->number_of_ta_chunks + feature_chunk] &= ~(1 << feature_chunk_pos);
-		Xi[patch*ci_tm->number_of_ta_chunks + inverted_feature_chunk] |= (1 << inverted_feature_chunk_pos);
-	}
-}
-
 void ci_tm_update(struct ClassInputTsetlinMachine *ci_tm, unsigned int *Xi, int target_class)
 {
 	if (1.0*rand()/((unsigned int)RAND_MAX) <= 0.5) {
