@@ -28,7 +28,7 @@ https://arxiv.org/abs/1905.09688
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "EmbeddingConvolutionalTsetlinMachine.h"
+#include "EmbeddingTsetlinMachine.h"
 
 /*****************************************************/
 /*** The Class Input Convolutional Tsetlin Machine ***/
