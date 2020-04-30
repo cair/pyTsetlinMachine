@@ -28,7 +28,7 @@ import os
 this_dir, this_filename = os.path.split(__file__)
 _lib = np.ctypeslib.load_library('libTM', os.path.join(this_dir, ".."))    
 
-class CEmbeddingConvolutionalTsetlinMachine(C.Structure):
+class CEmbeddingTsetlinMachine(C.Structure):
 	None
 
 class CMultiClassConvolutionalTsetlinMachine(C.Structure):
@@ -40,7 +40,7 @@ class CConvolutionalTsetlinMachine(C.Structure):
 class CIndexedTsetlinMachine(C.Structure):
 	None
 
-etm_pointer = C.POINTER(CEmbeddingConvolutionalTsetlinMachine)
+etm_pointer = C.POINTER(CEmbeddingTsetlinMachine)
 
 mc_ctm_pointer = C.POINTER(CMultiClassConvolutionalTsetlinMachine)
 
@@ -284,7 +284,7 @@ class MultiClassConvolutionalTsetlinMachine2D():
 		
 		return X_transformed.reshape((number_of_examples, self.number_of_classes*self.number_of_clauses))
 
-class EmbeddingConvolutionalTsetlinMachine2D():
+class ConvolutionalEmbeddingTsetlinMachine2D():
 	def __init__(self, number_of_clauses, T, s, patch_dim, boost_true_positive_feedback=1, number_of_state_bits=8, append_negated=True, weighted_clauses=False, s_range=False):
 		self.number_of_clauses = number_of_clauses
 		self.number_of_clause_chunks = (number_of_clauses-1)/32 + 1
