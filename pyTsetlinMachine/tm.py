@@ -58,7 +58,7 @@ array_1d_int = np.ctypeslib.ndpointer(
 	ndim=1,
 	flags='CONTIGUOUS')
 
-# Class Input Tsetlin Machine
+# Embedding Tsetlin Machine
 
 _lib.CreateEmbeddingTsetlinMachine.restype = etm_pointer                    
 _lib.CreateEmbeddingTsetlinMachine.argtypes = [C.c_int, C.c_int, C.c_int, C.c_int, C.c_int, C.c_int, C.c_int, C.c_double, C.c_double, C.c_int, C.c_int] 
