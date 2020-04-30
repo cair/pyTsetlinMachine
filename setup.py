@@ -11,8 +11,8 @@ setup(
    author_email='ole.granmo@uia.no',
    url='https://github.com/cair/pyTsetlinMachine/',
    license='MIT',
-   description='Implements the Tsetlin Machine, Class Input Tsetlin Machine, Convolutional Tsetlin Machine, Regression Tsetlin Machine, and Weighted Tsetlin Machine, with support for continuous features, multigranularity, and clause indexing.',
-   long_description='Implements the Tsetlin Machine, Class Input Tsetlin Machine, Convolutional Tsetlin Machine, Regression Tsetlin Machine, and Weighted Tsetlin Machine, with support for continuous features, multigranularity, and clause indexing.',
+   description='Implements the Tsetlin Machine, Embedding Tsetlin Machine, Convolutional Tsetlin Machine, Regression Tsetlin Machine, and Weighted Tsetlin Machine, with support for continuous features, multigranularity, and clause indexing.',
+   long_description='Implements the Tsetlin Machine, Embedding Tsetlin Machine, Convolutional Tsetlin Machine, Regression Tsetlin Machine, and Weighted Tsetlin Machine, with support for continuous features, multigranularity, and clause indexing.',
    ext_modules = [libTM],
    keywords ='pattern-recognition machine-learning interpretable-machine-learning rule-based-machine-learning propositional-logic tsetlin-machine regression convolution',
    packages=['pyTsetlinMachine']
