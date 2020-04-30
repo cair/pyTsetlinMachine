@@ -285,7 +285,7 @@ class MultiClassConvolutionalTsetlinMachine2D():
 		return X_transformed.reshape((number_of_examples, self.number_of_classes*self.number_of_clauses))
 
 class ConvolutionalEmbeddingTsetlinMachine2D():
-	def __init__(self, number_of_clauses, T, s, patch_dim, boost_true_positive_feedback=1, number_of_state_bits=8, append_negated=True, weighted_clauses=False, s_range=False):
+	def __init__(self, number_of_clauses, T, s, patch_dim, boost_true_positive_feedback=1, number_of_state_bits=8, weighted_clauses=False, s_range=False):
 		self.number_of_clauses = number_of_clauses
 		self.number_of_clause_chunks = (number_of_clauses-1)/32 + 1
 		self.number_of_state_bits = number_of_state_bits
@@ -294,7 +294,6 @@ class ConvolutionalEmbeddingTsetlinMachine2D():
 		self.s = s
 		self.boost_true_positive_feedback = boost_true_positive_feedback
 		self.etm = None
-		self.append_negated = append_negated
 		self.weighted_clauses = weighted_clauses
 		if s_range:
 			self.s_range = s_range
@@ -318,11 +317,8 @@ class ConvolutionalEmbeddingTsetlinMachine2D():
 			elif len(X.shape) == 4:
 				self.dim_z = X.shape[3]
 
-			if self.append_negated:
-				self.number_of_features = int(self.number_of_classes + self.patch_dim[0]*self.patch_dim[1]*self.dim_z + (self.dim_x - self.patch_dim[0]) + (self.dim_y - self.patch_dim[1]))*2
-			else:
-				self.number_of_features = int(self.number_of_classes + self.patch_dim[0]*self.patch_dim[1]*self.dim_z + (self.dim_x - self.patch_dim[0]) + (self.dim_y - self.patch_dim[1]))
-
+			self.number_of_features = int(self.number_of_classes + self.patch_dim[0]*self.patch_dim[1]*self.dim_z + (self.dim_x - self.patch_dim[0]) + (self.dim_y - self.patch_dim[1]))*2
+			
 			self.number_of_patches = int((self.dim_x - self.patch_dim[0] + 1)*(self.dim_y - self.patch_dim[1] + 1))
 			self.number_of_ta_chunks = int((self.number_of_features-1)/32 + 1)
 			self.etm = _lib.CreateEmbeddingTsetlinMachine(self.number_of_classes, self.number_of_clauses, self.number_of_features, self.number_of_patches, self.number_of_ta_chunks, self.number_of_state_bits, self.T, self.s, self.s_range, self.boost_true_positive_feedback, self.weighted_clauses)
@@ -335,10 +331,7 @@ class ConvolutionalEmbeddingTsetlinMachine2D():
 		Xm = np.ascontiguousarray(X.flatten()).astype(np.uint32)
 		Ym = np.ascontiguousarray(Y).astype(np.uint32)
 
-		if self.append_negated:
-			_lib.tm_encode(Xm, self.encoded_X, number_of_examples, self.dim_x, self.dim_y, self.dim_z, self.patch_dim[0], self.patch_dim[1], 1, self.number_of_classes)
-		else:
-			_lib.tm_encode(Xm, self.encoded_X, number_of_examples, self.dim_x, self.dim_y, self.dim_z, self.patch_dim[0], self.patch_dim[1], 0, self.number_of_classes)
+		_lib.tm_encode(Xm, self.encoded_X, number_of_examples, self.dim_x, self.dim_y, self.dim_z, self.patch_dim[0], self.patch_dim[1], 1, self.number_of_classes)
 		
 		_lib.etm_fit(self.etm, self.encoded_X, Ym, number_of_examples, epochs)
 
@@ -351,11 +344,8 @@ class ConvolutionalEmbeddingTsetlinMachine2D():
 
 		Xm = np.ascontiguousarray(X.flatten()).astype(np.uint32)
 
-		if self.append_negated:
-			_lib.tm_encode(Xm, self.encoded_X, number_of_examples, self.dim_x, self.dim_y, self.dim_z, self.patch_dim[0], self.patch_dim[1], 1, self.number_of_classes)
-		else:
-			_lib.tm_encode(Xm, self.encoded_X, number_of_examples, self.dim_x, self.dim_y, self.dim_z, self.patch_dim[0], self.patch_dim[1], 0, self.number_of_classes)
-	
+		_lib.tm_encode(Xm, self.encoded_X, number_of_examples, self.dim_x, self.dim_y, self.dim_z, self.patch_dim[0], self.patch_dim[1], 1, self.number_of_classes)
+		
 		Y = np.ascontiguousarray(np.zeros(number_of_examples, dtype=np.uint32))
 
 		_lib.etm_predict(self.etm, self.encoded_X, Y, number_of_examples)
@@ -386,11 +376,8 @@ class ConvolutionalEmbeddingTsetlinMachine2D():
 		self.encoded_X = np.ascontiguousarray(np.empty(int(number_of_examples * self.number_of_patches * self.number_of_ta_chunks), dtype=np.uint32))
 		Xm = np.ascontiguousarray(X.flatten()).astype(np.uint32)
 
-		if self.append_negated:
-			_lib.tm_encode(Xm, self.encoded_X, number_of_examples, self.dim_x, self.dim_y, self.dim_z, self.patch_dim[0], self.patch_dim[1], 1, self.number_of_classes)
-		else:
-			_lib.tm_encode(Xm, self.encoded_X, number_of_examples, self.dim_x, self.dim_y, self.dim_z, self.patch_dim[0], self.patch_dim[1], 0, self.number_of_classes)
-
+		_lib.tm_encode(Xm, self.encoded_X, number_of_examples, self.dim_x, self.dim_y, self.dim_z, self.patch_dim[0], self.patch_dim[1], 1, self.number_of_classes)
+		
 		X_transformed = np.ascontiguousarray(np.empty(number_of_examples*self.number_of_clauses, dtype=np.uint32))
 		
 		if (inverted):
@@ -529,7 +516,7 @@ class MultiClassTsetlinMachine():
 		return X_transformed.reshape((number_of_examples, self.number_of_classes*self.number_of_clauses))
 
 class EmbeddingTsetlinMachine():
-	def __init__(self, number_of_clauses, T, s, boost_true_positive_feedback=1, number_of_state_bits=8, append_negated=True, weighted_clauses=False, s_range=False):
+	def __init__(self, number_of_clauses, T, s, boost_true_positive_feedback=1, number_of_state_bits=8, weighted_clauses=False, s_range=False):
 		self.number_of_clauses = number_of_clauses
 		self.number_of_clause_chunks = (number_of_clauses-1)/32 + 1
 		self.number_of_state_bits = number_of_state_bits
@@ -538,7 +525,6 @@ class EmbeddingTsetlinMachine():
 		self.boost_true_positive_feedback = boost_true_positive_feedback
 		self.etm = None
 		self.itm = None
-		self.append_negated = append_negated
 		self.weighted_clauses = weighted_clauses
 		if s_range:
 			self.s_range = s_range
@@ -558,11 +544,8 @@ class EmbeddingTsetlinMachine():
 		if self.etm == None:
 			self.number_of_classes = int(np.max(Y) + 1)
 
-			if self.append_negated:
-				self.number_of_features = (X.shape[1] + self.number_of_classes)*2
-			else:
-				self.number_of_features = X.shape[1] + self.number_of_classes
-
+			self.number_of_features = (X.shape[1] + self.number_of_classes)*2
+		
 			self.number_of_patches = 1
 			self.number_of_ta_chunks = int((self.number_of_features-1)//32 + 1)
 			self.etm = _lib.CreateEmbeddingTsetlinMachine(self.number_of_classes, self.number_of_clauses, self.number_of_features, 1, self.number_of_ta_chunks, self.number_of_state_bits, self.T, self.s, self.s_range, self.boost_true_positive_feedback, self.weighted_clauses)
@@ -575,11 +558,7 @@ class EmbeddingTsetlinMachine():
 		Xm = np.ascontiguousarray(X.flatten()).astype(np.uint32)
 		Ym = np.ascontiguousarray(Y).astype(np.uint32)
 
-		if self.append_negated:
-			_lib.tm_encode(Xm, self.encoded_X, number_of_examples, X.shape[1], 1, 1, X.shape[1], 1, 1, self.number_of_classes)
-		else:
-			_lib.tm_encode(Xm, self.encoded_X, number_of_examples, X.shape[1], 1, 1, X.shape[1], 1, 0, self.number_of_classes)
-		
+		_lib.tm_encode(Xm, self.encoded_X, number_of_examples, X.shape[1], 1, 1, X.shape[1], 1, 1, self.number_of_classes)
 		
 		_lib.etm_fit(self.etm, self.encoded_X, Ym, number_of_examples, epochs)
 
@@ -592,10 +571,7 @@ class EmbeddingTsetlinMachine():
 
 		Xm = np.ascontiguousarray(X.flatten()).astype(np.uint32)
 
-		if self.append_negated:
-			_lib.tm_encode(Xm, self.encoded_X, number_of_examples, X.shape[1], 1, 1, X.shape[1], 1, 1, self.number_of_classes)
-		else:
-			_lib.tm_encode(Xm, self.encoded_X, number_of_examples, X.shape[1], 1, 1, X.shape[1], 1, 0, self.number_of_classes)
+		_lib.tm_encode(Xm, self.encoded_X, number_of_examples, X.shape[1], 1, 1, X.shape[1], 1, 1, self.number_of_classes)
 		
 		Y = np.ascontiguousarray(np.zeros(number_of_examples, dtype=np.uint32))
 
@@ -628,10 +604,7 @@ class EmbeddingTsetlinMachine():
 		self.encoded_X = np.ascontiguousarray(np.empty(int(number_of_examples * self.number_of_patches * self.number_of_ta_chunks), dtype=np.uint32))
 		Xm = np.ascontiguousarray(X.flatten()).astype(np.uint32)
 
-		if self.append_negated:
-			_lib.tm_encode(Xm, self.encoded_X, number_of_examples, X.shape[1], 1, 1, X.shape[1], 1, 1, self.number_of_classes)
-		else:
-			_lib.tm_encode(Xm, self.encoded_X, number_of_examples, X.shape[1], 1, 1, X.shape[1], 1, 0, self.number_of_classes)
+		_lib.tm_encode(Xm, self.encoded_X, number_of_examples, X.shape[1], 1, 1, X.shape[1], 1, 1, self.number_of_classes)
 		
 		X_transformed = np.ascontiguousarray(np.empty(number_of_examples*self.number_of_clauses, dtype=np.uint32))
 
