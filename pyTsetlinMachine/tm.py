@@ -28,7 +28,7 @@ import os
 this_dir, this_filename = os.path.split(__file__)
 _lib = np.ctypeslib.load_library('libTM', os.path.join(this_dir, ".."))    
 
-class CClassInputConvolutionalTsetlinMachine(C.Structure):
+class CEmbeddingConvolutionalTsetlinMachine(C.Structure):
 	None
 
 class CMultiClassConvolutionalTsetlinMachine(C.Structure):
@@ -40,7 +40,7 @@ class CConvolutionalTsetlinMachine(C.Structure):
 class CIndexedTsetlinMachine(C.Structure):
 	None
 
-ci_ctm_pointer = C.POINTER(CClassInputConvolutionalTsetlinMachine)
+etm_pointer = C.POINTER(CEmbeddingConvolutionalTsetlinMachine)
 
 mc_ctm_pointer = C.POINTER(CMultiClassConvolutionalTsetlinMachine)
 
@@ -60,38 +60,38 @@ array_1d_int = np.ctypeslib.ndpointer(
 
 # Class Input Tsetlin Machine
 
-_lib.CreateClassInputTsetlinMachine.restype = ci_ctm_pointer                    
-_lib.CreateClassInputTsetlinMachine.argtypes = [C.c_int, C.c_int, C.c_int, C.c_int, C.c_int, C.c_int, C.c_int, C.c_double, C.c_double, C.c_int, C.c_int] 
+_lib.CreateEmbeddingTsetlinMachine.restype = etm_pointer                    
+_lib.CreateEmbeddingTsetlinMachine.argtypes = [C.c_int, C.c_int, C.c_int, C.c_int, C.c_int, C.c_int, C.c_int, C.c_double, C.c_double, C.c_int, C.c_int] 
 
-_lib.ci_tm_destroy.restype = None                      
-_lib.ci_tm_destroy.argtypes = [ci_ctm_pointer] 
+_lib.etm_destroy.restype = None                      
+_lib.etm_destroy.argtypes = [etm_pointer] 
 
-_lib.ci_tm_fit.restype = None                      
-_lib.ci_tm_fit.argtypes = [ci_ctm_pointer, array_1d_uint, array_1d_uint, C.c_int, C.c_int] 
+_lib.etm_fit.restype = None                      
+_lib.etm_fit.argtypes = [etm_pointer, array_1d_uint, array_1d_uint, C.c_int, C.c_int] 
 
-_lib.ci_tm_initialize.restype = None                      
-_lib.ci_tm_initialize.argtypes = [ci_ctm_pointer] 
+_lib.etm_initialize.restype = None                      
+_lib.etm_initialize.argtypes = [etm_pointer] 
 
-_lib.ci_tm_predict.restype = None                    
-_lib.ci_tm_predict.argtypes = [ci_ctm_pointer, array_1d_uint, array_1d_uint, C.c_int] 
+_lib.etm_predict.restype = None                    
+_lib.etm_predict.argtypes = [etm_pointer, array_1d_uint, array_1d_uint, C.c_int] 
 
-_lib.ci_tm_ta_state.restype = C.c_int                    
-_lib.ci_tm_ta_state.argtypes = [ci_ctm_pointer, C.c_int, C.c_int]
+_lib.etm_ta_state.restype = C.c_int                    
+_lib.etm_ta_state.argtypes = [etm_pointer, C.c_int, C.c_int]
 
-_lib.ci_tm_ta_action.restype = C.c_int                    
-_lib.ci_tm_ta_action.argtypes = [ci_ctm_pointer, C.c_int, C.c_int] 
+_lib.etm_ta_action.restype = C.c_int                    
+_lib.etm_ta_action.argtypes = [etm_pointer, C.c_int, C.c_int] 
 
-_lib.ci_tm_set_state.restype = None
-_lib.ci_tm_set_state.argtypes = [ci_ctm_pointer, array_1d_uint, array_1d_uint]
+_lib.etm_set_state.restype = None
+_lib.etm_set_state.argtypes = [etm_pointer, array_1d_uint, array_1d_uint]
 
-_lib.ci_tm_get_state.restype = None
-_lib.ci_tm_get_state.argtypes = [ci_ctm_pointer, array_1d_uint, array_1d_uint]
+_lib.etm_get_state.restype = None
+_lib.etm_get_state.argtypes = [etm_pointer, array_1d_uint, array_1d_uint]
 
-_lib.ci_tm_transform.restype = None                    
-_lib.ci_tm_transform.argtypes = [ci_ctm_pointer, array_1d_uint, array_1d_uint, C.c_int, C.c_int] 
+_lib.etm_transform.restype = None                    
+_lib.etm_transform.argtypes = [etm_pointer, array_1d_uint, array_1d_uint, C.c_int, C.c_int] 
 
-_lib.ci_tm_clause_configuration.restype = None                    
-_lib.ci_tm_clause_configuration.argtypes = [ci_ctm_pointer, C.c_int, C.c_int, array_1d_uint] 
+_lib.etm_clause_configuration.restype = None                    
+_lib.etm_clause_configuration.argtypes = [etm_pointer, C.c_int, C.c_int, array_1d_uint] 
 
 # Multiclass Tsetlin Machine
 
@@ -284,7 +284,7 @@ class MultiClassConvolutionalTsetlinMachine2D():
 		
 		return X_transformed.reshape((number_of_examples, self.number_of_classes*self.number_of_clauses))
 
-class ClassInputConvolutionalTsetlinMachine2D():
+class EmbeddingConvolutionalTsetlinMachine2D():
 	def __init__(self, number_of_clauses, T, s, patch_dim, boost_true_positive_feedback=1, number_of_state_bits=8, append_negated=True, weighted_clauses=False, s_range=False):
 		self.number_of_clauses = number_of_clauses
 		self.number_of_clause_chunks = (number_of_clauses-1)/32 + 1
@@ -293,7 +293,7 @@ class ClassInputConvolutionalTsetlinMachine2D():
 		self.T = int(T)
 		self.s = s
 		self.boost_true_positive_feedback = boost_true_positive_feedback
-		self.ci_ctm = None
+		self.etm = None
 		self.append_negated = append_negated
 		self.weighted_clauses = weighted_clauses
 		if s_range:
@@ -302,13 +302,13 @@ class ClassInputConvolutionalTsetlinMachine2D():
 			self.s_range = s
 
 	def __del__(self):
-		if self.ci_ctm != None:
-			_lib.ci_tm_destroy(self.ci_ctm)
+		if self.etm != None:
+			_lib.etm_destroy(self.etm)
 
 	def fit(self, X, Y, epochs=100, incremental=False):
 		number_of_examples = X.shape[0]
 
-		if self.ci_ctm == None:
+		if self.etm == None:
 			self.number_of_classes = int(np.max(Y) + 1)
 			self.dim_x = X.shape[1]
 			self.dim_y = X.shape[2]
@@ -325,10 +325,10 @@ class ClassInputConvolutionalTsetlinMachine2D():
 
 			self.number_of_patches = int((self.dim_x - self.patch_dim[0] + 1)*(self.dim_y - self.patch_dim[1] + 1))
 			self.number_of_ta_chunks = int((self.number_of_features-1)/32 + 1)
-			self.ci_ctm = _lib.CreateClassInputTsetlinMachine(self.number_of_classes, self.number_of_clauses, self.number_of_features, self.number_of_patches, self.number_of_ta_chunks, self.number_of_state_bits, self.T, self.s, self.s_range, self.boost_true_positive_feedback, self.weighted_clauses)
+			self.etm = _lib.CreateEmbeddingTsetlinMachine(self.number_of_classes, self.number_of_clauses, self.number_of_features, self.number_of_patches, self.number_of_ta_chunks, self.number_of_state_bits, self.T, self.s, self.s_range, self.boost_true_positive_feedback, self.weighted_clauses)
 		elif incremental == False:
-			_lib.ci_tm_destroy(self.ci_ctm)
-			self.ci_ctm = _lib.CreateClassInputTsetlinMachine(self.number_of_classes, self.number_of_clauses, self.number_of_features, self.number_of_patches, self.number_of_ta_chunks, self.number_of_state_bits, self.T, self.s, self.s_range, self.boost_true_positive_feedback, self.weighted_clauses)
+			_lib.etm_destroy(self.etm)
+			self.etm = _lib.CreateEmbeddingTsetlinMachine(self.number_of_classes, self.number_of_clauses, self.number_of_features, self.number_of_patches, self.number_of_ta_chunks, self.number_of_state_bits, self.T, self.s, self.s_range, self.boost_true_positive_feedback, self.weighted_clauses)
 
 		self.encoded_X = np.ascontiguousarray(np.empty(int(number_of_examples * self.number_of_patches * self.number_of_ta_chunks), dtype=np.uint32))
 
@@ -340,7 +340,7 @@ class ClassInputConvolutionalTsetlinMachine2D():
 		else:
 			_lib.tm_encode(Xm, self.encoded_X, number_of_examples, self.dim_x, self.dim_y, self.dim_z, self.patch_dim[0], self.patch_dim[1], 0, self.number_of_classes)
 		
-		_lib.ci_tm_fit(self.ci_ctm, self.encoded_X, Ym, number_of_examples, epochs)
+		_lib.etm_fit(self.etm, self.encoded_X, Ym, number_of_examples, epochs)
 
 		return
 
@@ -358,25 +358,25 @@ class ClassInputConvolutionalTsetlinMachine2D():
 	
 		Y = np.ascontiguousarray(np.zeros(number_of_examples, dtype=np.uint32))
 
-		_lib.ci_tm_predict(self.ci_ctm, self.encoded_X, Y, number_of_examples)
+		_lib.etm_predict(self.etm, self.encoded_X, Y, number_of_examples)
 
 		return Y
 
 	def ta_state(self, clause, ta):
-		return _lib.ci_tm_ta_state(self.ci_ctm, clause, ta)
+		return _lib.etm_ta_state(self.etm, clause, ta)
 
 	def ta_action(self, clause, ta):
-		return _lib.ci_tm_ta_action(self.ci_ctm, clause, ta)
+		return _lib.etm_ta_action(self.etm, clause, ta)
 
 	def get_state(self):
 		ta_states = np.ascontiguousarray(np.empty(self.number_of_clauses * self.number_of_ta_chunks * self.number_of_state_bits, dtype=np.uint32))
 		clause_weights = np.ascontiguousarray(np.empty(self.number_of_clauses, dtype=np.uint32))
-		_lib.ci_tm_get_state(self.ci_ctm, clause_weights, ta_states)
+		_lib.etm_get_state(self.etm, clause_weights, ta_states)
 
 		return (clause_weights, ta_states)
 
 	def set_state(self, state):
-		_lib.ci_tm_set_state(self.ci_ctm, state[0], state[1])
+		_lib.etm_set_state(self.etm, state[0], state[1])
 
 		return
 	
@@ -394,9 +394,9 @@ class ClassInputConvolutionalTsetlinMachine2D():
 		X_transformed = np.ascontiguousarray(np.empty(number_of_examples*self.number_of_clauses, dtype=np.uint32))
 		
 		if (inverted):
-			_lib.ci_tm_transform(self.ci_ctm, self.encoded_X, X_transformed, 1, number_of_examples)
+			_lib.etm_transform(self.etm, self.encoded_X, X_transformed, 1, number_of_examples)
 		else:
-			_lib.ci_tm_transform(self.ci_ctm, self.encoded_X, X_transformed, 0, number_of_examples)
+			_lib.etm_transform(self.etm, self.encoded_X, X_transformed, 0, number_of_examples)
 		
 		return X_transformed.reshape((number_of_examples, self.number_of_clauses))
 
@@ -528,7 +528,7 @@ class MultiClassTsetlinMachine():
 
 		return X_transformed.reshape((number_of_examples, self.number_of_classes*self.number_of_clauses))
 
-class ClassInputTsetlinMachine():
+class EmbeddingTsetlinMachine():
 	def __init__(self, number_of_clauses, T, s, boost_true_positive_feedback=1, number_of_state_bits=8, append_negated=True, weighted_clauses=False, s_range=False):
 		self.number_of_clauses = number_of_clauses
 		self.number_of_clause_chunks = (number_of_clauses-1)/32 + 1
@@ -536,7 +536,7 @@ class ClassInputTsetlinMachine():
 		self.T = int(T)
 		self.s = s
 		self.boost_true_positive_feedback = boost_true_positive_feedback
-		self.ci_tm = None
+		self.etm = None
 		self.itm = None
 		self.append_negated = append_negated
 		self.weighted_clauses = weighted_clauses
@@ -546,8 +546,8 @@ class ClassInputTsetlinMachine():
 			self.s_range = s
 
 	def __del__(self):
-		if self.ci_tm != None:
-			_lib.ci_tm_destroy(self.ci_tm)
+		if self.etm != None:
+			_lib.etm_destroy(self.etm)
 
 		if self.itm != None:
 			_lib.itm_destroy(self.itm)
@@ -555,7 +555,7 @@ class ClassInputTsetlinMachine():
 	def fit(self, X, Y, epochs=100, incremental=False):
 		number_of_examples = X.shape[0]
 
-		if self.ci_tm == None:
+		if self.etm == None:
 			self.number_of_classes = int(np.max(Y) + 1)
 
 			if self.append_negated:
@@ -565,10 +565,10 @@ class ClassInputTsetlinMachine():
 
 			self.number_of_patches = 1
 			self.number_of_ta_chunks = int((self.number_of_features-1)//32 + 1)
-			self.ci_tm = _lib.CreateClassInputTsetlinMachine(self.number_of_classes, self.number_of_clauses, self.number_of_features, 1, self.number_of_ta_chunks, self.number_of_state_bits, self.T, self.s, self.s_range, self.boost_true_positive_feedback, self.weighted_clauses)
+			self.etm = _lib.CreateEmbeddingTsetlinMachine(self.number_of_classes, self.number_of_clauses, self.number_of_features, 1, self.number_of_ta_chunks, self.number_of_state_bits, self.T, self.s, self.s_range, self.boost_true_positive_feedback, self.weighted_clauses)
 		elif incremental == False:
-			_lib.ci_tm_destroy(self.ci_tm)
-			self.ci_tm = _lib.CreateClassInputTsetlinMachine(self.number_of_classes, self.number_of_clauses, self.number_of_features, 1, self.number_of_ta_chunks, self.number_of_state_bits, self.T, self.s, self.s_range, self.boost_true_positive_feedback, self.weighted_clauses)
+			_lib.etm_destroy(self.etm)
+			self.etm = _lib.CreateEmbeddingTsetlinMachine(self.number_of_classes, self.number_of_clauses, self.number_of_features, 1, self.number_of_ta_chunks, self.number_of_state_bits, self.T, self.s, self.s_range, self.boost_true_positive_feedback, self.weighted_clauses)
 
 		self.encoded_X = np.ascontiguousarray(np.empty(int(number_of_examples * self.number_of_ta_chunks), dtype=np.uint32))
 
@@ -581,7 +581,7 @@ class ClassInputTsetlinMachine():
 			_lib.tm_encode(Xm, self.encoded_X, number_of_examples, X.shape[1], 1, 1, X.shape[1], 1, 0, self.number_of_classes)
 		
 		
-		_lib.ci_tm_fit(self.ci_tm, self.encoded_X, Ym, number_of_examples, epochs)
+		_lib.etm_fit(self.etm, self.encoded_X, Ym, number_of_examples, epochs)
 
 		return
 
@@ -599,26 +599,26 @@ class ClassInputTsetlinMachine():
 		
 		Y = np.ascontiguousarray(np.zeros(number_of_examples, dtype=np.uint32))
 
-		_lib.ci_tm_predict(self.ci_tm, self.encoded_X, Y, number_of_examples)
+		_lib.etm_predict(self.etm, self.encoded_X, Y, number_of_examples)
 
 		return Y
 	
 	def ta_state(self, clause, ta):
-		return _lib.ci_tm_ta_state(self.ci_tm, clause, ta)
+		return _lib.etm_ta_state(self.etm, clause, ta)
 
 	def ta_action(self, clause, ta):
-		return _lib.ci_tm_ta_action(self.ci_tm, clause, ta)
+		return _lib.etm_ta_action(self.etm, clause, ta)
 
 	def get_state(self):
 		state_list = []
 		ta_states = np.ascontiguousarray(np.empty(self.number_of_clauses * self.number_of_ta_chunks * self.number_of_state_bits, dtype=np.uint32))
 		clause_weights = np.ascontiguousarray(np.empty(self.number_of_clauses, dtype=np.uint32))
-		_lib.ci_tm_get_state(self.ci_tm, clause_weights, ta_states)
+		_lib.etm_get_state(self.etm, clause_weights, ta_states)
 
 		return (clause_weights, ta_state)
 
 	def set_state(self, state):
-		_lib.ci_tm_set_state(self.ci_tm, state[0], state[1])
+		_lib.etm_set_state(self.etm, state[0], state[1])
 
 		return
 
@@ -635,7 +635,7 @@ class ClassInputTsetlinMachine():
 		
 		X_transformed = np.ascontiguousarray(np.empty(number_of_examples*self.number_of_clauses, dtype=np.uint32))
 
-		_lib.ci_tm_transform(self.ci_tm, self.encoded_X, X_transformed, inverted, number_of_examples)
+		_lib.etm_transform(self.etm, self.encoded_X, X_transformed, inverted, number_of_examples)
 
 		return X_transformed.reshape((number_of_examples, self.number_of_clauses))
 
