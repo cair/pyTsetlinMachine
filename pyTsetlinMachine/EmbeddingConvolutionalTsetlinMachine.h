@@ -27,7 +27,7 @@ https://arxiv.org/abs/1905.09688
 
 #include "ConvolutionalTsetlinMachine.h"
 
-struct ClassInputTsetlinMachine {
+struct EmbeddingTsetlinMachine {
 	int number_of_classes;
 
 	struct TsetlinMachine *tsetlin_machine;
@@ -37,27 +37,27 @@ struct ClassInputTsetlinMachine {
 	int number_of_state_bits;
 };
 
-struct ClassInputTsetlinMachine *CreateClassInputTsetlinMachine(int number_of_classes, int number_of_clauses, int number_of_features, int number_of_patches, int number_of_ta_chunks, int number_of_state_bits, int T, double s, double s_range, int boost_true_positive_feedback, int weighted_clauses);
+struct EmbeddingTsetlinMachine *CreateEmbeddingTsetlinMachine(int number_of_classes, int number_of_clauses, int number_of_features, int number_of_patches, int number_of_ta_chunks, int number_of_state_bits, int T, double s, double s_range, int boost_true_positive_feedback, int weighted_clauses);
 
-void ci_tm_initialize(struct ClassInputTsetlinMachine *ci_tm);
+void etm_initialize(struct EmbeddingTsetlinMachine *etm);
 
-void ci_tm_destroy(struct ClassInputTsetlinMachine *ci_tm);
+void etm_destroy(struct EmbeddingTsetlinMachine *etm);
 
-void ci_tm_initialize_random_streams(struct ClassInputTsetlinMachine *ci_tm, float s);
+void etm_initialize_random_streams(struct EmbeddingTsetlinMachine *etm, float s);
 
-void ci_tm_predict(struct ClassInputTsetlinMachine *ci_tm, unsigned int *X, int *y, int number_of_examples);
+void etm_predict(struct EmbeddingTsetlinMachine *etm, unsigned int *X, int *y, int number_of_examples);
 
-void ci_tm_fit(struct ClassInputTsetlinMachine *ci_tm, unsigned int *X, int y[], int number_of_examples, int epochs);
+void etm_fit(struct EmbeddingTsetlinMachine *etm, unsigned int *X, int y[], int number_of_examples, int epochs);
 
-void ci_tm_get_state(struct ClassInputTsetlinMachine *ci_tm, unsigned int *clause_weights, unsigned int *ta_state);
+void etm_get_state(struct EmbeddingTsetlinMachine *etm, unsigned int *clause_weights, unsigned int *ta_state);
 
-void ci_tm_set_state(struct ClassInputTsetlinMachine *ci_tm, unsigned int *clause_weights, unsigned int *ta_state);
+void etm_set_state(struct EmbeddingTsetlinMachine *etm, unsigned int *clause_weights, unsigned int *ta_state);
 
-int ci_tm_ta_state(struct ClassInputTsetlinMachine *ci_tm, int clause, int ta);
+int etm_ta_state(struct EmbeddingTsetlinMachine *etm, int clause, int ta);
 
-int ci_tm_ta_action(struct ClassInputTsetlinMachine *ci_tm, int clause, int ta);
+int etm_ta_action(struct EmbeddingTsetlinMachine *etm, int clause, int ta);
 
-void ci_tm_transform(struct ClassInputTsetlinMachine *ci_tm, unsigned int *X,  unsigned int *X_transformed, int invert, int number_of_examples);
+void etm_transform(struct EmbeddingTsetlinMachine *etm, unsigned int *X,  unsigned int *X_transformed, int invert, int number_of_examples);
 
-void ci_tm_clause_configuration(struct ClassInputTsetlinMachine *ci_tm, int clause, unsigned int *clause_configuration);
+void etm_clause_configuration(struct EmbeddingTsetlinMachine *etm, int clause, unsigned int *clause_configuration);
 
