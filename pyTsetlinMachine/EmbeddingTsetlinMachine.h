@@ -61,3 +61,4 @@ void etm_transform(struct EmbeddingTsetlinMachine *etm, unsigned int *X,  unsign
 
 void etm_clause_configuration(struct EmbeddingTsetlinMachine *etm, int clause, unsigned int *clause_configuration);
 
+float etm_class_similarity(struct EmbeddingTsetlinMachine *etm, int class_1, int class_2);
