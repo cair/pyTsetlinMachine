@@ -93,6 +93,9 @@ _lib.etm_transform.argtypes = [etm_pointer, array_1d_uint, array_1d_uint, C.c_in
 _lib.etm_clause_configuration.restype = None                    
 _lib.etm_clause_configuration.argtypes = [etm_pointer, C.c_int, C.c_int, array_1d_uint] 
 
+_lib.etm_class_similarity.restype = C.c_float                  
+_lib.etm_class_similarity.argtypes = [etm_pointer, C.c_int, C.c_int] 
+
 # Multiclass Tsetlin Machine
 
 _lib.CreateMultiClassTsetlinMachine.restype = mc_ctm_pointer                    
@@ -387,6 +390,9 @@ class ConvolutionalEmbeddingTsetlinMachine2D():
 		
 		return X_transformed.reshape((number_of_examples, self.number_of_clauses))
 
+	def class_similarity(self, class_1, class_2):
+		return _lib.etm_class_similarity(self.etm, int(class_1), int(class_2))
+
 class MultiClassTsetlinMachine():
 	def __init__(self, number_of_clauses, T, s, boost_true_positive_feedback=1, number_of_state_bits=8, indexed=True, append_negated=True, weighted_clauses=False, s_range=False):
 		self.number_of_clauses = number_of_clauses
@@ -612,6 +618,9 @@ class EmbeddingTsetlinMachine():
 
 		return X_transformed.reshape((number_of_examples, self.number_of_clauses))
 
+	def class_similarity(self, class_1, class_2):
+		return _lib.etm_class_similarity(self.etm, int(class_1), int(class_2))
+	
 class RegressionTsetlinMachine():
 	def __init__(self, number_of_clauses, T, s, boost_true_positive_feedback=1, number_of_state_bits=8, weighted_clauses=False, s_range=False):
 		self.number_of_clauses = number_of_clauses
