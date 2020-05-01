@@ -282,6 +282,59 @@ void etm_transform(struct EmbeddingTsetlinMachine *etm, unsigned int *X,  unsign
 	return;
 }
 
+/**************************************/
+/*** Similarity of Class Embeddings ***/
+/**************************************/
+
+float etm_class_similarity(struct EmbeddingTsetlinMachine *etm, int class_1, int class_2)
+{
+	
+	unsigned int inverted_feature_chunk_1 = (class_1 + etm->tsetlin_machine->number_of_features/2) / 32;
+	unsigned int inverted_feature_chunk_pos_1 = (class_1 + etm->tsetlin_machine->number_of_features/2) % 32;
+
+	unsigned int inverted_feature_chunk_2 = (class_2 + etm->tsetlin_machine->number_of_features/2) / 32;
+	unsigned int inverted_feature_chunk_pos_2 = (class_2 + etm->tsetlin_machine->number_of_features/2) % 32;
+
+	struct TsetlinMachine *tm = etm->tsetlin_machine;
+	unsigned int *ta_state = tm->ta_state;
+
+	unsigned int source_count = 0;
+	unsigned int target_count = 0;
+	unsigned int joint_count = 0;
+	for (int j = 0; j < tm->number_of_clauses; ++j) {
+		int only_inverted = 1;
+		int number_of_exclude = 0;
+		for (int i = 0; i < etm->number_of_classes; ++i) {
+			int feature_chunk = i / 32;
+			int feature_chunk_pos = i % 32;
+			unsigned int pos = j*tm->number_of_ta_chunks*tm->number_of_state_bits + feature_chunk*tm->number_of_state_bits + tm->number_of_state_bits-1;
+			if ((ta_state[pos] & (1 << feature_chunk_pos)) > 0) {
+				only_inverted = 0;
+				break;
+			}
+		}
+
+		if (only_inverted == 0) {
+			continue;
+		}
+
+		unsigned int inverted_pos_1 = j*tm->number_of_ta_chunks*tm->number_of_state_bits + inverted_feature_chunk_1*tm->number_of_state_bits + tm->number_of_state_bits-1;
+		unsigned int inverted_pos_2 = j*tm->number_of_ta_chunks*tm->number_of_state_bits + inverted_feature_chunk_2*tm->number_of_state_bits + tm->number_of_state_bits-1;
+
+		if ((ta_state[inverted_pos_1] & (1 << inverted_feature_chunk_pos_1)) == 0) {
+			source_count += tm->clause_weights[j];
+			if ((ta_state[inverted_pos_2] & (1 << inverted_feature_chunk_pos_2)) == 0) {
+				joint_count += tm->clause_weights[j];
+			}
+		}
+
+		if ((ta_state[inverted_pos_2] & (1 << inverted_feature_chunk_pos_2)) == 0) {
+			target_count += tm->clause_weights[j];
+		}
+	}
+
+	return 1.0 * joint_count * joint_count / (source_count * target_count);
+}
 
 
 
