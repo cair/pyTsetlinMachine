@@ -282,11 +282,11 @@ void etm_transform(struct EmbeddingTsetlinMachine *etm, unsigned int *X,  unsign
 	return;
 }
 
-/**************************************/
-/*** Similarity of Class Embeddings ***/
-/**************************************/
+/******************************************/
+/*** Sharing of Clauses Between Classes ***/
+/******************************************/
 
-float etm_class_similarity(struct EmbeddingTsetlinMachine *etm, int class_1, int class_2)
+float etm_clause_sharing(struct EmbeddingTsetlinMachine *etm, int class_1, int class_2)
 {
 	
 	unsigned int inverted_feature_chunk_1 = (class_1 + etm->tsetlin_machine->number_of_features/2) / 32;
