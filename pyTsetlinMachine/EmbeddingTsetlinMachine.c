@@ -333,7 +333,7 @@ float etm_class_similarity(struct EmbeddingTsetlinMachine *etm, int class_1, int
 		}
 	}
 
-	return (1.0 * joint_count/source_count) * (1.0*joint_count/target_count);
+	return (1.0 * joint_count/source_count) * (1.0 * joint_count/target_count);
 }
 
 
