@@ -288,13 +288,6 @@ void etm_transform(struct EmbeddingTsetlinMachine *etm, unsigned int *X,  unsign
 
 float etm_clause_sharing(struct EmbeddingTsetlinMachine *etm, int class_1, int class_2)
 {
-	
-	unsigned int inverted_feature_chunk_1 = (class_1 + etm->tsetlin_machine->number_of_features/2) / 32;
-	unsigned int inverted_feature_chunk_pos_1 = (class_1 + etm->tsetlin_machine->number_of_features/2) % 32;
-
-	unsigned int inverted_feature_chunk_2 = (class_2 + etm->tsetlin_machine->number_of_features/2) / 32;
-	unsigned int inverted_feature_chunk_pos_2 = (class_2 + etm->tsetlin_machine->number_of_features/2) % 32;
-
 	struct TsetlinMachine *tm = etm->tsetlin_machine;
 	unsigned int *ta_state = tm->ta_state;
 
@@ -302,21 +295,45 @@ float etm_clause_sharing(struct EmbeddingTsetlinMachine *etm, int class_1, int c
 	unsigned int target_count = 0;
 	unsigned int joint_count = 0;
 	for (int j = 0; j < tm->number_of_clauses; ++j) {
-		int only_inverted = 1;
-		int number_of_exclude = 0;
+		int other_class_not_included = 1;
 		for (int i = 0; i < etm->number_of_classes; ++i) {
 			int feature_chunk = i / 32;
 			int feature_chunk_pos = i % 32;
 			unsigned int pos = j*tm->number_of_ta_chunks*tm->number_of_state_bits + feature_chunk*tm->number_of_state_bits + tm->number_of_state_bits-1;
 			if ((ta_state[pos] & (1 << feature_chunk_pos)) > 0) {
-				only_inverted = 0;
-				break;
+				if (i != class_1 && i != class_2) {
+					other_class_not_included = 0;
+				}
 			}
 		}
 
-		if (only_inverted == 0) {
+		if (other_class_not_included == 0) {
 			continue;
 		}
+
+		int feature_chunk_1 = class_1 / 32;
+		int feature_chunk_pos_1 = class_1 % 32;
+		unsigned int pos_1 = j*tm->number_of_ta_chunks*tm->number_of_state_bits + feature_chunk_1*tm->number_of_state_bits + tm->number_of_state_bits-1;
+
+		int feature_chunk_2 = class_2 / 32;
+		int feature_chunk_pos_2 = class_2 % 32;
+		unsigned int pos_2 = j*tm->number_of_ta_chunks*tm->number_of_state_bits + feature_chunk_2*tm->number_of_state_bits + tm->number_of_state_bits-1;
+
+		if ((ta_state[pos_1] & (1 << feature_chunk_pos_1)) > 0 && (ta_state[pos_2] & (1 << feature_chunk_pos_2)) > 0) {
+			continue;
+		} else if ((ta_state[pos_1] & (1 << feature_chunk_pos_1)) > 0) {
+			source_count += tm->clause_weights[j];
+			continue;
+		} else if ((ta_state[pos_2] & (1 << feature_chunk_pos_2)) > 0) {
+			target_count += tm->clause_weights[j];
+			continue;
+		} 
+
+		unsigned int inverted_feature_chunk_1 = (class_1 + etm->tsetlin_machine->number_of_features/2) / 32;
+		unsigned int inverted_feature_chunk_pos_1 = (class_1 + etm->tsetlin_machine->number_of_features/2) % 32;
+
+		unsigned int inverted_feature_chunk_2 = (class_2 + etm->tsetlin_machine->number_of_features/2) / 32;
+		unsigned int inverted_feature_chunk_pos_2 = (class_2 + etm->tsetlin_machine->number_of_features/2) % 32;
 
 		unsigned int inverted_pos_1 = j*tm->number_of_ta_chunks*tm->number_of_state_bits + inverted_feature_chunk_1*tm->number_of_state_bits + tm->number_of_state_bits-1;
 		unsigned int inverted_pos_2 = j*tm->number_of_ta_chunks*tm->number_of_state_bits + inverted_feature_chunk_2*tm->number_of_state_bits + tm->number_of_state_bits-1;
@@ -335,6 +352,5 @@ float etm_clause_sharing(struct EmbeddingTsetlinMachine *etm, int class_1, int c
 
 	return (1.0 * joint_count/source_count) * (1.0 * joint_count/target_count);
 }
-
 
 
