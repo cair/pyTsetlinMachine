@@ -30,9 +30,9 @@ https://arxiv.org/abs/1905.09688
 
 #include "EmbeddingTsetlinMachine.h"
 
-/*****************************************************/
+/*************************************/
 /*** The Embedding Tsetlin Machine ***/
-/*****************************************************/
+/*************************************/
 
 /*** Initialize Tsetlin Machine ***/
 struct EmbeddingTsetlinMachine *CreateEmbeddingTsetlinMachine(int number_of_classes, int number_of_clauses, int number_of_features, int number_of_patches, int number_of_ta_chunks, int number_of_state_bits, int T, double s, double s_range, int boost_true_positive_feedback, int weighted_clauses)
