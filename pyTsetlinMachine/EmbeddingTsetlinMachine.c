@@ -31,7 +31,7 @@ https://arxiv.org/abs/1905.09688
 #include "EmbeddingTsetlinMachine.h"
 
 /*****************************************************/
-/*** The Class Input Convolutional Tsetlin Machine ***/
+/*** The Embedding Tsetlin Machine ***/
 /*****************************************************/
 
 /*** Initialize Tsetlin Machine ***/
