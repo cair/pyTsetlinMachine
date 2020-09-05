@@ -685,10 +685,38 @@ I thank my colleagues from the Centre for Artificial Intelligence Research (CAIR
 ## Tsetlin Machine Papers
 
 ```bash
-@article{abeyrathna2020deterministic,
+@InProceedings{saha2020causal,
+  author = {Rupsa {Saha} and Ole-Christoffer {Granmo} and Morten {Goodwin}},
+  title = "{Mining Interpretable Rules for Sentiment and Semantic Relation Analysis using Tsetlin Machines}",
+  booktitle="Lecture Notes in Computer Science: Proceedings of the 40th International Conference on Innovative Techniques and Applications of Artificial Intelligence (SGAI-2020)", year="2020",
+  publisher="Springer International Publishing"
+}
+```
+
+```bash
+@InProceedings{abeyrathna2020deterministic,
   title="{A Novel Multi-Step Finite-State Automaton for Arbitrarily Deterministic Tsetlin Machine Learning}",
   author={K. Darshana Abeyrathna and Ole-Christoffer Granmo and Rishad Shafik and Alex Yakovlev and Adrian Wheeldon and Jie Lei and Morten Goodwin},
-  journal = {arXiv preprint arXiv:2007.02114}, year = {2020}
+  booktitle="Lecture Notes in Computer Science: Proceedings of the 40th International Conference on Innovative Techniques and Applications of Artificial Intelligence (SGAI-2020)", year="2020",
+  publisher="Springer International Publishing"
+}
+```
+
+```bash
+@article{zhang2020convergence,
+  title="{On the Convergence of Tsetlin Machines for the IDENTITY- and NOT Operators}",
+  author={Xuan Zhang and Lei Jiao and Ole-Christoffer Granmo and Morten Goodwin},
+  journal = {arXiv preprint arXiv:2007.14268}, year = {2020},
+  url = {https://arxiv.org/abs/2007.14268}
+}
+```
+
+```bash
+@article{blakely2020closedform,
+  title="{Closed-Form Expressions for Global and Local Interpretation of Tsetlin Machines with Applications to Explaining High-Dimensional Data}",
+  author={Christian D. Blakely and Ole-Christoffer Granmo},
+  journal = {arXiv preprint arXiv:2007.13885}, year = {2020},
+  url = {https://arxiv.org/abs/2007.13885}
 }
 ```
 
@@ -751,7 +779,7 @@ I thank my colleagues from the Centre for Artificial Intelligence Research (CAIR
 ```bash
 @InProceedings{phoulady2020weighted, 
   author={Adrian {Phoulady} and Ole-Christoffer {Granmo} and Saeed Rahimi {Gorji} and Hady Ahmady {Phoulady}}, 
-  booktitle={Ninth International Workshop on Statistical Relational AI (StarAI 2020)}, 
+  booktitle={Proceedings of the Ninth International Workshop on Statistical Relational AI (StarAI 2020)}, 
   title="{The Weighted Tsetlin Machine: Compressed Representations with Clause Weighting}",
   year={2020}
 }
@@ -833,7 +861,8 @@ I thank my colleagues from the Centre for Artificial Intelligence Research (CAIR
 @article{granmo2018tsetlin,
   author = {{Granmo}, Ole-Christoffer},
   title = "{The Tsetlin Machine - A Game Theoretic Bandit Driven Approach to Optimal Pattern Recognition with Propositional Logic}",
-  journal = {arXiv preprint arXiv:1804.01508}, year = {2018}
+  journal = {arXiv preprint arXiv:1804.01508}, year = {2018},
+  url={https://arxiv.org/abs/1804.01508}
 }
 ```
 
