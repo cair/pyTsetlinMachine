@@ -685,6 +685,46 @@ I thank my colleagues from the Centre for Artificial Intelligence Research (CAIR
 ## Tsetlin Machine Papers
 
 ```bash
+@InProceedings{lei2020arithmetic,
+  title="{From Arithmetic to Logic Based AI: A Comparative Analysis of Neural Networks and Tsetlin Machine}",
+  author={Jie {Lei} and Adrian {Wheeldon} and Rishad {Shafik} and Alex {Yakovlev} and Ole-Christoffer {Granmo}},
+  booktitle={27th IEEE International Conference on Electronics Circuits and Systems (ICECS2020)},
+  year={2020},
+  organization={IEEE}
+}
+```
+
+```bash
+@InProceedings{abeyrathna2020auc,
+  title="{On Obtaining Classification Confidence, Ranked Predictions and AUC with Tsetlin Machines}",
+  author={K. Darshana Abeyrathna and Ole-Christoffer Granmo and Morten Goodwin},
+  booktitle={2020 IEEE Symposium Series on Computational Intelligence (SSCI)},
+  year={2020},
+  organization={IEEE}
+}
+```
+
+```bash
+@InProceedings{abeyrathna2020intrusion,
+  title="{Intrusion Detection with Interpretable Rules Generated Using the Tsetlin Machine}",
+  author={K. Darshana Abeyrathna and Harsha S. Gardiyawasam Pussewalage and Sasanka N. Ranasinghea and Vladimir A. Oleshchuk and Ole-Christoffer Granmo},
+  booktitle={2020 IEEE Symposium Series on Computational Intelligence (SSCI)},
+  year={2020},
+  organization={IEEE}
+}
+```
+
+```bash
+@InProceedings{abeyrathna2020adaptive,
+  title="{An Adaptive Continuous Feature Arrangement for the Tsetlin Machine to Forecast Dengue Incidences in Philippines}",
+  author={K. Darshana Abeyrathna and Ole-Christoffer Granmo and Xuan Zhang and Morten Goodwin},
+  booktitle={2020 IEEE Symposium Series on Computational Intelligence (SSCI)},
+  year={2020},
+  organization={IEEE}
+}
+```
+
+```bash
 @article{abeyrathna2020parallel,
   title="{Massively Parallel and Asynchronous Tsetlin Machine Architecture Supporting Almost Constant-Time Scaling}",
   author={K. Darshana Abeyrathna and Bimal Bhattarai and Morten Goodwin and Saeed Gorji and Ole-Christoffer Granmo and Lei Jiao and Rupsa Saha and Rohan K. Yadav},
@@ -761,7 +801,8 @@ I thank my colleagues from the Centre for Artificial Intelligence Research (CAIR
 @article{abeyrathna2020integer,
   author = {Abeyrathna, Kuruge Darshana and Granmo, Ole-Christoffer and Goodwin, Morten},
   title = "{Extending the Tsetlin Machine With Integer-Weighted Clauses for Increased Interpretability}",
-  journal = {arXiv preprint arXiv:2005.05131}, year = {2020}
+  journal = {arXiv preprint arXiv:2005.05131}, year = {2020},
+  url={https://arxiv.org/abs/1905.09688}
 }
 ```
 
@@ -804,12 +845,12 @@ I thank my colleagues from the Centre for Artificial Intelligence Research (CAIR
 ```
 
 ```bash
-@article{abeyrathna2019nonlinear, 
+@article{abeyrathna2020nonlinear, 
   author={K. Darshana {Abeyrathna} and Ole-Christoffer {Granmo} and Xuan {Zhang} and Lei {Jiao} and Morten {Goodwin}}, 
   journal={Philosophical Transactions of the Royal Society A},
   title="{The Regression Tsetlin Machine - A Novel Approach to Interpretable Non-Linear Regression}",
   volume={378}, issue={2164},
-  year={2019}
+  year={2020}
 }
 ```
 
@@ -840,7 +881,8 @@ I thank my colleagues from the Centre for Artificial Intelligence Research (CAIR
 @article{granmo2019convtsetlin,
   author = {{Granmo}, Ole-Christoffer and {Glimsdal}, Sondre and {Jiao}, Lei and {Goodwin}, Morten and {Omlin}, Christian W. and {Berge}, Geir Thore},
   title = "{The Convolutional Tsetlin Machine}",
-  journal = {arXiv preprint arXiv:1905.09688}, year = {2019}
+  journal = {arXiv preprint arXiv:1905.09688}, year = {2019},
+  url={https://arxiv.org/abs/1905.09688}
 }
 ```
 
