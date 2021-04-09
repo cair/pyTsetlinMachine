@@ -685,6 +685,38 @@ I thank my colleagues from the Centre for Artificial Intelligence Research (CAIR
 ## Tsetlin Machine Papers
 
 ```bash
+@article{lei2021kws,
+  title="{Low-Power Audio Keyword Spotting Using Tsetlin Machines}",
+  author={Jie Lei and Tousif Rahman and Rishad Shafik and Adrian Wheeldon and Alex Yakovlev and Ole-Christoffer Granmo and Fahim Kawsar and Akhil Mathur},
+  journal = {Journal of Low Power Electronics and Applications}, year = {2021},
+  volume=11,
+  issue=18,
+  url = {https://www.mdpi.com/2079-9268/11/2/18},
+  organization={MDPI}
+}
+```
+
+```bash
+@InProceedings{blakely2021closed,
+  title="{Closed-Form Expressions for Global and Local Interpretation of Tsetlin Machines}",
+  author={Christian D. {Blakely} and Ole-Christoffer {Granmo}},
+  booktitle={34th International Conference on Industrial, Engineering and Other Applications of Applied Intelligent Systems (IEA/AIE 2021)},
+  year={2021},
+  organization={Springer}
+}
+```
+
+```bash
+@InProceedings{gorji2021rl,
+  title="{Explainable Reinforcement Learning with the Tsetlin Machine}",
+  author={Saeed {Gorji} and Ole Christoffer {Granmo} and Marco {Wiering}},
+  booktitle={34th International Conference on Industrial, Engineering and Other Applications of Applied Intelligent Systems (IEA/AIE 2021)},
+  year={2021},
+  organization={Springer}
+}
+```
+
+```bash
 @InProceedings{yadav2021sentiment,
   title="{Human-Level Interpretable Learning for Aspect-Based Sentiment Analysis}",
   author={Rohan Kumar {Yadav} and Lei {Jiao} and Ole-Christoffer {Granmo} and Morten {Goodwin}},
@@ -695,20 +727,20 @@ I thank my colleagues from the Centre for Artificial Intelligence Research (CAIR
 ```
 
 ```bash
+@InProceedings{nicolae2021question,
+  title="{Question Classification using Interpretable Tsetlin Machine}",
+  author={Dragos Constantin {Nicolae}},
+  booktitle={The 1st International Workshop on Machine Reasoning (MRC 2021)},
+  year={2021}
+}
+```
+
+```bash
 @article{saha2021relational,
   title="{A Relational Tsetlin Machine with Applications to Natural Language Understanding}",
   author={Rupsa Saha and Ole-Christoffer Granmo and Vladimir I. Zadorozhny and Morten Goodwin},
   journal = {arXiv preprint arXiv:2102.10952}, year = {2021},
   url = {https://arxiv.org/abs/2102.10952}
-}
-```
-
-```bash
-@article{lei2021kws,
-  title="{Low-Power Audio Keyword Spotting using Tsetlin Machines}",
-  author={Jie Lei and Tousif Rahman and Rishad Shafik and Adrian Wheeldon and Alex Yakovlev and Ole-Christoffer Granmo and Fahim Kawsar and Akhil Mathur},
-  journal = {arXiv preprint arXiv:2101.11336}, year = {2021},
-  url = {https://arxiv.org/abs/2101.11336}
 }
 ```
 
@@ -723,7 +755,7 @@ I thank my colleagues from the Centre for Artificial Intelligence Research (CAIR
 ```
 
 ```bash
-@InProceedings{bhattarai2020novelty,
+@InProceedings{bhattarai2021novelty,
   title="{Measuring the Novelty of Natural Language Text Using the Conjunctive Clauses of a Tsetlin Machine Text Classifier}",
   author={Bimal Bhattarai and Lei Jiao and Ole-Christoffer Granmo},
   booktitle={13th International Conference on Agents and Artificial Intelligence (ICAART 2021)},
@@ -847,15 +879,6 @@ I thank my colleagues from the Centre for Artificial Intelligence Research (CAIR
 ```
 
 ```bash
-@article{blakely2020closedform,
-  title="{Closed-Form Expressions for Global and Local Interpretation of Tsetlin Machines with Applications to Explaining High-Dimensional Data}",
-  author={Christian D. Blakely and Ole-Christoffer Granmo},
-  journal = {arXiv preprint arXiv:2007.13885}, year = {2020},
-  url = {https://arxiv.org/abs/2007.13885}
-}
-```
-
-```bash
 @article{wheeldon2020learning, 
   author={Adrian {Wheeldon} and Rishad {Shafik} and Tousif {Rahman} and Jie {Lei} and Alex {Yakovlev} and Ole-Christoffer {Granmo}}, 
   journal={Philosophical Transactions of the Royal Society A},
@@ -887,7 +910,7 @@ I thank my colleagues from the Centre for Artificial Intelligence Research (CAIR
 @InProceedings{gorji2020indexing,
   title="{Increasing the Inference and Learning Speed of Tsetlin Machines with Clause Indexing}",
   author={Saeed {Gorji} and Ole Christoffer {Granmo} and Sondre {Glimsdal} and Jonathan {Edwards} and Morten {Goodwin}},
-  booktitle={International Conference on Industrial, Engineering and Other Applications of Applied Intelligent Systems},
+  booktitle={33rd International Conference on Industrial, Engineering and Other Applications of Applied Intelligent Systems (IEA/AIE 2020)},
   year={2020},
   organization={Springer}
 }
@@ -897,7 +920,7 @@ I thank my colleagues from the Centre for Artificial Intelligence Research (CAIR
 @InProceedings{abeyrathna2020integerregression,
   title="{A Regression Tsetlin Machine with Integer Weighted Clauses for Compact Pattern Representation}",
   author={Abeyrathna, Kuruge Darshana and Granmo, Ole-Christoffer and Goodwin, Morten},
-  booktitle={International Conference on Industrial, Engineering and Other Applications of Applied Intelligent Systems},
+  booktitle={33rd International Conference on Industrial, Engineering and Other Applications of Applied Intelligent Systems (IEA/AIE 2020)},
   year={2020},
   organization={Springer}
 }
