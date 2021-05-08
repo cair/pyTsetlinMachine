@@ -685,6 +685,25 @@ I thank my colleagues from the Centre for Artificial Intelligence Research (CAIR
 ## Tsetlin Machine Papers
 
 ```bash
+@InProceedings{abeyrathna2020parallel,
+  title="{Massively Parallel and Asynchronous Tsetlin Machine Architecture Supporting Almost Constant-Time Scaling}",
+  author={K. Darshana Abeyrathna and Bimal Bhattarai and Morten Goodwin and Saeed Gorji and Ole-Christoffer Granmo and Lei Jiao and Rupsa Saha and Rohan K. Yadav},
+  booktitle={The Thirty-eighth International Conference on Machine Learning (ICML 2021)},
+  year={2021},
+  organization={ICML}
+}
+```
+
+```bash
+@article{yadav2021dwr,
+  title="{Distributed Word Representation in Tsetlin Machine}",
+  author={Rohan Kumar Yadav and Lei Jiao and Ole-Christoffer Granmo and Morten Goodwin},
+  journal = {arXiv preprint arXiv:2104.06901}, year = {2021},
+  url = {https://arxiv.org/abs/2104.06901}
+}
+```
+
+```bash
 @article{lei2021kws,
   title="{Low-Power Audio Keyword Spotting Using Tsetlin Machines}",
   author={Jie Lei and Tousif Rahman and Rishad Shafik and Adrian Wheeldon and Alex Yakovlev and Ole-Christoffer Granmo and Fahim Kawsar and Akhil Mathur},
@@ -839,15 +858,6 @@ I thank my colleagues from the Centre for Artificial Intelligence Research (CAIR
   booktitle={2020 IEEE Symposium Series on Computational Intelligence (SSCI)},
   year={2020},
   organization={IEEE}
-}
-```
-
-```bash
-@article{abeyrathna2020parallel,
-  title="{Massively Parallel and Asynchronous Tsetlin Machine Architecture Supporting Almost Constant-Time Scaling}",
-  author={K. Darshana Abeyrathna and Bimal Bhattarai and Morten Goodwin and Saeed Gorji and Ole-Christoffer Granmo and Lei Jiao and Rupsa Saha and Rohan K. Yadav},
-  journal = {arXiv preprint arXiv:2009.04861}, year = {2020},
-  url = {https://arxiv.org/abs/2009.04861}
 }
 ```
 
