@@ -6,6 +6,29 @@ Implementation of the Tsetlin Machine (https://arxiv.org/abs/1804.01508), Convol
   <img width="75%" src="https://github.com/olegranmo/blob/blob/master/Weighted_Tsetlin_Machine_Example_Configuration_Full.png">
 </p>
 
+## Contents
+
+- [Installation](#installation)
+- [Documentation](#documentation)
+- [Multi-threading](#multi-threading)
+- [Tutorials](#tutorials)
+- [Examples](#examples)
+  - [Multiclass Demo](#multiclass-demo)
+  - [Interpretability Demo](#interpretability-demo)
+  - [2D Convolution Demo](#2d-convolution-demo)
+  - [Continuous Input Demo](#continuous-input-demo)
+  - [MNIST Demo](#mnist-demo)
+  - [MNIST Demo w/Weighted Clauses](#mnist-demo-wweighted-clauses)
+  - [MNIST 2D Convolution Demo w/Weighted Clauses](#mnist-2d-convolution-demo-wweighted-clauses)
+  - [Fashion MNIST 2D Convolution Demo w/Weighted Clauses](#fashion-mnist-2d-convolution-demo-wweighted-clauses)
+  - [IMDb Text Categorization Demo](#imdb-text-categorization-demo)
+  - [Regression Demo](#regression-demo)
+- [Further Work](#further-work)
+- [Requirements](#requirements)
+- [Acknowledgements](#acknowledgements)
+- [Tsetlin Machine Papers](#tsetlin-machine-papers)
+- [Licence](#licence)
+
 ## Installation
 
 ```bash
