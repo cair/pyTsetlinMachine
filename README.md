@@ -600,7 +600,7 @@ selected_features = SKB.get_support(indices=True)
 X_train = SKB.transform(X_train)
 X_test = SKB.transform(X_test)
 
-tm = MultiClassTsetlinMachine(10000, 80, 27.0)
+tm = MultiClassTsetlinMachine(10000, 80, 5.0, clause_drop_p=0.75)
 
 print("\nAccuracy over 50 epochs:\n")
 for i in range(50):
@@ -626,14 +626,14 @@ Selecting features...
 
 Accuracy over 50 epochs:
 
-#1 Accuracy: 86.84% Training: 947.15s Testing: 12.39s
-#2 Accuracy: 87.62% Training: 709.67s Testing: 11.34s
-#3 Accuracy: 88.05% Training: 631.41s Testing: 13.11s
+#1 Accuracy: 85.42% Training: 761.58s Testing: 9.16s
+#2 Accuracy: 86.56% Training: 667.68s Testing: 9.80s
+#3 Accuracy: 87.01% Training: 612.66s Testing: 10.43s
 ...
 
-#48 Accuracy: 89.56% Training: 357.80s Testing: 9.59s
-#49 Accuracy: 89.50% Training: 354.74s Testing: 9.58s
-#50 Accuracy: 89.45% Training: 371.62s Testing: 9.67s
+#35 Accuracy: 89.83% Training: 296.55s Testing: 11.73s
+#36 Accuracy: 89.82% Training: 286.11s Testing: 11.61s
+#37 Accuracy: 89.92% Training: 291.71s Testing: 12.06s
 ```
 
 ### Regression Demo
