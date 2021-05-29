@@ -1,6 +1,6 @@
 /*
 
-Copyright (c) 2019 Ole-Christoffer Granmo
+Copyright (c) 2021 Ole-Christoffer Granmo
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -93,6 +93,10 @@ void tm_predict_regression(struct TsetlinMachine *tm, unsigned int *X, int *y, i
 void tm_get_ta_state(struct TsetlinMachine *tm, unsigned int *ta_state);
 
 void tm_set_ta_state(struct TsetlinMachine *tm, unsigned int *ta_state);
+
+void tm_get_state(struct TsetlinMachine *tm, unsigned int *clause_weights, unsigned int *ta_state);
+
+void tm_set_state(struct TsetlinMachine *tm, unsigned int *clause_weights, unsigned int *ta_state);
 
 void tm_get_clause_weights(struct TsetlinMachine *tm, unsigned int *clause_weights);
 

@@ -142,6 +142,12 @@ _lib.tm_fit_regression.argtypes = [ctm_pointer, array_1d_uint, array_1d_int, C.c
 _lib.tm_predict_regression.restype = None                    
 _lib.tm_predict_regression.argtypes = [ctm_pointer, array_1d_uint, array_1d_int, C.c_int] 
 
+_lib.tm_set_state.restype = None
+_lib.tm_set_state.argtypes = [ctm_pointer, array_1d_uint, array_1d_uint]
+
+_lib.tm_get_state.restype = None
+_lib.tm_get_state.argtypes = [ctm_pointer, array_1d_uint, array_1d_uint]
+
 # Tools
 
 _lib.tm_encode.restype = None                      
@@ -186,6 +192,19 @@ class MultiClassConvolutionalTsetlinMachine2D():
 
 		self.clause_drop_p = clause_drop_p
 		self.literal_drop_p = literal_drop_p
+
+	def __getstate__(self):
+		state = self.__dict__.copy()
+		state['mc_tm_state'] = self.get_state()
+		del state['mc_tm']
+		if 'encoded_X' in state:
+			del state['encoded_X']
+		return state
+
+	def __setstate__(self, state):
+		self.__dict__.update(state)
+		self.mc_tm = _lib.CreateMultiClassTsetlinMachine(self.number_of_classes, self.number_of_clauses, self.number_of_features, 1, self.number_of_ta_chunks, self.number_of_state_bits, self.T, self.s, self.s_range, self.boost_true_positive_feedback, self.weighted_clauses, self.clause_drop_p, self.literal_drop_p)
+		self.set_state(state['mc_tm_state'])
 
 	def __del__(self):
 		if self.mc_ctm != None:
@@ -306,6 +325,19 @@ class ConvolutionalEmbeddingTsetlinMachine2D():
 		else:
 			self.s_range = s
 
+	def __getstate__(self):
+		state = self.__dict__.copy()
+		state['mc_tm_state'] = self.get_state()
+		del state['mc_tm']
+		if 'encoded_X' in state:
+			del state['encoded_X']
+		return state
+
+	def __setstate__(self, state):
+		self.__dict__.update(state)
+		self.mc_tm = _lib.CreateMultiClassTsetlinMachine(self.number_of_classes, self.number_of_clauses, self.number_of_features, 1, self.number_of_ta_chunks, self.number_of_state_bits, self.T, self.s, self.s_range, self.boost_true_positive_feedback, self.weighted_clauses, self.clause_drop_p, self.literal_drop_p)
+		self.set_state(state['mc_tm_state'])
+
 	def __del__(self):
 		if self.etm != None:
 			_lib.etm_destroy(self.etm)
@@ -420,8 +452,8 @@ class MultiClassTsetlinMachine():
 	def __getstate__(self):
 		state = self.__dict__.copy()
 		state['mc_tm_state'] = self.get_state()
-		state['mc_tm'] = None
-		state['itm'] = None
+		del state['mc_tm']
+		del state['itm']
 		if 'encoded_X' in state:
 			del state['encoded_X']
 		return state
@@ -559,6 +591,21 @@ class EmbeddingTsetlinMachine():
 		else:
 			self.s_range = s
 
+	def __getstate__(self):
+		state = self.__dict__.copy()
+		state['etm_state'] = self.get_state()
+		del state['etm']
+		del state['itm']
+		if 'encoded_X' in state:
+			del state['encoded_X']
+		return state
+
+	def __setstate__(self, state):
+		self.__dict__.update(state)
+		self.etm = lib.CreateEmbeddingTsetlinMachine(self.number_of_classes, self.number_of_clauses, self.number_of_features, 1, self.number_of_ta_chunks, self.number_of_state_bits, self.T, self.s, self.s_range, self.boost_true_positive_feedback, self.weighted_clauses)
+		self.set_state(state['etm_state'])
+
+
 	def __del__(self):
 		if self.etm != None:
 			_lib.etm_destroy(self.etm)
@@ -658,6 +705,19 @@ class RegressionTsetlinMachine():
 		else:
 			self.s_range = s
 
+	def __getstate__(self):
+		state = self.__dict__.copy()
+		state['rtm_state'] = self.get_state()
+		del state['rtm']
+		if 'encoded_X' in state:
+			del state['encoded_X']
+		return state
+
+	def __setstate__(self, state):
+		self.__dict__.update(state)
+		self.rtm = _lib.CreateTsetlinMachine(self.number_of_clauses, self.number_of_features, 1, self.number_of_ta_chunks, self.number_of_state_bits, self.T, self.s, self.s_range, self.boost_true_positive_feedback, self.weighted_clauses)
+		self.set_state(state['rtm_state'])
+
 	def __del__(self):
 		if self.rtm != None:
 			_lib.tm_destroy(self.rtm)
@@ -701,3 +761,15 @@ class RegressionTsetlinMachine():
 		_lib.tm_predict_regression(self.rtm, self.encoded_X, Y, number_of_examples)
 
 		return 1.0*(Y)*(self.max_y - self.min_y)/(self.T) + self.min_y
+
+	def get_state(self):
+		clause_weights = np.ascontiguousarray(np.empty(self.number_of_clauses, dtype=np.uint32))
+		ta_states = np.ascontiguousarray(np.empty(self.number_of_clauses * self.number_of_ta_chunks * self.number_of_state_bits, dtype=np.uint32))
+		_lib.tm_get_state(self.rtm, clause_weights, ta_states)
+
+		return (clause_weights, ta_states)
+
+	def set_state(self, state):
+		_lib.tm_set_state(self.rtm, state[0], state[1])
+
+		return

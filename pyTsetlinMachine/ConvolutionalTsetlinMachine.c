@@ -107,6 +107,14 @@ void tm_initialize(struct TsetlinMachine *tm)
 		}
 		tm->clause_weights[j] = 1;
 	}
+
+	for (int j = 0; j < tm->number_of_clause_chunks; ++j) {
+		tm->drop_clause[j] = 0;
+	}
+
+	for (int k = 0; k < tm->number_of_ta_chunks; ++k) {
+		tm->drop_literal[k] = 0;
+	}
 }
 
 void tm_destroy(struct TsetlinMachine *tm)
@@ -457,6 +465,18 @@ void tm_set_clause_weights(struct TsetlinMachine *tm, unsigned int *clause_weigh
 	for (int j = 0; j < tm->number_of_clauses; ++j) {
 		tm->clause_weights[j] = clause_weights[j];
 	}
+}
+
+void tm_get_state(struct TsetlinMachine *tm, unsigned int *clause_weights, unsigned int *ta_state)
+{
+	tm_get_clause_weights(tm, clause_weights);
+	tm_get_ta_state(tm, ta_state);
+}
+
+void tm_set_state(struct TsetlinMachine *tm, unsigned int *clause_weights, unsigned int *ta_state)
+{
+	tm_set_clause_weights(tm, clause_weights);
+	tm_set_ta_state(tm, ta_state);
 }
 
 /**************************************/
