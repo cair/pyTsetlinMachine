@@ -108,7 +108,7 @@ selected_features = SKB.get_support(indices=True)
 X_train = SKB.transform(X_train)
 X_test = SKB.transform(X_test)
 
-tm = MultiClassTsetlinMachine(10000, 8000, 5.0, weighted_clauses=True, clause_drop_p=0.75, literal_drop_p=0.1)
+tm = MultiClassTsetlinMachine(10000, 8000, 5.0, weighted_clauses=True, clause_drop_p=0.75)
 
 print("\nAccuracy over 50 epochs:\n")
 for i in range(50):
