@@ -195,16 +195,16 @@ class MultiClassConvolutionalTsetlinMachine2D():
 
 	def __getstate__(self):
 		state = self.__dict__.copy()
-		state['mc_tm_state'] = self.get_state()
-		del state['mc_tm']
+		state['mc_ctm_state'] = self.get_state()
+		del state['mc_ctm']
 		if 'encoded_X' in state:
 			del state['encoded_X']
 		return state
 
 	def __setstate__(self, state):
 		self.__dict__.update(state)
-		self.mc_tm = _lib.CreateMultiClassTsetlinMachine(self.number_of_classes, self.number_of_clauses, self.number_of_features, 1, self.number_of_ta_chunks, self.number_of_state_bits, self.T, self.s, self.s_range, self.boost_true_positive_feedback, self.weighted_clauses, self.clause_drop_p, self.literal_drop_p)
-		self.set_state(state['mc_tm_state'])
+		self.mc_ctm = _lib.CreateMultiClassTsetlinMachine(self.number_of_classes, self.number_of_clauses, self.number_of_features, 1, self.number_of_ta_chunks, self.number_of_state_bits, self.T, self.s, self.s_range, self.boost_true_positive_feedback, self.weighted_clauses, self.clause_drop_p, self.literal_drop_p)
+		self.set_state(state['mc_ctm_state'])
 
 	def __del__(self):
 		if self.mc_ctm != None:
@@ -327,16 +327,16 @@ class ConvolutionalEmbeddingTsetlinMachine2D():
 
 	def __getstate__(self):
 		state = self.__dict__.copy()
-		state['mc_tm_state'] = self.get_state()
-		del state['mc_tm']
+		state['etm_state'] = self.get_state()
+		del state['etm']
 		if 'encoded_X' in state:
 			del state['encoded_X']
 		return state
 
 	def __setstate__(self, state):
 		self.__dict__.update(state)
-		self.mc_tm = _lib.CreateMultiClassTsetlinMachine(self.number_of_classes, self.number_of_clauses, self.number_of_features, 1, self.number_of_ta_chunks, self.number_of_state_bits, self.T, self.s, self.s_range, self.boost_true_positive_feedback, self.weighted_clauses, self.clause_drop_p, self.literal_drop_p)
-		self.set_state(state['mc_tm_state'])
+		self.etm = _lib.CreateEmbeddingTsetlinMachine(self.number_of_classes, self.number_of_clauses, self.number_of_features, self.number_of_patches, self.number_of_ta_chunks, self.number_of_state_bits, self.T, self.s, self.s_range, self.boost_true_positive_feedback, self.weighted_clauses)
+		self.set_state(state['etm_state'])
 
 	def __del__(self):
 		if self.etm != None:
