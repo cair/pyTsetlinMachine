@@ -631,19 +631,6 @@ Accuracy over 50 epochs:
 #3 Accuracy: 87.01% Training: 612.66s Testing: 10.43s
 ...
 
-python ./IMDbTextCategorizationDemo.py
-
-Downloading dataset...
-Producing bit representation...
-Selecting features...
-
-Accuracy over 50 epochs:
-
-#1 Accuracy: 85.42% Training: 761.58s Testing: 9.16s
-#2 Accuracy: 86.56% Training: 667.68s Testing: 9.80s
-#3 Accuracy: 87.01% Training: 612.66s Testing: 10.43s
-...
-
 #38 Accuracy: 89.81% Training: 286.38s Testing: 11.58s
 #39 Accuracy: 89.75% Training: 282.54s Testing: 11.85s
 #40 Accuracy: 89.76% Training: 278.88s Testing: 11.70s
