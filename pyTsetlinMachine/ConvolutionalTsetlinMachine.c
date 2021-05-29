@@ -1,6 +1,6 @@
 /*
 
-Copyright (c) 2019 Ole-Christoffer Granmo
+Copyright (c) 2021 Ole-Christoffer Granmo
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -49,6 +49,10 @@ struct TsetlinMachine *CreateTsetlinMachine(int number_of_clauses, int number_of
 	tm->number_of_patches = number_of_patches;
 
 	tm->clause_output = (unsigned int *)malloc(sizeof(unsigned int) * tm->number_of_clause_chunks);
+
+	tm->drop_clause = (unsigned int *)malloc(sizeof(unsigned int) * tm->number_of_clause_chunks);
+
+	tm->drop_literal = (unsigned int *)malloc(sizeof(unsigned int) * number_of_ta_chunks);
 
 	tm->output_one_patches = (int *)malloc(sizeof(int) * number_of_patches);
 
@@ -108,6 +112,8 @@ void tm_initialize(struct TsetlinMachine *tm)
 void tm_destroy(struct TsetlinMachine *tm)
 {
 	free(tm->clause_output);
+	free(tm->drop_clause);
+	free(tm->drop_literal);
 	free(tm->output_one_patches);
 	free(tm->feedback_to_la);
 	free(tm->ta_state);
@@ -217,14 +223,20 @@ static inline void tm_calculate_clause_output(struct TsetlinMachine *tm, unsigne
 	}
 
 	for (int j = 0; j < tm->number_of_clauses; j++) {
-		output_one_patches_count = 0;
+		unsigned int clause_chunk = j / 32;
+		unsigned int clause_chunk_pos = j % 32;
 
+		if ((tm->drop_clause[clause_chunk] & (1 << clause_chunk_pos))) {
+			continue;
+		}
+
+		output_one_patches_count = 0;
 		for (int patch = 0; patch < tm->number_of_patches; ++patch) {
 			unsigned int output = 1;
 			unsigned int all_exclude = 1;
 			for (int k = 0; k < tm->number_of_ta_chunks-1; k++) {
 				unsigned int pos = j*tm->number_of_ta_chunks*tm->number_of_state_bits + k*tm->number_of_state_bits + tm->number_of_state_bits-1;
-				output = output && (ta_state[pos] & Xi[patch*tm->number_of_ta_chunks + k]) == ta_state[pos];
+				output = output && (ta_state[pos] & (Xi[patch*tm->number_of_ta_chunks + k] | tm->drop_literal[k])) == ta_state[pos];
 
 				if (!output) {
 					break;
@@ -234,7 +246,7 @@ static inline void tm_calculate_clause_output(struct TsetlinMachine *tm, unsigne
 
 			unsigned int pos = j*tm->number_of_ta_chunks*tm->number_of_state_bits + (tm->number_of_ta_chunks-1)*tm->number_of_state_bits + tm->number_of_state_bits-1;
 			output = output &&
-				(ta_state[pos] & Xi[patch*tm->number_of_ta_chunks + tm->number_of_ta_chunks - 1] & tm->filter) ==
+				(ta_state[pos] & (Xi[patch*tm->number_of_ta_chunks + tm->number_of_ta_chunks - 1] | tm->drop_literal[tm->number_of_ta_chunks - 1]) & tm->filter) ==
 				(ta_state[pos] & tm->filter);
 
 			all_exclude = all_exclude && ((ta_state[pos] & tm->filter) == 0);
@@ -278,6 +290,10 @@ void tm_update_clauses(struct TsetlinMachine *tm, unsigned int *Xi, int class_su
 		unsigned int clause_chunk = j / 32;
 		unsigned int clause_chunk_pos = j % 32;
 
+		if ((tm->drop_clause[clause_chunk] & (1 << clause_chunk_pos))) {
+			continue;
+		}
+
 	 	tm->feedback_to_clauses[clause_chunk] |= (((float)fast_rand())/((float)FAST_RAND_MAX) <= (1.0/(tm->T*2))*(tm->T + (1 - 2*target)*class_sum)) << clause_chunk_pos;
 	}
 
@@ -301,7 +317,7 @@ void tm_update_clauses(struct TsetlinMachine *tm, unsigned int *Xi, int class_su
 					int patch = tm->clause_patch[j];
 					unsigned int pos = j*tm->number_of_ta_chunks*tm->number_of_state_bits + k*tm->number_of_state_bits + tm->number_of_state_bits-1;
 
-					tm_inc(tm, j, k, (~Xi[patch*tm->number_of_ta_chunks + k]) & (~ta_state[pos]));
+					tm_inc(tm, j, k, (~tm->drop_literal[k]) & (~Xi[patch*tm->number_of_ta_chunks + k]) & (~ta_state[pos]));
 				}
 			}
 		} else if ((2*target-1) * (1 - 2 * (j & 1)) == 1) {
@@ -319,18 +335,18 @@ void tm_update_clauses(struct TsetlinMachine *tm, unsigned int *Xi, int class_su
 				for (int k = 0; k < tm->number_of_ta_chunks; ++k) {
 					int patch = tm->clause_patch[j];
 					if (tm->boost_true_positive_feedback == 1) {
-		 				tm_inc(tm, j, k, Xi[patch*tm->number_of_ta_chunks + k]);
+		 				tm_inc(tm, j, k, (~tm->drop_literal[k]) & Xi[patch*tm->number_of_ta_chunks + k]);
 					} else {
-						tm_inc(tm, j, k, Xi[patch*tm->number_of_ta_chunks + k] & (~tm->feedback_to_la[k]));
+						tm_inc(tm, j, k, (~tm->drop_literal[k]) & Xi[patch*tm->number_of_ta_chunks + k] & (~tm->feedback_to_la[k]));
 					}
 		 			
-		 			tm_dec(tm, j, k, (~Xi[patch*tm->number_of_ta_chunks + k]) & tm->feedback_to_la[k]);
+		 			tm_dec(tm, j, k, (~tm->drop_literal[k]) & (~Xi[patch*tm->number_of_ta_chunks + k]) & tm->feedback_to_la[k]);
 				}
 			} else {
 				// Type Ib Feedback
 				
 				for (int k = 0; k < tm->number_of_ta_chunks; ++k) {
-					tm_dec(tm, j, k, tm->feedback_to_la[k]);
+					tm_dec(tm, j, k, (~tm->drop_literal[k]) & tm->feedback_to_la[k]);
 				}
 			}
 		}

@@ -1,6 +1,6 @@
 /*
 
-Copyright (c) 2019 Ole-Christoffer Granmo
+Copyright (c) 2021 Ole-Christoffer Granmo
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -119,13 +119,26 @@ int itm_sum_up_clause_votes(struct IndexedTsetlinMachine *itm, int class, unsign
 {
 
 	for (int j = 0; j < itm->mc_tm->tsetlin_machines[0]->number_of_clause_chunks; ++j) {
-		itm->mc_tm->tsetlin_machines[class]->clause_output[j] = ~0;
+		itm->mc_tm->tsetlin_machines[class]->clause_output[j] = 0;
+	}
+
+	for (int j = 0; j < itm->mc_tm->tsetlin_machines[0]->number_of_clauses; ++j) {
+		int clause_chunk = j / 32;
+		int clause_pos = j % 32;
+
+		if ((itm->mc_tm->tsetlin_machines[class]->drop_clause[clause_chunk] & (1 << clause_pos)) == 0) {
+			itm->mc_tm->tsetlin_machines[class]->clause_output[clause_chunk] |= (1 << clause_pos);
+		}
 	}
 
 	int class_sum = 0;
 	for (int k = 0; k < itm->mc_tm->tsetlin_machines[0]->number_of_features; ++k) {
 		int k_chunk = k / 32;
 		int k_pos = k % 32;
+
+		if ((itm->mc_tm->tsetlin_machines[class]->drop_literal[k_chunk] & (1 << k_pos))) {
+			continue;
+		}
 
 		if (!(Xi[k_chunk] & (1 << k_pos))) {
 			int list_start = class*itm->mc_tm->tsetlin_machines[0]->number_of_features*(itm->mc_tm->tsetlin_machines[0]->number_of_clauses+1) + k*(itm->mc_tm->tsetlin_machines[0]->number_of_clauses+1);
@@ -224,7 +237,42 @@ void itm_fit(struct IndexedTsetlinMachine *itm, unsigned int *X, int y[], int nu
 
 	unsigned int step_size = itm->mc_tm->number_of_patches * itm->mc_tm->number_of_ta_chunks;
 	for (int epoch = 0; epoch < epochs; epoch++) {
-		// Add shuffling here...
+		for (int i = 0; i < itm->mc_tm->number_of_classes; i++) {
+			struct TsetlinMachine *tm = itm->mc_tm->tsetlin_machines[i];
+
+			/********************/
+			/*** Drop Clauses ***/
+			/********************/
+
+			for (int j = 0; j < tm->number_of_clause_chunks; j++) {
+			 	tm->drop_clause[j] = 0;
+			}
+
+			for (int j = 0; j < tm->number_of_clauses; j++) {
+				if (((float)rand())/((float)RAND_MAX) < itm->mc_tm->clause_drop_p) {
+					unsigned int clause_chunk = j / 32;
+					unsigned int clause_pos = j % 32;
+					tm->drop_clause[clause_chunk] |= (1 << clause_pos);
+				}
+			}
+
+			/********************/
+			/*** Drop Literal ***/
+			/********************/
+
+			for (int k = 0; k < tm->number_of_ta_chunks; k++) {
+			 	tm->drop_literal[k] = 0;
+			}
+
+			for (int k = 0; k < tm->number_of_features; k++) {
+				if (((float)rand())/((float)RAND_MAX) < itm->mc_tm->literal_drop_p) {
+					unsigned int ta_chunk = k / 32;
+					unsigned int ta_pos = k % 32;
+					tm->drop_literal[ta_chunk] |= (1 << ta_pos);
+				}
+			}
+		}
+
 		unsigned int pos = 0;
 		for (int l = 0; l < number_of_examples; l++) {
 			itm_update(itm, &X[pos], y[l], 1);
@@ -239,6 +287,22 @@ void itm_fit(struct IndexedTsetlinMachine *itm, unsigned int *X, int y[], int nu
 			}
 			
 			pos += step_size;
+		}
+
+		/************************************/
+		/*** Turn Off Drop Clause/Literal ***/
+		/************************************/
+
+		for (int i = 0; i < itm->mc_tm->number_of_classes; i++) {
+			struct TsetlinMachine *tm = itm->mc_tm->tsetlin_machines[i];
+
+			for (int j = 0; j < tm->number_of_clause_chunks; j++) {
+			 	tm->drop_clause[j] = 0;
+			}
+		
+			for (int k = 0; k < tm->number_of_ta_chunks; k++) {
+			 	tm->drop_literal[k] = 0;
+			}
 		}
 	}
 }
@@ -256,7 +320,12 @@ void itm_update(struct IndexedTsetlinMachine *itm, unsigned int *Xi, int class, 
 
 	int class_sum = 0;
 	for (int j = 0; j < itm->mc_tm->tsetlin_machines[0]->number_of_clauses; ++j) {
-		class_sum += itm->mc_tm->tsetlin_machines[class]->clause_weights[j]*(1 - 2*(j % 2));
+		unsigned int clause_chunk = j / 32;
+		unsigned int clause_pos = j % 32;
+
+		if ((itm->mc_tm->tsetlin_machines[class]->drop_clause[clause_chunk] & (1 << clause_pos)) == 0) {
+			class_sum += itm->mc_tm->tsetlin_machines[class]->clause_weights[j]*(1 - 2*(j % 2));
+		}
 	}
 	class_sum += itm_sum_up_clause_votes(itm, class, Xi);
 
@@ -267,10 +336,10 @@ void itm_update(struct IndexedTsetlinMachine *itm, unsigned int *Xi, int class, 
 
 	for (int j = 0; j < tm->number_of_clauses; j++) {
 		unsigned int clause_chunk = j / 32;
-		unsigned int clause_chunk_pos = j % 32;
+		unsigned int clause_pos = j % 32;
 
 		// Identifies clauses that have received feedback
-		if (tm->feedback_to_clauses[clause_chunk] & (1 << clause_chunk_pos)) {
+		if (tm->feedback_to_clauses[clause_chunk] & (1 << clause_pos)) {
 			for (int k = 0; k < tm->number_of_ta_chunks; ++k) {
 
 				// Check whether actions have changed and update class-feature look-up tables accordingly

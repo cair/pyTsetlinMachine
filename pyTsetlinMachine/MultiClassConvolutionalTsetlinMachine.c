@@ -1,6 +1,6 @@
 /*
 
-Copyright (c) 2019 Ole-Christoffer Granmo
+Copyright (c) 2021 Ole-Christoffer Granmo
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -35,7 +35,7 @@ https://arxiv.org/abs/1905.09688
 /**************************************/
 
 /*** Initialize Tsetlin Machine ***/
-struct MultiClassTsetlinMachine *CreateMultiClassTsetlinMachine(int number_of_classes, int number_of_clauses, int number_of_features, int number_of_patches, int number_of_ta_chunks, int number_of_state_bits, int T, double s, double s_range, int boost_true_positive_feedback, int weighted_clauses)
+struct MultiClassTsetlinMachine *CreateMultiClassTsetlinMachine(int number_of_classes, int number_of_clauses, int number_of_features, int number_of_patches, int number_of_ta_chunks, int number_of_state_bits, int T, double s, double s_range, int boost_true_positive_feedback, int weighted_clauses, float clause_drop_p, float literal_drop_p)
 {
 
 	struct MultiClassTsetlinMachine *mc_tm = NULL;
@@ -53,6 +53,10 @@ struct MultiClassTsetlinMachine *CreateMultiClassTsetlinMachine(int number_of_cl
 	mc_tm->number_of_ta_chunks = number_of_ta_chunks;
 
 	mc_tm->number_of_state_bits = number_of_state_bits;
+
+	mc_tm->clause_drop_p = clause_drop_p;
+
+	mc_tm->literal_drop_p = literal_drop_p;
 
 	return mc_tm;
 }
@@ -135,11 +139,62 @@ void mc_tm_fit(struct MultiClassTsetlinMachine *mc_tm, unsigned int *X, int *y, 
 	unsigned int step_size = mc_tm->number_of_patches * mc_tm->number_of_ta_chunks;
 
 	for (int epoch = 0; epoch < epochs; epoch++) {
-		// Add shuffling here...
+		for (int i = 0; i < mc_tm->number_of_classes; i++) {
+			struct TsetlinMachine *tm = mc_tm->tsetlin_machines[i];
+
+			/********************/
+			/*** Drop Clauses ***/
+			/********************/
+
+			for (int j = 0; j < tm->number_of_clause_chunks; j++) {
+			 	tm->drop_clause[j] = 0;
+			}
+
+			for (int j = 0; j < tm->number_of_clauses; j++) {
+				if (((float)rand())/((float)RAND_MAX) < mc_tm->clause_drop_p) {
+					unsigned int clause_chunk = j / 32;
+					unsigned int clause_chunk_pos = j % 32;
+					tm->drop_clause[clause_chunk] |= (1 << clause_chunk_pos);
+				}
+			}
+
+			/********************/
+			/*** Drop Literal ***/
+			/********************/
+
+			for (int k = 0; k < tm->number_of_ta_chunks; k++) {
+			 	tm->drop_literal[k] = 0;
+			}
+
+			for (int k = 0; k < tm->number_of_features; k++) {
+				if (((float)rand())/((float)RAND_MAX) < mc_tm->literal_drop_p) {
+					unsigned int ta_chunk = k / 32;
+					unsigned int ta_chunk_pos = k % 32;
+					tm->drop_literal[ta_chunk] |= (1 << ta_chunk_pos);
+				}
+			}
+		}
+
 		unsigned int pos = 0;
 		for (int i = 0; i < number_of_examples; i++) {
 			mc_tm_update(mc_tm, &X[pos], y[i]);
 			pos += step_size;
+		}
+
+		/************************************/
+		/*** Turn Off Drop Clause/Literal ***/
+		/************************************/
+
+		for (int i = 0; i < mc_tm->number_of_classes; i++) {
+			struct TsetlinMachine *tm = mc_tm->tsetlin_machines[i];
+
+			for (int j = 0; j < tm->number_of_clause_chunks; j++) {
+			 	tm->drop_clause[j] = 0;
+			}
+		
+			for (int k = 0; k < tm->number_of_ta_chunks; k++) {
+			 	tm->drop_literal[k] = 0;
+			}
 		}
 	}
 }

@@ -37,6 +37,10 @@ struct TsetlinMachine {
 
 	unsigned int *ta_state;
 	unsigned int *clause_output;
+
+	unsigned int *drop_clause;
+	unsigned int *drop_literal;
+
 	unsigned int *feedback_to_la;
 	int *feedback_to_clauses;
 	unsigned int *clause_patch;
