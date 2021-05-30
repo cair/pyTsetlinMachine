@@ -3,5 +3,5 @@ Tsetlin Machines
 
 The ...
 
-.. autoclass:: pyTsetlinMachine.tm
+.. autoclass:: pyTsetlinMachine.tm.MultiClassTsetlinMachine
    :members:
