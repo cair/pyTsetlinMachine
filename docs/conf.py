@@ -23,6 +23,7 @@ author = 'Ole-Christoffer Granmo'
 # The full version, including alpha/beta/rc tags
 release = 'v0.6.0'
 
+master_doc = 'index'
 
 # -- General configuration ---------------------------------------------------
 
