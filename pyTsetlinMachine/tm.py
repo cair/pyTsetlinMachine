@@ -432,12 +432,7 @@ class ConvolutionalEmbeddingTsetlinMachine2D():
 		return _lib.etm_clause_sharing(self.etm, int(class_1), int(class_2))
 
 class MultiClassTsetlinMachine():
-	"""
-	This class constructs a standard multi-class Tsetlin machine.
-
-	PARAMETERS
-	----------
-    	"""
+	"""Docstring for class MultiClassTsetlinMachine."""
 	
 	def __init__(self, number_of_clauses, T, s, boost_true_positive_feedback=1, number_of_state_bits=8, indexed=True, append_negated=True, weighted_clauses=False, s_range=False, clause_drop_p = 0.0, literal_drop_p = 0.0):
 		self.number_of_clauses = number_of_clauses
