@@ -31,6 +31,8 @@ Implementation of the Tsetlin Machine (https://arxiv.org/abs/1804.01508), Convol
 
 ## Installation
 
+<img src="https://pepy.tech/badge/pytsetlinmachine"> <img src="https://pepy.tech/badge/pytsetlinmachine/month"> <img src="https://pepy.tech/badge/pytsetlinmachine/week">
+
 ```bash
 pip install pyTsetlinMachine
 ```
