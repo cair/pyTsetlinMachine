@@ -175,12 +175,7 @@ _lib.itm_transform.argtypes = [itm_pointer, array_1d_uint, array_1d_uint, C.c_in
 
 class MultiClassConvolutionalTsetlinMachine2D():
 	"""
-	This class carries out Principal Component Analysis using the
-	NIPALS algorithm.
-	PARAMETERS
-	----------
-	arrX : numpy array
-	A numpy array containing the data
+	This class creates a convolutional Tsetlin machine
  	"""
 	def __init__(self, number_of_clauses, T, s, patch_dim, boost_true_positive_feedback=1, number_of_state_bits=8, append_negated=True, weighted_clauses=False, s_range=False, clause_drop_p = 0.0, literal_drop_p = 0.0):
 		self.number_of_clauses = number_of_clauses
