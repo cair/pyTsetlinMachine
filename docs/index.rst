@@ -9,6 +9,8 @@ Welcome to the pyTsetlinMachine documentation
 .. toctree::
    :maxdepth: 2
    :caption: Content
+   
+   tm
 
 Indices and tables
 ==================
