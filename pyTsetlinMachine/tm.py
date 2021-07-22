@@ -730,10 +730,9 @@ class RegressionTsetlinMachine():
 	def fit(self, X, Y, epochs=100, incremental=False):
 		number_of_examples = X.shape[0]
 
-		self.max_y = np.max(Y)
-		self.min_y = np.min(Y)
-
 		if self.rtm == None:
+			self.max_y = np.max(Y)
+			self.min_y = np.min(Y)
 			self.number_of_features = X.shape[1]*2
 			self.number_of_patches = 1
 			self.number_of_ta_chunks = int((self.number_of_features-1)/32 + 1)
