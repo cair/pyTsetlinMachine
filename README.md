@@ -709,6 +709,42 @@ I thank my colleagues from the Centre for Artificial Intelligence Research (CAIR
 ## Tsetlin Machine Papers
 
 ```bash
+@InProceedings{wheeldon2021self,
+  title="{Self-Timed Reinforcement Learning using Tsetlin Machine}",
+  author={Adrian Wheeldon and Alex Yakovlev and Rishad Shafik},
+  booktitle={27th IEEE International Symposium on Asynchronous Circuits and Systems (ASYNC 2021)},
+  year={2021},
+  organization={IEEE},
+  url={https://arxiv.org/abs/2109.00846}
+}
+```
+
+```bash
+@article{glimsdal2021coalesced,
+  title={Coalesced Multi-Output Tsetlin Machines with Clause Sharing},
+  author={Sondre Glimsdal and Ole-Christoffer Granmo},
+  journal = {arXiv preprint arXiv:2108.07594}, year = {2021},
+  url = {https://arxiv.org/abs/2108.07594}
+}
+```
+
+```bash
+@article{Abeyrathna2021adaptivesparse,
+  title="{Adaptive Sparse Representation of Continuous Input for Tsetlin Machines Based on Stochastic Searching on the Line}",
+  volume={10},
+  ISSN={2079-9292},
+  url={http://dx.doi.org/10.3390/electronics10172107},
+  DOI={10.3390/electronics10172107},
+  number={17},
+  journal={Electronics},
+  publisher={MDPI AG},
+  author={Abeyrathna, Kuruge Darshana and Granmo, Ole-Christoffer and Goodwin, Morten},
+  year={2021},
+  month={Aug},
+  pages={2107}}
+```
+
+```bash
 @article{zhang2021convergence,
   title = {On the {{Convergence}} of {{Tsetlin Machines}} for the {{IDENTITY}}- and {{NOT Operators}}},
   author = {Zhang, Xuan and Jiao, Lei and Granmo, Ole-Christoffer and Goodwin, Morten},
@@ -873,11 +909,12 @@ I thank my colleagues from the Centre for Artificial Intelligence Research (CAIR
 ```
 
 ```bash
-@article{wheeldon2020edge,
+@InProceedings{wheeldon2021low,
   title="{Low-Latency Asynchronous Logic Design for Inference at the Edge}",
   author={Adrian Wheeldon and Alex Yakovlev and Rishad Shafik and Jordan Morris},
-  journal = {arXiv preprint arXiv:2012.03402}, year = {2020},
-  url = {https://arxiv.org/abs/2012.03402}
+  booktitle={2021 Design, Automation and Test in Europe Conference (DATE21)},
+  year={2021},
+  pages="370-373"
 }
 ```
 
