@@ -134,11 +134,29 @@ void mc_tm_update(struct MultiClassTsetlinMachine *mc_tm, unsigned int *Xi, int 
 /*** Batch Mode Training of Tsetlin Machine ***/
 /**********************************************/
 
+static void shuffle(int *array, size_t n)
+{
+	if (n > 1) {
+		size_t i;
+		for (i = 0; i < n - 1; i++) {
+			size_t j = i + rand() / (RAND_MAX / (n - i) + 1);
+		    int t = array[j];
+		    array[j] = array[i];
+		    array[i] = t;
+		}
+    }
+}
+
 void mc_tm_fit(struct MultiClassTsetlinMachine *mc_tm, unsigned int *X, int *y, int number_of_examples, int epochs)
 {
-	unsigned int step_size = mc_tm->number_of_patches * mc_tm->number_of_ta_chunks;
-
+	int *index = (int *)malloc(sizeof(int)*number_of_examples);
+	for (int i = 0; i < number_of_examples; i++) {
+	    index[i] = i;
+	}
+	
 	for (int epoch = 0; epoch < epochs; epoch++) {
+		shuffle(index, number_of_examples);
+		
 		for (int i = 0; i < mc_tm->number_of_classes; i++) {
 			struct TsetlinMachine *tm = mc_tm->tsetlin_machines[i];
 
@@ -177,8 +195,7 @@ void mc_tm_fit(struct MultiClassTsetlinMachine *mc_tm, unsigned int *X, int *y, 
 
 		unsigned int pos = 0;
 		for (int i = 0; i < number_of_examples; i++) {
-			mc_tm_update(mc_tm, &X[pos], y[i]);
-			pos += step_size;
+			mc_tm_update(mc_tm, &X[index[i]*mc_tm->number_of_patches*mc_tm->number_of_ta_chunks], y[index[i]]);
 		}
 
 		/************************************/
@@ -197,6 +214,8 @@ void mc_tm_fit(struct MultiClassTsetlinMachine *mc_tm, unsigned int *X, int *y, 
 			}
 		}
 	}
+	
+	free(index)
 }
 
 int mc_tm_ta_state(struct MultiClassTsetlinMachine *mc_tm, int class, int clause, int ta)
