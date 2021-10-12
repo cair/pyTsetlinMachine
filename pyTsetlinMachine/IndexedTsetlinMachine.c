@@ -209,10 +209,26 @@ void itm_predict(struct IndexedTsetlinMachine *itm, unsigned int *X, int *y, int
 /*** Batch Mode Training of Tsetlin Machine ***/
 /**********************************************/
 
+static void shuffle(int *array, size_t n)
+{
+	size_t i;
+	for (i = 0; i < n - 1; i++) {
+		size_t j = i + rand() / (RAND_MAX / (n - i) + 1);
+		int t = array[j];
+		array[j] = array[i];
+		array[i] = t;
+	}
+}
+
 void itm_fit(struct IndexedTsetlinMachine *itm, unsigned int *X, int y[], int number_of_examples, int epochs)
 {
 	// Initializes feature-clause map
 	itm_initialize(itm);
+
+	int *index = (int *)malloc(sizeof(int)*number_of_examples);
+	for (int i = 0; i < number_of_examples; i++) {
+	    index[i] = i;
+	}
 
 	// Initializes clause state copy
 	int pos = 0;
@@ -235,8 +251,9 @@ void itm_fit(struct IndexedTsetlinMachine *itm, unsigned int *X, int y[], int nu
 		}
 	}
 
-	unsigned int step_size = itm->mc_tm->number_of_patches * itm->mc_tm->number_of_ta_chunks;
 	for (int epoch = 0; epoch < epochs; epoch++) {
+		shuffle(index, number_of_examples);
+
 		for (int i = 0; i < itm->mc_tm->number_of_classes; i++) {
 			struct TsetlinMachine *tm = itm->mc_tm->tsetlin_machines[i];
 
@@ -273,20 +290,17 @@ void itm_fit(struct IndexedTsetlinMachine *itm, unsigned int *X, int y[], int nu
 			}
 		}
 
-		unsigned int pos = 0;
 		for (int l = 0; l < number_of_examples; l++) {
-			itm_update(itm, &X[pos], y[l], 1);
+			itm_update(itm, &X[index[l]*itm->mc_tm->number_of_patches*itm->mc_tm->number_of_ta_chunks], y[index[l]], 1);
 
 			if (itm->mc_tm->number_of_classes > 1) {
 				// Randomly pick one of the other classes, for pairwise learning of class output 
 				unsigned int negative_target_class = (unsigned int)itm->mc_tm->number_of_classes * 1.0*rand()/((unsigned int)RAND_MAX + 1);
-				while (negative_target_class == y[l]) {
+				while (negative_target_class == y[index[l]]) {
 					negative_target_class = (unsigned int)itm->mc_tm->number_of_classes * 1.0*rand()/((unsigned int)RAND_MAX + 1);
 				}
-				itm_update(itm, &X[pos], negative_target_class, 0);
+				itm_update(itm, &X[index[l]*itm->mc_tm->number_of_patches * itm->mc_tm->number_of_ta_chunks], negative_target_class, 0);
 			}
-			
-			pos += step_size;
 		}
 
 		/************************************/
@@ -305,6 +319,8 @@ void itm_fit(struct IndexedTsetlinMachine *itm, unsigned int *X, int y[], int nu
 			}
 		}
 	}
+
+	free(index);
 }
 
 /******************************************/
