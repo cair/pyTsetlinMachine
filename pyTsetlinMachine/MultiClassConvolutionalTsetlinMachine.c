@@ -215,7 +215,7 @@ void mc_tm_fit(struct MultiClassTsetlinMachine *mc_tm, unsigned int *X, int *y, 
 		}
 	}
 	
-	free(index)
+	free(index);
 }
 
 int mc_tm_ta_state(struct MultiClassTsetlinMachine *mc_tm, int class, int clause, int ta)
