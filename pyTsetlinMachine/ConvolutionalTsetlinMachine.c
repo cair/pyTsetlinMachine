@@ -34,7 +34,19 @@ https://arxiv.org/abs/1905.09688
 
 #include "ConvolutionalTsetlinMachine.h"
 
-struct TsetlinMachine *CreateTsetlinMachine(int number_of_clauses, int number_of_features, int number_of_patches, int number_of_ta_chunks, int number_of_state_bits, int T, double s, double s_range, int boost_true_positive_feedback, int weighted_clauses)
+struct TsetlinMachine *CreateTsetlinMachine(
+	int number_of_clauses,
+	int number_of_features,
+	int number_of_patches,
+	int number_of_ta_chunks,
+	int number_of_state_bits,
+	int T,
+	double s,
+	double s_range,
+	int boost_true_positive_feedback,
+	int weighted_clauses,
+	int max_included_literals
+)
 {
 	/* Set up the Tsetlin Machine structure */
 
@@ -85,6 +97,8 @@ struct TsetlinMachine *CreateTsetlinMachine(int number_of_clauses, int number_of
 	tm->boost_true_positive_feedback = boost_true_positive_feedback;
 
 	tm->weighted_clauses = weighted_clauses;
+
+	tm->max_included_literals = max_included_literals;
 	
 	tm_initialize(tm);
 
@@ -147,6 +161,24 @@ static inline void tm_initialize_random_streams(struct TsetlinMachine *tm, int c
 	    }
 		tm->feedback_to_la[f / 32] |= 1 << (f % 32);
 	}
+}
+
+// Counts the number of included literals of a clause
+int tm_number_of_include_actions(struct TsetlinMachine *tm, int clause)
+{	
+	unsigned int clause_pos = clause*tm->number_of_ta_chunks*tm->number_of_state_bits;
+	unsigned int *ta_state = &tm->ta_state[clause_pos];
+
+	int number_of_include_actions = 0;
+	for (int k = 0; k < tm->number_of_ta_chunks-1; ++k) {
+		unsigned int ta_pos = k*tm->number_of_state_bits + tm->number_of_state_bits-1;
+		number_of_include_actions += __builtin_popcount(ta_state[ta_pos]);
+	}
+
+	unsigned int ta_pos = (tm->number_of_ta_chunks-1)*tm->number_of_state_bits + tm->number_of_state_bits-1;
+	number_of_include_actions += __builtin_popcount(ta_state[ta_pos] & tm->filter);
+
+	return(number_of_include_actions);
 }
 
 // Increment the states of each of those 32 Tsetlin Automata flagged in the active bit vector.
@@ -327,7 +359,7 @@ void tm_update_clauses(struct TsetlinMachine *tm, unsigned int *Xi, int class_su
 
 			tm_initialize_random_streams(tm, j);
 
-			if ((tm->clause_output[clause_chunk] & (1 << clause_chunk_pos)) > 0) {
+			if (((tm->clause_output[clause_chunk] & (1 << clause_chunk_pos)) > 0) && (tm_number_of_include_actions(tm, j) <= tm->max_included_literals)) {
 				// Type Ia Feedback
 
 				if (tm->weighted_clauses) {
@@ -560,7 +592,7 @@ void tm_update_regression(struct TsetlinMachine *tm, unsigned int *Xi, int targe
 
 			tm_initialize_random_streams(tm, j);
 
-			if ((tm->clause_output[clause_chunk] & (1 << clause_chunk_pos)) > 0) {
+			if (((tm->clause_output[clause_chunk] & (1 << clause_chunk_pos)) > 0) && (tm_number_of_include_actions(tm, j) <= tm->max_included_literals)) {
 				// Type Ia Feedback
 				
 				if (tm->weighted_clauses) {

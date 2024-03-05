@@ -39,7 +39,22 @@ struct MultiClassTsetlinMachine {
 	float literal_drop_p;
 };
 
-struct MultiClassTsetlinMachine *CreateMultiClassTsetlinMachine(int number_of_classes, int number_of_clauses, int number_of_features, int number_of_patches, int number_of_ta_chunks, int number_of_state_bits, int T, double s, double s_range, int boost_true_positive_feedback, int weighted_clauses, float clause_drop_p, float literal_drop_p);
+struct MultiClassTsetlinMachine *CreateMultiClassTsetlinMachine(
+	int number_of_classes,
+	int number_of_clauses,
+	int number_of_features,
+	int number_of_patches,
+	int number_of_ta_chunks,
+	int number_of_state_bits,
+	int T,
+	double s,
+	double s_range,
+	int boost_true_positive_feedback,
+	int weighted_clauses,
+	float clause_drop_p,
+	float literal_drop_p,
+	int max_included_literals
+);
 
 void mc_tm_initialize(struct MultiClassTsetlinMachine *mc_tm);
 

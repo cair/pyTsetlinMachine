@@ -64,9 +64,23 @@ struct TsetlinMachine {
 	int boost_true_positive_feedback;
 
 	int weighted_clauses;
+
+	int max_included_literals;
 };
 
-struct TsetlinMachine *CreateTsetlinMachine(int number_of_clauses, int number_of_features, int number_of_patches, int number_of_ta_chunks, int number_of_state_bits, int T, double s, double s_range, int boost_true_positive_feedback, int weighted_clauses);
+struct TsetlinMachine *CreateTsetlinMachine(
+	int number_of_clauses,
+	int number_of_features,
+	int number_of_patches,
+	int number_of_ta_chunks,
+	int number_of_state_bits,
+	int T,
+	double s,
+	double s_range,
+	int boost_true_positive_feedback,
+	int weighted_clauses,
+	int max_included_literals
+);
 
 void tm_initialize(struct TsetlinMachine *tm);
 
