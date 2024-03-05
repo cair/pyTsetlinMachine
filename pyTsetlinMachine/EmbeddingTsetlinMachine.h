@@ -37,7 +37,20 @@ struct EmbeddingTsetlinMachine {
 	int number_of_state_bits;
 };
 
-struct EmbeddingTsetlinMachine *CreateEmbeddingTsetlinMachine(int number_of_classes, int number_of_clauses, int number_of_features, int number_of_patches, int number_of_ta_chunks, int number_of_state_bits, int T, double s, double s_range, int boost_true_positive_feedback, int weighted_clauses);
+struct EmbeddingTsetlinMachine *CreateEmbeddingTsetlinMachine(
+	int number_of_classes,
+	int number_of_clauses,
+	int number_of_features,
+	int number_of_patches,
+	int number_of_ta_chunks,
+	int number_of_state_bits,
+	int T,
+	double s,
+	double s_range,
+	int boost_true_positive_feedback,
+	int weighted_clauses,
+	int max_included_literals
+	);
 
 void etm_initialize(struct EmbeddingTsetlinMachine *etm);
 

@@ -35,13 +35,25 @@ https://arxiv.org/abs/1905.09688
 /*************************************/
 
 /*** Initialize Tsetlin Machine ***/
-struct EmbeddingTsetlinMachine *CreateEmbeddingTsetlinMachine(int number_of_classes, int number_of_clauses, int number_of_features, int number_of_patches, int number_of_ta_chunks, int number_of_state_bits, int T, double s, double s_range, int boost_true_positive_feedback, int weighted_clauses)
+struct EmbeddingTsetlinMachine *CreateEmbeddingTsetlinMachine(
+	int number_of_classes,
+	int number_of_clauses,
+	int number_of_features,
+	int number_of_patches,
+	int number_of_ta_chunks,
+	int number_of_state_bits,
+	int T,
+	double s,
+	double s_range,
+	int boost_true_positive_feedback,
+	int weighted_clauses,
+	int max_included_literals)
 {
 	struct EmbeddingTsetlinMachine *etm = (void *)malloc(sizeof(struct EmbeddingTsetlinMachine));
 
 	etm->number_of_classes = number_of_classes;
 
-	etm->tsetlin_machine = CreateTsetlinMachine(number_of_clauses, number_of_features, number_of_patches, number_of_ta_chunks, number_of_state_bits, T, s, s_range, boost_true_positive_feedback, weighted_clauses);
+	etm->tsetlin_machine = CreateTsetlinMachine(number_of_clauses, number_of_features, number_of_patches, number_of_ta_chunks, number_of_state_bits, T, s, s_range, boost_true_positive_feedback, weighted_clauses, max_included_literals);
 	
 	etm->number_of_patches = number_of_patches;
 
