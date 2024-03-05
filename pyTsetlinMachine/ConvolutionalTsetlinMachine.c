@@ -158,9 +158,6 @@ static inline void tm_inc(struct TsetlinMachine *tm, int clause, int chunk, unsi
 
 	carry = active;
 	for (int b = 0; b < tm->number_of_state_bits; ++b) {
-		if (carry == 0)
-			break;
-
 		carry_next = ta_state[b] & carry; // Sets carry bits (overflow) passing on to next bit
 		ta_state[b] = ta_state[b] ^ carry; // Performs increments with XOR
 		carry = carry_next;
@@ -182,9 +179,6 @@ static inline void tm_dec(struct TsetlinMachine *tm, int clause, int chunk, unsi
 
 	carry = active;
 	for (int b = 0; b < tm->number_of_state_bits; ++b) {
-		if (carry == 0)
-			break;
-
 		carry_next = (~ta_state[b]) & carry; // Sets carry bits (overflow) passing on to next bit
 		ta_state[b] = ta_state[b] ^ carry; // Performs increments with XOR
 		carry = carry_next;
